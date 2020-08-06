@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 
 namespace Git4PL2.Abstarct
 {
-    interface IMenuItem
+    interface IMenu
     {
-        int Index { get; }
+        string CreateMenuItem(int index);
 
-        string MenuName { get; }
+        void CreateToolButtons(int pluginID);
 
-        Bitmap Icon { get; }
-
-        void Click();
+        void ClickOnMenu(int index);
     }
 }

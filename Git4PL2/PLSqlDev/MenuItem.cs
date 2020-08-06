@@ -10,18 +10,26 @@ namespace Git4PL2.PLSqlDev
 {
     class MenuItem : IMenuItem
     {
+        private static int _indexCounter = 10;
+
         public int Index { get; private set; }
         public string MenuName { get; private set; }
         public string MenuTip { get; private set; }
-        public Action Click { get; private set; }
+        private Action ActionClick { get; set; }
         public Bitmap Icon { get; private set; }
 
         public MenuItem(string menuName, string menuTip, Action click, Bitmap icon)
         {
+            Index = _indexCounter++;
             MenuName = menuName;
-            Click = click;
+            ActionClick = click;
             Icon = icon;
             MenuTip = menuTip;
+        }
+
+        public void Click()
+        {
+            ActionClick?.Invoke();
         }
     }
 }

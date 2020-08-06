@@ -1,4 +1,8 @@
-﻿using Ninject.Modules;
+﻿using Git4PL2.Abstarct;
+using Git4PL2.PLSqlDev;
+using Git4PL2.PLSqlDev.IDECallBacks;
+using Ninject;
+using Ninject.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +15,10 @@ namespace Git4PL2
     {
         public override void Load()
         {
-            throw new NotImplementedException();
+            Bind<IDECallbacks>().ToSelf().InSingletonScope();
+            Bind<IIDECallbacks>().ToMethod(x => x.Kernel.Get<IDECallbacks>());
+            Bind<Menu>().ToSelf().InSingletonScope();
+            Bind<IMenu>().ToMethod(x => x.Kernel.Get<Menu>());
         }
     }
 }

@@ -12,8 +12,6 @@ namespace Git4PL2.Tests
         [Test]
         public void TestMethod1()
         {
-            API a = new API();
-
             Console.WriteLine(AppDomain.CurrentDomain.BaseDirectory);
 
             string defPath = @"C:\Program Files (x86)\Microsoft Visual Studio\";

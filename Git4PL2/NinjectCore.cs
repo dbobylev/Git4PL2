@@ -1,4 +1,5 @@
 ﻿using Ninject;
+using Ninject.Parameters;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -18,7 +19,33 @@ namespace Git4PL2
 
         public static T Get<T>()
         {
-            return kernel.Get<T>();
+            try
+            {
+                return kernel.Get<T>();
+            }
+            catch(Exception ex)
+            {
+                Seri.LogException(ex);
+                throw;
+            }
+        }
+
+        public static T Get<T>(params IParameter[] parameters)
+        {
+            try
+            {
+                return kernel.Get<T>(parameters);
+            }
+            catch (Exception ex)
+            {
+                Seri.LogException(ex);
+                throw;
+            }
+        }
+
+        public static IParameter GetParameter(string name, object obj)
+        {
+            return new ConstructorArgument(name, obj);
         }
     }
 }

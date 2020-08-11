@@ -14,6 +14,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,6 +42,7 @@
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -73,11 +75,23 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Build.Framework, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Build.Framework.16.0.461\lib\net472\Microsoft.Build.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Utilities.Core, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Build.Utilities.Core.16.0.461\lib\net472\Microsoft.Build.Utilities.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Setup.Configuration.Interop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Setup.Configuration.Interop.1.16.30\lib\net35\Microsoft.VisualStudio.Setup.Configuration.Interop.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="RGiesecke.DllExport.Metadata, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8f52d83c1a22df51, processorArchitecture=MSIL">
-      <HintPath>..\packages\UnmanagedExports.Repack.1.0.4\lib\net452\RGiesecke.DllExport.Metadata.dll</HintPath>
+      <HintPath>..\packages\UnmanagedExports.Repack.Upgrade.1.2.1\lib\net472\RGiesecke.DllExport.Metadata.dll</HintPath>
     </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.2.5.0\lib\net46\Serilog.dll</HintPath>
@@ -86,38 +100,99 @@
       <HintPath>..\packages\Serilog.Sinks.File.4.1.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Input.Manipulations" />
+    <Reference Include="System.Windows.Presentation" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstarct\IIDECallbacks.cs" />
-    <Compile Include="Abstarct\IMenu.cs" />
-    <Compile Include="Abstarct\IMenuItem.cs" />
-    <Compile Include="API.cs" />
+    <Compile Include="Git\Abstract\IGitAPI.cs" />
+    <Compile Include="Git\CmdReaders\CmdReadCommitInfo.cs" />
+    <Compile Include="Git\CmdReaders\CmdReadCommitInfoFromBlame.cs" />
+    <Compile Include="Git\CmdReaders\CmdReadStringBuilder.cs" />
+    <Compile Include="Git\CmdRequests\CmdReqGitDiff.cs" />
+    <Compile Include="Git\CommitInfo.cs" />
+    <Compile Include="IDE\Abstarct\ICallbackManager.cs" />
+    <Compile Include="Plugin\Abstract\IIDEProvider.cs" />
+    <Compile Include="IDE\Abstarct\IMenu.cs" />
+    <Compile Include="IDE\Abstarct\IMenuItem.cs" />
+    <Compile Include="Plugin\Abstract\IPlsqlCodeFormatter.cs" />
+    <Compile Include="Plugin\Abstract\IPluginCommand.cs" />
+    <Compile Include="Plugin\Abstract\IPluginCommands.cs" />
+    <Compile Include="Git\GitAPI.cs" />
+    <Compile Include="Git\CmdBuilderGIT.cs" />
+    <Compile Include="Git\CmdCore.cs" />
+    <Compile Include="Git\CmdReader.cs" />
+    <Compile Include="Git\CmdReaders\CmdReadBool.cs" />
+    <Compile Include="Git\CmdReaders\CmdReadListString.cs" />
+    <Compile Include="Git\CmdReaders\CmdReadString.cs" />
+    <Compile Include="Git\CmdRequests\CmdReqGitBlame.cs" />
+    <Compile Include="Git\CmdRequests\CmdReqGitGetCurrentBranch.cs" />
+    <Compile Include="Git\CmdRequests\CmdReqGitModifiedFiles.cs" />
+    <Compile Include="Git\CmdRequests\CmdReqGitShowCommit.cs" />
+    <Compile Include="Git\CmdRequests\CmdReqGitVerify.cs" />
+    <Compile Include="Git\Abstract\ICmdReader.cs" />
+    <Compile Include="IDE\API.cs" />
     <Compile Include="NinjectCore.cs" />
     <Compile Include="NinjectPluginModule.cs" />
-    <Compile Include="PLSqlDev\IDECallBacks\Callback.cs" />
-    <Compile Include="PLSqlDev\IDECallBacks\Callbacks.cs" />
-    <Compile Include="PLSqlDev\IDECallBacks\CallbacksDelegates.cs" />
-    <Compile Include="PLSqlDev\IDECallBacks\IDECallbacks.cs" />
-    <Compile Include="Abstarct\ICallback.cs" />
-    <Compile Include="PLSqlDev\Menu.cs" />
-    <Compile Include="PLSqlDev\MenuItem.cs" />
+    <Compile Include="IDE\Callback.cs" />
+    <Compile Include="IDE\IDECallBacks\Callbacks.cs" />
+    <Compile Include="IDE\DelegateList.cs" />
+    <Compile Include="IDE\CallbackManager.cs" />
+    <Compile Include="IDE\Abstarct\ICallback.cs" />
+    <Compile Include="IDE\Menu.cs" />
+    <Compile Include="IDE\MenuItem.cs" />
+    <Compile Include="Plugin\Abstract\IDbObject.cs" />
+    <Compile Include="Plugin\Abstract\IDbObjectText.cs" />
+    <Compile Include="Plugin\Abstract\IWarnings.cs" />
+    <Compile Include="Plugin\Model\DbObject.cs" />
+    <Compile Include="Plugin\Model\DbObjectText.cs" />
+    <Compile Include="Plugin\Model\eDbObjectType.cs" />
+    <Compile Include="Plugin\Model\eSaveEncodingType.cs" />
+    <Compile Include="Plugin\Model\Helper.cs" />
+    <Compile Include="Plugin\Model\Warnings.cs" />
+    <Compile Include="Plugin\PluginCommands.cs" />
+    <Compile Include="Plugin\Processes\IDEProvider.cs" />
+    <Compile Include="Plugin\Processes\LoadTextFromRepository.cs" />
+    <Compile Include="Plugin\Processes\PlsqlCodeFormatter.cs" />
+    <Compile Include="Plugin\Processes\PluginCommand.cs" />
+    <Compile Include="Plugin\Processes\SaveTextToRepository.cs" />
+    <Compile Include="Plugin\Processes\ShowGitDiff.cs" />
+    <Compile Include="Plugin\WPF\MyWindow.xaml.cs">
+      <DependentUpon>MyWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Seri.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -179,12 +254,22 @@
   <ItemGroup>
     <None Include="img\zoom-in.png" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Page Include="Plugin\WPF\MyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\UnmanagedExports.Repack.1.0.4\build\UnmanagedExports.Repack.targets" Condition="Exists('..\packages\UnmanagedExports.Repack.1.0.4\build\UnmanagedExports.Repack.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>XCOPY "$(TargetDir)Git4PL2.dll" "C:\Program Files (x86)\PLSQL Developer 14\PlugIns\" /S /Y</PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\packages\UnmanagedExports.Repack.Upgrade.1.2.1\build\UnmanagedExports.Repack.Upgrade.targets" Condition="Exists('..\packages\UnmanagedExports.Repack.Upgrade.1.2.1\build\UnmanagedExports.Repack.Upgrade.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\UnmanagedExports.Repack.1.0.4\build\UnmanagedExports.Repack.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UnmanagedExports.Repack.1.0.4\build\UnmanagedExports.Repack.targets'))" />
+    <Error Condition="!Exists('..\packages\UnmanagedExports.Repack.Upgrade.1.2.1\build\UnmanagedExports.Repack.Upgrade.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UnmanagedExports.Repack.Upgrade.1.2.1\build\UnmanagedExports.Repack.Upgrade.targets'))" />
   </Target>
 </Project>

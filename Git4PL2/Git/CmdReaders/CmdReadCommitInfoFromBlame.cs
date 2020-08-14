@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Git4PL2.Git.CmdReaders
 {
-    class CmdReadCommitInfoFromBlame : CMDReader<List<CommitInfo>>
+    class CmdReadCommitInfoFromBlame : CmdReader<List<CommitInfo>>
     {
         private const string CommitInfoPatterns = @"^\^?([0-9a-f]+)\s\(<(.*)>\s(.*)\s\d+\)";
 

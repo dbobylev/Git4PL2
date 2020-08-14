@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Git4PL2.Plugin.Processes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,9 @@ namespace Git4PL2.Abstarct
 {
     interface IPluginCommands
     {
-        void SaveTextToRepository();
+        void SaveTextToRepository(TextOperationsParametrs param = null);
 
-        void LoadTextFromRepository();
+        void LoadTextFromRepository(TextOperationsParametrs param = null);
 
         void ShowGitDiff();
     }

@@ -8,6 +8,7 @@ using Git4PL2.Git.Abstract;
 using Git4PL2.Git.CmdReaders;
 using Git4PL2.Git.CmdRequests;
 using Git4PL2.Plugin.Abstract;
+using Git4PL2.Plugin.Model;
 
 namespace Git4PL2.Git
 {
@@ -46,9 +47,9 @@ namespace Git4PL2.Git
             return PerformProcess<string>(new CmdReqGitGetCurrentBranch());
         }
 
-        public List<string> GitDiff(IDbObjectText dbObject)
+        public IDiffText GitDiff(IDbObjectText dbObject)
         {
-            return PerformProcess<List<string>>(new CmdReqGitDiff(dbObject));
+            return PerformProcess<IDiffText>(new CmdReqGitDiff(dbObject));
         }
 
         /// <summary>

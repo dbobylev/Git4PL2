@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Git4PL2.Git.CmdReaders
 {
-    class CmdReadString : CMDReader<string>
+    class CmdReadString : CmdReader<string>
     {
         protected override void ReadOutputLine(string OutputLine)
         {

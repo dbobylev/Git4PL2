@@ -4,21 +4,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Git4PL2.Plugin.Processes
 {
-    abstract class PluginCommand : IPluginCommand
+    abstract class PluginCommand : ICommand
     {
+        public string Name { get; private set; }
+
         public PluginCommand(string name)
         {
             Name = name;
         }
 
-        public string Name { get; private set; }
+        public event EventHandler CanExecuteChanged;
 
-        public virtual void PerformCommand()
-        {
-            throw new NotImplementedException("PerformCommand должен быть переопределен в дочернем классе");
-        }
+        public abstract bool CanExecute(object parameter);
+
+        public abstract void Execute(object parameter);
     }
 }

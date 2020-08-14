@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Git4PL2.Tests.Git.MockRepository
 {
-    class CmdReadShaFromLog : CMDReader<List<string>>
+    class CmdReadShaFromLog : CmdReader<List<string>>
     {
         Regex regex = new Regex(@"^\w+");
 

@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace Git4PL2.Plugin.Abstract
 {
-    public interface IDbObject
+    public interface IDiffText
     {
-        void DirectoriesChecks();
-        
-        string DescriptionName { get; }
+        void AddLine(string line);
 
-        string GetRawFilePath();
+        bool MoveNext();
+
+        IDiffLine CurrentDiffLine { get; }
+
+        string CurrentLine { get; }
     }
 }

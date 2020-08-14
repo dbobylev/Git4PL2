@@ -7,16 +7,18 @@ using System.Threading.Tasks;
 
 namespace Git4PL2.Git
 {
-    abstract class CMDReader<T> : ICmdReader
+    abstract class CmdReader<T> : ICmdReader
     {
         protected T Result;
         protected int RowsReadedCount = 0;
 
-        public CMDReader()
+        public CmdReader()
         {
             try
             {
-                if (typeof(T).GetConstructor(Type.EmptyTypes) != null)
+                if (typeof(T).IsInterface)
+                    Result = NinjectCore.Get<T>();
+                else if (typeof(T).GetConstructor(Type.EmptyTypes) != null)
                     Result = Activator.CreateInstance<T>();
                 else if (typeof(T) != typeof(string))
                     Seri.Log.Here().Warning($"Для типа {typeof(T).Name} отсутствует конструктор по умолчанию!");

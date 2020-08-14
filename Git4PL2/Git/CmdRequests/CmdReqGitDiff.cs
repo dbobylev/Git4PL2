@@ -14,15 +14,15 @@ namespace Git4PL2.Git.CmdRequests
         private readonly IDbObjectText _dbObj;
         private string tmpPath;
 
-        public CmdReqGitDiff(IDbObjectText dbObj) : base(new CmdReadListString())
+        public CmdReqGitDiff(IDbObjectText dbObj) : base(new CmdReadDiffText())
         {
             _dbObj = dbObj;
         }
 
         private void DeleteTempFile()
         {
-            /*if (File.Exists(tmpPath))
-                File.Delete(tmpPath);*/
+            if (File.Exists(tmpPath))
+                File.Delete(tmpPath);
             Seri.Log.Here().Debug($"Временный файл удалён. path: {tmpPath}");
         }
 

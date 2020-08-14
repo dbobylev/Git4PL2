@@ -40,8 +40,8 @@ namespace Git4PL2.IDE
             GroupIndex = 3;
 
             MenuItems.Add(new MenuItem("GitDiff", "Тест tip", _PluginCommands.ShowGitDiff, Properties.Resources.diskette));
-            MenuItems.Add(new MenuItem("Load", "Тест tip", _PluginCommands.LoadTextFromRepository, Properties.Resources.Stock_Index_Down_icon));
-            MenuItems.Add(new MenuItem("Save", "Тест tip", _PluginCommands.SaveTextToRepository, Properties.Resources.Stock_Index_Up_icon));
+            MenuItems.Add(new MenuItem("Load", "Тест tip", () => _PluginCommands.LoadTextFromRepository(), Properties.Resources.Stock_Index_Down_icon));
+            MenuItems.Add(new MenuItem("Save", "Тест tip", () => _PluginCommands.SaveTextToRepository(), Properties.Resources.Stock_Index_Up_icon));
             
         }
 

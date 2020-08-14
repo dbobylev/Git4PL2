@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Git4PL2.Plugin.Abstract
 {
-    interface IWarnings
+    public interface IWarnings
     { 
         bool IsBranchUnexsepted(string BranchName, bool SilentMode = false);
 

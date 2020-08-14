@@ -75,6 +75,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.4.4.0\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Build.Framework, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Build.Framework.16.0.461\lib\net472\Microsoft.Build.Framework.dll</HintPath>
     </Reference>
@@ -84,6 +87,9 @@
     <Reference Include="Microsoft.VisualStudio.Setup.Configuration.Interop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.VisualStudio.Setup.Configuration.Interop.1.16.30\lib\net35\Microsoft.VisualStudio.Setup.Configuration.Interop.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Moq, Version=4.14.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.14.5\lib\net45\Moq.dll</HintPath>
     </Reference>
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
@@ -106,6 +112,12 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.1\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Input.Manipulations" />
     <Reference Include="System.Windows.Presentation" />
     <Reference Include="System.Xaml" />
@@ -121,15 +133,17 @@
     <Compile Include="Git\Abstract\IGitAPI.cs" />
     <Compile Include="Git\CmdReaders\CmdReadCommitInfo.cs" />
     <Compile Include="Git\CmdReaders\CmdReadCommitInfoFromBlame.cs" />
+    <Compile Include="Git\CmdReaders\CmdReadDiffText.cs" />
     <Compile Include="Git\CmdReaders\CmdReadStringBuilder.cs" />
     <Compile Include="Git\CmdRequests\CmdReqGitDiff.cs" />
     <Compile Include="Git\CommitInfo.cs" />
     <Compile Include="IDE\Abstarct\ICallbackManager.cs" />
+    <Compile Include="Plugin\Abstract\IDiffLine.cs" />
+    <Compile Include="Plugin\Abstract\IDiffText.cs" />
     <Compile Include="Plugin\Abstract\IIDEProvider.cs" />
     <Compile Include="IDE\Abstarct\IMenu.cs" />
     <Compile Include="IDE\Abstarct\IMenuItem.cs" />
     <Compile Include="Plugin\Abstract\IPlsqlCodeFormatter.cs" />
-    <Compile Include="Plugin\Abstract\IPluginCommand.cs" />
     <Compile Include="Plugin\Abstract\IPluginCommands.cs" />
     <Compile Include="Git\GitAPI.cs" />
     <Compile Include="Git\CmdBuilderGIT.cs" />
@@ -159,19 +173,30 @@
     <Compile Include="Plugin\Abstract\IWarnings.cs" />
     <Compile Include="Plugin\Model\DbObject.cs" />
     <Compile Include="Plugin\Model\DbObjectText.cs" />
+    <Compile Include="Plugin\Model\DiffLine.cs" />
+    <Compile Include="Plugin\Model\DiffText.cs" />
     <Compile Include="Plugin\Model\eDbObjectType.cs" />
+    <Compile Include="Plugin\Model\eDiffLineType.cs" />
     <Compile Include="Plugin\Model\eSaveEncodingType.cs" />
     <Compile Include="Plugin\Model\Helper.cs" />
     <Compile Include="Plugin\Model\Warnings.cs" />
     <Compile Include="Plugin\PluginCommands.cs" />
     <Compile Include="Plugin\Processes\IDEProvider.cs" />
-    <Compile Include="Plugin\Processes\LoadTextFromRepository.cs" />
-    <Compile Include="Plugin\Processes\PlsqlCodeFormatter.cs" />
+    <Compile Include="Plugin\Processes\PluginCommandLoadTextFromRepository.cs" />
+    <Compile Include="Plugin\Model\PlsqlCodeFormatter.cs" />
     <Compile Include="Plugin\Processes\PluginCommand.cs" />
-    <Compile Include="Plugin\Processes\SaveTextToRepository.cs" />
-    <Compile Include="Plugin\Processes\ShowGitDiff.cs" />
-    <Compile Include="Plugin\WPF\MyWindow.xaml.cs">
-      <DependentUpon>MyWindow.xaml</DependentUpon>
+    <Compile Include="Plugin\Processes\PluginCommandSaveTextToRepository.cs" />
+    <Compile Include="Plugin\Processes\PluginCommandShowGitDiff.cs" />
+    <Compile Include="Plugin\Processes\TextOperationsParametrs.cs" />
+    <Compile Include="Plugin\WPF\ModelView\Converters\FalseToVisibilityConverter.cs" />
+    <Compile Include="Plugin\WPF\ModelView\Converters\WarningTextBlockConverter.cs" />
+    <Compile Include="Plugin\WPF\ModelView\GitDiffViewModel.cs" />
+    <Compile Include="Plugin\WPF\ModelView\Helper.cs" />
+    <Compile Include="Plugin\WPF\ModelView\PropertyChangedBase.cs" />
+    <Compile Include="Plugin\WPF\ModelView\Converters\TrueToVisibilityConverter.cs" />
+    <Compile Include="Plugin\WPF\UserControl\FlowDocumentScrollViewerExt.cs" />
+    <Compile Include="Plugin\WPF\View\WindowGitDiff.xaml.cs">
+      <DependentUpon>WindowGitDiff.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -201,62 +226,64 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\arrow-branch-icon.png" />
+    <Resource Include="img\arrow-branch-icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\browser.png" />
+    <Resource Include="img\browser.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\Business-info-icon.png" />
+    <Resource Include="img\Business-info-icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\Categories-system-help-icon.png" />
+    <Resource Include="img\Categories-system-help-icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\database-red-icon.png" />
+    <Resource Include="img\database-red-icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\diskette.png" />
+    <Resource Include="img\diskette.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\feature.png" />
+    <Resource Include="img\feature.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\Folder-icon.png" />
+    <Resource Include="img\Folder-icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\gear.png" />
+    <Resource Include="img\gear.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\horn.png" />
+    <Resource Include="img\horn.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\settings.png" />
+    <Resource Include="img\settings.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\sql.png" />
+    <Resource Include="img\sql.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\Stock-Index-Down-icon.png" />
+    <Resource Include="img\Stock-Index-Down-icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\Stock-Index-Up-icon.png" />
+    <Resource Include="img\Stock-Index-Up-icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\trumpet.png" />
+    <Resource Include="img\trumpet.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\webpage.png" />
+    <Resource Include="img\webpage.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\zoom.png" />
+    <Resource Include="img\zoom.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\zoom-in.png" />
+    <Resource Include="img\zoom-in.png" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Page Include="Plugin\WPF\MyWindow.xaml">
+    <Folder Include="Plugin\WPF\Model\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Plugin\WPF\View\WindowGitDiff.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

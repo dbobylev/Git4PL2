@@ -13,14 +13,15 @@ namespace Git4PL2.Plugin
     class PluginCommands : IPluginCommands
     {
 
-        private void RunCommand(IPluginCommand command)
+        private void RunCommand(PluginCommand command, object param = null)
         {
             Seri.SetModule(command.Name);
             Seri.Log.Here().Debug($"Run command {command.Name}");
 
             try
             {
-                command.PerformCommand();
+                command.Execute(param);
+
             }
             catch (Exception ex)
             {
@@ -32,19 +33,19 @@ namespace Git4PL2.Plugin
             Seri.SetModule(string.Empty);
         }
 
-        public void SaveTextToRepository()
+        public void SaveTextToRepository(TextOperationsParametrs param = null)
         {
-            RunCommand(NinjectCore.Get<SaveTextToRepository>());
+            RunCommand(NinjectCore.Get<PluginCommandSaveTextToRepository>(), param);
         }
 
-        public void LoadTextFromRepository()
+        public void LoadTextFromRepository(TextOperationsParametrs param = null)
         {
-            RunCommand(NinjectCore.Get<LoadTextFromRepository>());
+            RunCommand(NinjectCore.Get<PluginCommandLoadTextFromRepository>(), param);
         }
 
         public void ShowGitDiff()
         {
-            RunCommand(NinjectCore.Get<ShowGitDiff>());
+            RunCommand(NinjectCore.Get<PluginCommandShowGitDiff>());
         }
     }
 }

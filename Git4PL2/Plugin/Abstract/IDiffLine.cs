@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Media;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Git4PL2.Plugin.Model;
 
 namespace Git4PL2.Plugin.Abstract
 {
-    public interface IDbObject
+    public interface IDiffLine
     {
-        void DirectoriesChecks();
-        
-        string DescriptionName { get; }
+        string ToStringWithLineIndent(int indent);
 
-        string GetRawFilePath();
+        eDiffLineType Type { get; }
     }
 }

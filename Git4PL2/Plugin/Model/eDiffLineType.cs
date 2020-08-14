@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Git4PL2.Abstarct
+namespace Git4PL2.Plugin.Model
 {
-    interface IPluginCommand
+    public enum eDiffLineType
     {
-        string Name { get; }
-        void PerformCommand();
+        None,
+        Default,
+        Plus,
+        Minus,
+        Mail
     }
 }

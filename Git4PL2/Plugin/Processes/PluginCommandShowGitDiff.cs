@@ -2,6 +2,7 @@
 using Git4PL2.Git.Abstract;
 using Git4PL2.Plugin.Abstract;
 using Git4PL2.Plugin.WPF;
+using Git4PL2.Plugin.WPF.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,23 +11,25 @@ using System.Threading.Tasks;
 
 namespace Git4PL2.Plugin.Processes
 {
-    class ShowGitDiff :PluginCommand
+    class PluginCommandShowGitDiff :PluginCommand
     {
         private IIDEProvider _IDEProvider;
-        private IGitAPI _GitAPI;
 
-        public ShowGitDiff(IIDEProvider IDEProvider, IGitAPI GitAPI) :base("ShowGitDiff")
+        public PluginCommandShowGitDiff(IIDEProvider IDEProvider) :base("ShowGitDiff")
         {
             _IDEProvider = IDEProvider;
-            _GitAPI = GitAPI;
         }
-        public override void PerformCommand()
+        public override void Execute(object parameter)
         {
             IDbObjectText dbObj = _IDEProvider.GetDbObject<IDbObjectText>();
-            List<string> rows = _GitAPI.GitDiff(dbObj);
 
-            MyWindow w = new MyWindow(rows);
-            w.Show();
+            WindowGitDiff WindowGitDiff = new WindowGitDiff(dbObj);
+            WindowGitDiff.Show();
+        }
+
+        public override bool CanExecute(object parameter)
+        {
+            throw new NotImplementedException();
         }
     }
 }

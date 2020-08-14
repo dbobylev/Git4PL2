@@ -14,16 +14,11 @@ namespace Git4PL2
         private static IKernel kernel;
         static NinjectCore()
         {
-            kernel = new StandardKernel(new NinjectPluginModule());
-        }
-
-        public static T Get<T>()
-        {
             try
             {
-                return kernel.Get<T>();
+                kernel = new StandardKernel(new NinjectPluginModule());
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Seri.LogException(ex);
                 throw;

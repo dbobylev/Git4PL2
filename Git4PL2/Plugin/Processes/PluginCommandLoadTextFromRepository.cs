@@ -10,22 +10,46 @@ using System.Threading.Tasks;
 
 namespace Git4PL2.Plugin.Processes
 {
-    class LoadTextFromRepository : PluginCommand
+    class PluginCommandLoadTextFromRepository : PluginCommand
     {
+        private static bool _CanExecute = true;
+
         private IIDEProvider _IDEProvider;
         private IDbObjectText _DbObjectText;
         private IPlsqlCodeFormatter _PlsqlCodeFormatter;
         private IWarnings _Warnings;
         private string _ServerName;
 
-        public LoadTextFromRepository(IIDEProvider IDEProvider, IPlsqlCodeFormatter PlsqlCodeFormatter, IWarnings Warnings) :base("LoadTextFromRepository")
+        public PluginCommandLoadTextFromRepository(IIDEProvider IDEProvider, IPlsqlCodeFormatter PlsqlCodeFormatter, IWarnings Warnings) :base("LoadTextFromRepository")
         {
             _IDEProvider = IDEProvider;
             _PlsqlCodeFormatter = PlsqlCodeFormatter;
             _Warnings = Warnings;
         }
 
-        public override void PerformCommand()
+        public override void Execute(object parameter)
+        {
+            _CanExecute = false;
+            try
+            {
+                if (parameter != null && parameter is TextOperationsParametrs TextParam)
+                {
+                    _DbObjectText = TextParam.DbObjectText;
+                    _ServerName = TextParam.StringParam;
+                }
+                LoadText();
+            }
+            catch (Exception ex)
+            {
+                throw ex;    
+            }
+            finally
+            {
+                _CanExecute = true;
+            }
+        }
+
+        private void LoadText()
         {
             if (_DbObjectText == null)
                 _DbObjectText = _IDEProvider.GetDbObject<IDbObjectText>();
@@ -41,13 +65,17 @@ namespace Git4PL2.Plugin.Processes
             string FilePath = _DbObjectText.GetRawFilePath();
             Seri.Log.Here().Debug("FilePath={0}", FilePath);
 
-            string LocalText = 
-                File.ReadAllText(FilePath);
+            string LocalText =  File.ReadAllText(FilePath);
 
             _PlsqlCodeFormatter.RemoveSlash(ref LocalText);
 
             _IDEProvider.SetText(LocalText);
             _IDEProvider.SetStatusMessage($"Объект БД загружен из: {FilePath}");
+        }
+
+        public override bool CanExecute(object parameter)
+        {
+            return _CanExecute;
         }
     }
 }

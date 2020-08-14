@@ -11,6 +11,6 @@ namespace Git4PL2.Git.Abstract
     {
         string GetCurrentBranch();
 
-        List<string> GitDiff(IDbObjectText dbObject);
+        IDiffText GitDiff(IDbObjectText dbObject);
     }
 }

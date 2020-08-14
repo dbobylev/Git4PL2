@@ -137,7 +137,6 @@ namespace Git4PL2.Plugin.Processes
 
             int FakeLines = Math.Sign(LineNum - BasePos + 0.1d) * 20;
             _CallbackManager.GetDelegate<IDE_SetCursor>()?.Invoke(1, LineNum + FakeLines);
-
             _CallbackManager.GetDelegate<IDE_SetCursor>()?.Invoke(1, LineNum);
         }
     }

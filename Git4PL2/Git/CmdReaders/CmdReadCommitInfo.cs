@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Git4PL2.Git.CmdReaders
 {
-    class CmdReadCommitInfo : CMDReader<CommitInfo>
+    class CmdReadCommitInfo : CmdReader<CommitInfo>
     {
         private readonly string[] CommitInfoPatterns =
             new string[3]{ @"^commit\s*([0-9a-f]+)$",

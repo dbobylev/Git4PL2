@@ -51,7 +51,7 @@ namespace Git4PL2.Plugin.Processes
             }
         }
 
-        public Task SaveText()
+        private Task SaveText()
         {
             return Task.Run(() => {
                 if (_DbObjectText == null)

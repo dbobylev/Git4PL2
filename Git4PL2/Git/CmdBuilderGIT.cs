@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Git4PL2.Plugin.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,16 @@ namespace Git4PL2.Git
         public CmdBuilderGIT(ICmdReader reader, string gitRepPath = null) : base(reader)
         {
             ProcessFileName = DefaultGitExePath;
-            GitRepPath = gitRepPath ?? Properties.Settings.Default.GitRepositoryPath;
+
+            if (gitRepPath == null)
+            {
+                var settings = NinjectCore.Get<ISettings>();
+                GitRepPath = settings.GitRepositoryPath;
+            }
+            else
+            {
+                GitRepPath = gitRepPath;
+            }
         }
 
         protected void AddArgument(string text)

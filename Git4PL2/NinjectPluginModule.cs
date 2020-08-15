@@ -6,6 +6,7 @@ using Git4PL2.Plugin;
 using Git4PL2.Plugin.Abstract;
 using Git4PL2.Plugin.Model;
 using Git4PL2.Plugin.Processes;
+using Git4PL2.Plugin.Settings;
 using Moq;
 using Ninject;
 using Ninject.Modules;
@@ -21,6 +22,10 @@ namespace Git4PL2
     {
         public override void Load()
         {
+            Bind<PluginSettingsStorage>().ToSelf().InSingletonScope();
+            Bind<IPluginSettingsStorage>().ToMethod(x => x.Kernel.Get<PluginSettingsStorage>());
+            Bind<ISettings>().ToMethod(x => x.Kernel.Get<Settings>());
+
             Bind<CallbackManager>().ToSelf().InSingletonScope();
             Bind<ICallbackManager>().ToMethod(x => x.Kernel.Get<CallbackManager>());
 
@@ -33,10 +38,11 @@ namespace Git4PL2
             
             Bind<IWarnings>().To<Warnings>();
 
-            var mock = new Mock<IWarnings>();
+            // Тест предупреждений
+            /*var mock = new Mock<IWarnings>();
             mock.Setup(x => x.IsBranchUnexsepted(It.IsAny<string>(), It.IsAny<bool>())).Returns(false);
             mock.Setup(x => x.IsServerUnexsepted(It.IsAny<string>(), It.IsAny<bool>())).Returns(true);
-            Bind<IWarnings>().ToConstant(mock.Object);
+            Bind<IWarnings>().ToConstant(mock.Object);*/
 
             Bind<IDiffText>().To<DiffText>();
             Bind<IGitAPI>().To<GitAPI>();

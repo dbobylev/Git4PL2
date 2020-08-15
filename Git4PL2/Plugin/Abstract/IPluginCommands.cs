@@ -14,5 +14,7 @@ namespace Git4PL2.Abstarct
         void LoadTextFromRepository(TextOperationsParametrs param = null);
 
         void ShowGitDiff();
+
+        void ShowSettings();
     }
 }

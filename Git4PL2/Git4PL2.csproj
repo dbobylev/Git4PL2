@@ -170,6 +170,9 @@
     <Compile Include="IDE\MenuItem.cs" />
     <Compile Include="Plugin\Abstract\IDbObject.cs" />
     <Compile Include="Plugin\Abstract\IDbObjectText.cs" />
+    <Compile Include="Plugin\Abstract\IPluginParameter.cs" />
+    <Compile Include="Plugin\Abstract\IPluginSettingsStorage.cs" />
+    <Compile Include="Plugin\Abstract\ISettings.cs" />
     <Compile Include="Plugin\Abstract\IWarnings.cs" />
     <Compile Include="Plugin\Model\DbObject.cs" />
     <Compile Include="Plugin\Model\DbObjectText.cs" />
@@ -188,6 +191,11 @@
     <Compile Include="Plugin\Processes\PluginCommandSaveTextToRepository.cs" />
     <Compile Include="Plugin\Processes\PluginCommandShowGitDiff.cs" />
     <Compile Include="Plugin\Processes\TextOperationsParametrs.cs" />
+    <Compile Include="Plugin\Settings\ePluginParameterNames.cs" />
+    <Compile Include="Plugin\Settings\ePluginParameterType.cs" />
+    <Compile Include="Plugin\Settings\PluginParameter.cs" />
+    <Compile Include="Plugin\Settings\PluginSettingsStorage.cs" />
+    <Compile Include="Plugin\Settings\Settings.cs" />
     <Compile Include="Plugin\WPF\ModelView\Converters\FalseToVisibilityConverter.cs" />
     <Compile Include="Plugin\WPF\ModelView\Converters\WarningTextBlockConverter.cs" />
     <Compile Include="Plugin\WPF\ModelView\GitDiffViewModel.cs" />

@@ -1,6 +1,7 @@
 ﻿using Git4PL2.Abstarct;
 using Git4PL2.Plugin.Model;
 using Git4PL2.Plugin.Processes;
+using Git4PL2.Plugin.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,11 @@ namespace Git4PL2.Plugin
         public void ShowGitDiff()
         {
             RunCommand(NinjectCore.Get<PluginCommandShowGitDiff>());
+        }
+
+        public void ShowSettings()
+        {
+            PluginSettingsStorage p = new PluginSettingsStorage();
         }
     }
 }

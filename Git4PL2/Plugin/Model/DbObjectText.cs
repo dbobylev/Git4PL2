@@ -40,7 +40,7 @@ namespace Git4PL2.Plugin.Model
         {
             Encoding EncodingToSave;
 
-            switch ((eSaveEncodingType)Properties.Settings.Default.SaveEncodingType)
+            switch ((eSaveEncodingType)_settings.SaveEncodingType)
             {
                 case eSaveEncodingType.UTF8: EncodingToSave = new UTF8Encoding(false); break;
                 case eSaveEncodingType.UTF8_BOM: EncodingToSave = new UTF8Encoding(true); break;

@@ -11,6 +11,7 @@ namespace Git4PL2.Plugin.Model
 {
     class DbObject :IDbObject
     {
+        protected ISettings _settings;
         public string ObjectOwner { get; private set; }
         public string ObjectName { get; private set; }
         public string FileName { get; private set; }
@@ -26,7 +27,7 @@ namespace Git4PL2.Plugin.Model
         /// </summary>
         public string GetRawFilePath()
         {
-            string GitRep = Properties.Settings.Default.GitRepositoryPath;
+            string GitRep = _settings.GitRepositoryPath;
             if (Directory.Exists(GitRep))
                 return Path.Combine(GitRep, ObjectOwner, string.Join(".", ObjectOwner, ObjectName, FileExtension)).ToLower();
             else
@@ -39,7 +40,7 @@ namespace Git4PL2.Plugin.Model
         /// </summary>
         public string GetRawDirPath()
         {
-            string GitRep = Properties.Settings.Default.GitRepositoryPath;
+            string GitRep = _settings.GitRepositoryPath;
             if (Directory.Exists(GitRep))
                 return Path.Combine(GitRep, ObjectOwner);
             else
@@ -51,6 +52,8 @@ namespace Git4PL2.Plugin.Model
         public DbObject(string Owner, string name, string type)
         {
             Seri.Log.Here().Debug($"Создаём объект DbObject. Owner={Owner}, name={name}, type={type}");
+
+            _settings = NinjectCore.Get<ISettings>();
 
             if (string.IsNullOrWhiteSpace(Owner) || string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(type))
                 throw new Exception("Не удалось распознать объект БД");
@@ -81,6 +84,8 @@ namespace Git4PL2.Plugin.Model
 
         public DbObject(DbObject obj)
         {
+            _settings = obj._settings;
+
             ObjectOwner = obj.ObjectOwner;
             ObjectName = obj.ObjectName;
             ObjectType = obj.ObjectType;
@@ -89,7 +94,7 @@ namespace Git4PL2.Plugin.Model
 
         public void DirectoriesChecks()
         {
-            if (!Directory.Exists(Properties.Settings.Default.GitRepositoryPath))
+            if (!Directory.Exists(_settings.GitRepositoryPath))
                 throw new Exception("Не указан локальный репозиторий GIT");
 
             string DirPath = GetRawDirPath();

@@ -1,4 +1,5 @@
 ﻿using Git4PL2.Abstarct;
+using Git4PL2.Plugin.Abstract;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -12,17 +13,20 @@ namespace Git4PL2.Plugin.Model
 {
     class PlsqlCodeFormatter: IPlsqlCodeFormatter
     {
+        private ISettings _Settings;
+
         private string GitText { get; set; }
         private string GitFilePath { get; set; }
 
-        public PlsqlCodeFormatter()
+        public PlsqlCodeFormatter(ISettings Settings)
         {
-
+            _Settings = Settings;
         }
 
-        public PlsqlCodeFormatter(string remoteFilePath)
+        public PlsqlCodeFormatter(string remoteFilePath, ISettings Settings)
         {
             Seri.Log.Here().Verbose("Загружаем текст из репозитория GIT");
+            _Settings = Settings;
             GitText = File.ReadAllText(remoteFilePath);
             GitFilePath = remoteFilePath;
             Seri.Log.Here().Verbose("Текст загружен text.length={0}", GitText.Length);
@@ -31,9 +35,9 @@ namespace Git4PL2.Plugin.Model
         public void UpdateBeginOfText(ref string SourceText, string Schema, string Name)
         {
             // cor - create or replace block
-            bool DiffChangeCor = Properties.Settings.Default.DiffChangeCor;
-            bool DiffChangeName = Properties.Settings.Default.DiffChangeName;
-            bool DiffAddSchema = Properties.Settings.Default.DiffAddSchema;
+            bool DiffChangeCor = _Settings.DiffChangeCor;
+            bool DiffChangeName = _Settings.DiffChangeName;
+            bool DiffAddSchema = _Settings.DiffAddSchema;
 
             if (!(DiffChangeCor || DiffChangeName || DiffAddSchema))
                 return;
@@ -91,7 +95,7 @@ namespace Git4PL2.Plugin.Model
 
         public void UpdateLastLines(ref string SourceText)
         {
-            if (!Properties.Settings.Default.DiffWorkWithSlash)
+            if (!_Settings.DiffWorkWithSlash)
                 return;
 
             Seri.Log.Here().Verbose("Начинаем UpdateLastLines");
@@ -127,7 +131,7 @@ namespace Git4PL2.Plugin.Model
 
         public void UpdateNewLines(ref string SourceText)
         {
-            if (!Properties.Settings.Default.DiffCRLF)
+            if (!_Settings.DiffCRLF)
                 return;
 
             Seri.Log.Here().Verbose("Начало UpdateNewLines");
@@ -167,7 +171,7 @@ namespace Git4PL2.Plugin.Model
         /// <param name="SourceText"></param>
         public void RemoveSlash(ref string SourceText)
         {
-            if (!Properties.Settings.Default.DiffWorkWithSlash)
+            if (!_Settings.DiffWorkWithSlash)
                 return;
             Seri.Log.Here().Verbose("Начинаем RemoveSlash");
             int cnt = 0;

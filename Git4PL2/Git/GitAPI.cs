@@ -21,9 +21,9 @@ namespace Git4PL2.Git
             _GitRepositoryPath = gitRepPath;
         }
 
-        public GitAPI()
+        public GitAPI(ISettings settings)
         {
-            _GitRepositoryPath = Properties.Settings.Default.GitRepositoryPath;
+            _GitRepositoryPath = settings.GitRepositoryPath;
         }
 
         /// <summary>

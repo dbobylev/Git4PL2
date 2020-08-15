@@ -11,11 +11,18 @@ namespace Git4PL2.Plugin.Model
 {
     public class Warnings : IWarnings
     {
+        private ISettings _Settings;
+
+        public Warnings(ISettings Settings)
+        {
+            _Settings = Settings;
+        }
+
         public bool IsBranchUnexsepted(string BranchName, bool SilentMode = false)
         {
-            if (Properties.Settings.Default.UnexpectedBranch)
+            if (_Settings.UnexpectedBranch)
             {
-                string RegexInPattern = Properties.Settings.Default.WarnInRegEx;
+                string RegexInPattern = _Settings.WarnInRegEx;
                 Regex regex = new Regex(RegexInPattern);
                 if (!regex.IsMatch(BranchName))
                 {
@@ -32,9 +39,9 @@ namespace Git4PL2.Plugin.Model
 
         public bool IsServerUnexsepted(string ServerName, bool SilentMode = false)
         {
-            if (Properties.Settings.Default.UnexpectedServer)
+            if (_Settings.UnexpectedServer)
             {
-                string RegexOutPattern = Properties.Settings.Default.WarnOutRegEx;
+                string RegexOutPattern = _Settings.WarnOutRegEx;
                 Regex regex = new Regex(RegexOutPattern, RegexOptions.IgnoreCase);
                 if (!regex.IsMatch(ServerName))
                 {

@@ -18,6 +18,7 @@ namespace Git4PL2.Plugin.Settings
         UnexpectedBranch,
         UnexpectedServer,
         WarnInRegEx,
-        WarnOutRegEx
+        WarnOutRegEx,
+        ClassicButtonsPosition
     }
 }

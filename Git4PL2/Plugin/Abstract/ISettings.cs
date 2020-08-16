@@ -27,5 +27,7 @@ namespace Git4PL2.Plugin.Abstract
 
         string WarnInRegEx { get; }
         string WarnOutRegEx { get; }
+
+        bool ClassicButtonsPosition { get; }
     }
 }

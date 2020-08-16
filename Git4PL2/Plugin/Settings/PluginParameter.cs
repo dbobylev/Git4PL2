@@ -18,7 +18,7 @@ namespace Git4PL2.Plugin.Settings
     {
         public ePluginParameterNames Name { get; private set; }
 
-        public ePluginParameterType ParamterType { get; set; } = ePluginParameterType.Default;
+        public ePluginParameterType ParamterType { get; set; }
 
         public string Description { get; set; }
 
@@ -26,7 +26,9 @@ namespace Git4PL2.Plugin.Settings
 
         public T Value { get; private set; }
 
-        public string GroupName { get; set; }
+        public ePluginParameterGroupType Group { get; set; }
+
+        public int OrderPosition { get; set; }
 
         public PluginParameter(ePluginParameterNames parameterName, T DefaultValue)
         {
@@ -46,7 +48,7 @@ namespace Git4PL2.Plugin.Settings
                     Attributes.Add(typeof(UserScopedSettingAttribute), new UserScopedSettingAttribute());
 
                     // Провайдер по умолчанию где будет сохранены настройки
-                    var provider = new LocalFileSettingsProvider();
+                    var provider = Properties.Settings.Default.Providers["LocalFileSettingsProvider"];
 
                     // Создаем параметр
                     var ParamSettingsProperty = new SettingsProperty(ConstantName, typeof(T), provider, false, DefaultValue, SettingsSerializeAs.String, Attributes, false, false);
@@ -84,11 +86,50 @@ namespace Git4PL2.Plugin.Settings
 
         public void SetValue<P>(P value)
         {
+            Seri.Log.Here().Verbose($"Патыемся сохранить праметр {Name}, значение: {value}");
             if (value is T SetValue)
             {
                 Value = SetValue;
-                Properties.Settings.Default[Name.ToString()] = value.ToString();
+                Properties.Settings.Default[Name.ToString()] = value;
+
+                Seri.Log.Here().Verbose($"Сохранияем праметр {Name}, значение: {value}");
                 Properties.Settings.Default.Save();
+            }
+        }
+
+        public string ValueString
+        {
+            get
+            {
+                return GetValue<string>();
+            }
+            set
+            {
+                SetValue(value);
+            }
+        }
+
+        public bool ValueBool
+        {
+            get
+            {
+                return GetValue<bool>();
+            }
+            set
+            {
+                SetValue(value);
+            }
+        }
+
+        public int ValueInt
+        {
+            get
+            {
+                return GetValue<int>();
+            }
+            set
+            {
+                SetValue(value);
             }
         }
     }

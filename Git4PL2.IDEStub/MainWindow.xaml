@@ -1,0 +1,14 @@
+﻿<Window x:Class="Git4PL2.IDEStub.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Git4PL2.IDEStub"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <StackPanel>
+            <Button x:Name="ButtonSettings" Content="Settings" Click="ButtonSettings_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

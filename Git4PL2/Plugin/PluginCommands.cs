@@ -51,7 +51,7 @@ namespace Git4PL2.Plugin
 
         public void ShowSettings()
         {
-            PluginSettingsStorage p = new PluginSettingsStorage();
+            RunCommand(NinjectCore.Get<PluginCommandShowSettings>());
         }
     }
 }

@@ -54,7 +54,7 @@ namespace Git4PL2.Plugin.WPF.ModelView
 
         public bool ButtonsClassicStyle { get; private set; }
 
-        public GitDiffViewModel(IDbObjectText DbObjectText, IIDEProvider IDE, IGitAPI Git, IWarnings Warnings)
+        public GitDiffViewModel(IDbObjectText DbObjectText, IIDEProvider IDE, IGitAPI Git, IWarnings Warnings, ISettings Settings)
         {
             _DbObjectText = DbObjectText;
             IDiffText DiffText = Git.GitDiff(DbObjectText);
@@ -71,7 +71,7 @@ namespace Git4PL2.Plugin.WPF.ModelView
             SaveTextCommand = NinjectCore.Get<PluginCommandSaveTextToRepository>();
             LoadTextCommand = NinjectCore.Get<PluginCommandLoadTextFromRepository>();
 
-            ButtonsClassicStyle = false;
+            ButtonsClassicStyle = Settings.ClassicButtonsPosition;
         }
 
         private void FillDocument(IDiffText DiffText)

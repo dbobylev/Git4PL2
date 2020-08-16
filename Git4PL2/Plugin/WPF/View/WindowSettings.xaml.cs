@@ -1,5 +1,4 @@
-﻿using Git4PL2.Plugin.Abstract;
-using Git4PL2.Plugin.WPF.ModelView;
+﻿using Git4PL2.Plugin.WPF.ModelView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,19 +17,18 @@ using System.Windows.Shapes;
 namespace Git4PL2.Plugin.WPF.View
 {
     /// <summary>
-    /// Interaction logic for WindowGitDiff.xaml
+    /// Interaction logic for WindowSettings.xaml
     /// </summary>
-    public partial class WindowGitDiff : Window
+    public partial class WindowSettings : Window
     {
-        public WindowGitDiff(IDbObjectText DbObjectText)
+        public WindowSettings()
         {
             InitializeComponent();
 
-            var param = NinjectCore.GetParameter("DbObjectText", DbObjectText);
-            DataContext = NinjectCore.Get<GitDiffViewModel>(param);
+            DataContext = NinjectCore.Get<SettingsViewModel>();
         }
 
-        private void CloseWindow(object sender, RoutedEventArgs e)
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }

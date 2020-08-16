@@ -17,10 +17,16 @@ namespace Git4PL2.Plugin.Abstract
 
         string DescriptionExt { get; }
 
-        string GroupName { get; }
+        ePluginParameterGroupType Group { get; }
+
+        int OrderPosition { get; }
 
         P GetValue<P>();
 
         void SetValue<P>(P value);
+
+        string ValueString { get; set; }
+        bool ValueBool { get; set; }
+        int ValueInt { get; set; }
     }
 }

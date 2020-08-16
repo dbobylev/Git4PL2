@@ -22,5 +22,17 @@ namespace Git4PL2.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Dummy {
+            get {
+                return ((string)(this["Dummy"]));
+            }
+            set {
+                this["Dummy"] = value;
+            }
+        }
     }
 }

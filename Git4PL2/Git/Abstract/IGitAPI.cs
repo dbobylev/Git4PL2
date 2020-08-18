@@ -12,5 +12,9 @@ namespace Git4PL2.Git.Abstract
         string GetCurrentBranch();
 
         IDiffText GitDiff(IDbObjectText dbObject);
+
+        string GitGetLastCommit();
+
+        T GitBlame<T>(string FileName, int beginLine, int endline = -1, bool ShowEmail = false, ICmdReader CustomReader = null);
     }
 }

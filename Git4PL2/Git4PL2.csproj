@@ -137,6 +137,7 @@
     <Compile Include="Git\CmdReaders\CmdReadDiffText.cs" />
     <Compile Include="Git\CmdReaders\CmdReadStringBuilder.cs" />
     <Compile Include="Git\CmdRequests\CmdReqGitDiff.cs" />
+    <Compile Include="Git\CmdRequests\CmdReqGitGetLastCommit.cs" />
     <Compile Include="Git\CommitInfo.cs" />
     <Compile Include="IDE\Abstarct\ICallbackManager.cs" />
     <Compile Include="Plugin\Abstract\IDiffLine.cs" />

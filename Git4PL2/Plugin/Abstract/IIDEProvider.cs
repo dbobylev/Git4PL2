@@ -16,5 +16,7 @@ namespace Git4PL2.Plugin.Abstract
         string GetDatabaseConnection();
 
         bool SetText(string Text);
+
+        int GetCurrentLine();
     }
 }

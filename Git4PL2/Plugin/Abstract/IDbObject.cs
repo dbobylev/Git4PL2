@@ -13,5 +13,9 @@ namespace Git4PL2.Plugin.Abstract
         string DescriptionName { get; }
 
         string GetRawFilePath();
+
+        string FileName { get; }
+
+        string RepName { get;  }
     }
 }

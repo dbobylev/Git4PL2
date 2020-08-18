@@ -16,5 +16,7 @@ namespace Git4PL2.Abstarct
         void ShowGitDiff();
 
         void ShowSettings();
+
+        void ShowGitBlame();
     }
 }

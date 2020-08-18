@@ -19,7 +19,7 @@ namespace Git4PL2.Plugin.Model
         public string FileExtension { get; private set; }
 
         public string DescriptionName => string.Join(" ", ObjectType.ToString(), string.Join(".", ObjectOwner, ObjectName)).ToLower();
-        public string RepName => string.Join("/", ObjectOwner, FileName);
+        public string RepName => Path.Combine(ObjectOwner, FileName);
 
         /// <summary>
         /// Путь расположения файла в локальном репозитории git
@@ -86,6 +86,7 @@ namespace Git4PL2.Plugin.Model
         {
             _settings = obj._settings;
 
+            FileName = obj.FileName;
             ObjectOwner = obj.ObjectOwner;
             ObjectName = obj.ObjectName;
             ObjectType = obj.ObjectType;

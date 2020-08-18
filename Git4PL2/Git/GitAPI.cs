@@ -121,6 +121,11 @@ namespace Git4PL2.Git
             return GitShow<CommitInfo>(sha, true, new CmdReadCommitInfo());
         }
 
+        public string GitGetLastCommit()
+        {
+            return PerformProcess<string>(new CmdReqGitGetLastCommit());
+        }
+
         private ICmdReader GetReader(ICmdReader reader, Type T)
         {
             if (reader == null)

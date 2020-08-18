@@ -139,5 +139,10 @@ namespace Git4PL2.Plugin.Processes
             _CallbackManager.GetDelegate<IDE_SetCursor>()?.Invoke(1, LineNum + FakeLines);
             _CallbackManager.GetDelegate<IDE_SetCursor>()?.Invoke(1, LineNum);
         }
+
+        public int GetCurrentLine()
+        {
+            return _CallbackManager.GetDelegate<IDE_GetCursorY>()?.Invoke() ?? 1;
+        }
     }
 }

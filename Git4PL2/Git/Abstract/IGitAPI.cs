@@ -16,5 +16,7 @@ namespace Git4PL2.Git.Abstract
         string GitGetLastCommit();
 
         T GitBlame<T>(string FileName, int beginLine, int endline = -1, bool ShowEmail = false, ICmdReader CustomReader = null);
+
+        int? GitDiffLineNumber(IDbObjectText dbObject, int SearchedLineNumber);
     }
 }

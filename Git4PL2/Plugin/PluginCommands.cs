@@ -53,5 +53,10 @@ namespace Git4PL2.Plugin
         {
             RunCommand(NinjectCore.Get<PluginCommandShowSettings>());
         }
+
+        public void ShowGitBlame()
+        {
+            RunCommand(NinjectCore.Get<PluginCommandShowGitBlame>());
+        }
     }
 }

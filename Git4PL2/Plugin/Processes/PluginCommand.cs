@@ -17,7 +17,11 @@ namespace Git4PL2.Plugin.Processes
             Name = name;
         }
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
 
         public abstract bool CanExecute(object parameter);
 

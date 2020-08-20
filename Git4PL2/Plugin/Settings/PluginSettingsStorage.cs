@@ -1,8 +1,10 @@
 ﻿using Git4PL2.Plugin.Abstract;
 using Git4PL2.Plugin.Model;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,22 +12,43 @@ using System.Threading.Tasks;
 namespace Git4PL2.Plugin.Settings
 {
     /// <summary>
+    /// 
+    /// Настройки через Configuration не получилось запустить, в девелопере вылезала ошибка:
+    /// https://github.com/dotnet/extensions/issues/2931
+    /// https://stackoverflow.com/questions/43995432/could-not-load-file-or-assembly-microsoft-extensions-dependencyinjection-abstrac
+    /// 
+    /// Сохранять и загружать настройки приложения будем через стандартный механизм net.framework (user.config)
+    /// В Git4PL2DefaultPreset.json будут лежать "приватные" значения по умолчанию для части настроек.
+    /// 
     /// По умолчанию в настройках приложения [Properties.Settings.Default] пусто!
     /// Все переменные приложения, будут:
     ///  - Инициализироваться здесь(Добавляться в Properties.Settings.Default в ручную при запуске плагина)
-    ///  - При этом брать значение по умолчанию/Или из файла настроек
-    ///  - Сохраняться по умолчанию в user.config как обычные праметры
+    ///  - Если значение еще не было изменено пользователем оно возьмется по умолчанию:
+    ///      * Из хардкода ниже 
+    ///     или
+    ///      * Из Git4PL2DefaultPreset.json
+    ///  - Если значение было изменено пользователем, то оно подтянется из файла настроек user.config
+    ///  - Соответственно, когда пользователь меняет значение оно обновляется в user.config (и только там)  
     ///
-    /// Это позволит организовано держать все имена переменных в одном месте: ePluginParameterNames, а так же удобно организоваьб окно настроек приложения.
+    /// Это позволит организовано держать все имена переменных в одном месте: ePluginParameterNames, а так же удобно организовывать окно настроек приложения.
     ///
     /// Что бы добавить новый параметр в приложение, нужно
     ///  1. Добавить название параметра в ePluginParameterNames
     ///  2. Добавить параметр в коллекцию ListSettings ниже здесь
     ///  3. Описать параметра в ISettings и использовать в приложении
     /// При этом параметр автоматически подтянется в окно настроек приложения
+    /// 
+    /// Классы для параметров
+    ///  - PluginParameter<string>      TextBox             Обычный текстовый параметр
+    ///  - PluginParameter<bool>        CheckBox            Булевый параметр с двумя значения Да/Нет
+    ///  - PluginParameterPath          TextBox + button    Текстовый параметр для хранения ссылки на папку. В окне настроек будет кнопка с выбором папки
+    ///  - PluginParameterList          Combobox            Список. Необходимо передать тип Enum на основе которого создастся выпадающий список
+    ///                                                     Значения enum должны быть с атрибутом Decription
     /// </summary>
     public class PluginSettingsStorage : IPluginSettingsStorage
     {
+        private JObject _DefaultConfiguration;
+
         private List<IPluginParameter> _ListSettings;
 
         private List<PluginParameterGroup> _ListGroup;
@@ -50,14 +73,34 @@ namespace Git4PL2.Plugin.Settings
         public PluginSettingsStorage()
         {
             Seri.Log.Here().Information("Инициализируем настройки приложения");
-            Seri.Log.Here().Information("Файл настроек: " + ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath);
+            Seri.Log.Here().Information("Расположение файл настроек: " + ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath);
 
+            try
+            {
+                Seri.Log.Here().Debug("Пробуем загрузить Json файл с найстройками по умолчанию");
+                _DefaultConfiguration = JObject.Parse(File.ReadAllText("Git4PL2DefaultPreset.json"));
+                Seri.Log.Here().Information("Json файл загружен");
+            }
+            catch (Exception ex)
+            {
+                Seri.LogException(ex);
+                throw (ex);
+            }
+
+            FillGroups();
+            FillSettings();
+
+            Properties.Settings.Default.Save();
+        }
+
+        private void FillGroups()
+        {
             _ListGroup = new List<PluginParameterGroup>();
 
-            _ListGroup.Add(new PluginParameterGroup() 
-            { 
-                GroupType = ePluginParameterGroupType.Main, 
-                Name = "Основные" 
+            _ListGroup.Add(new PluginParameterGroup()
+            {
+                GroupType = ePluginParameterGroupType.Main,
+                Name = "Основные"
             });
 
             _ListGroup.Add(new PluginParameterGroup()
@@ -74,10 +117,19 @@ namespace Git4PL2.Plugin.Settings
 
             _ListGroup.Add(new PluginParameterGroup()
             {
+                GroupType = ePluginParameterGroupType.Blame,
+                Name = "Настройки GitBlame"
+            });
+
+            _ListGroup.Add(new PluginParameterGroup()
+            {
                 GroupType = ePluginParameterGroupType.Others,
                 Name = "Прочее"
             });
+        }
 
+        private void FillSettings()
+        {
             _ListSettings = new List<IPluginParameter>();
 
             _ListSettings.Add(new PluginParameterPath(ePluginParameterNames.GitRepositoryPath, @"D:\Repo")
@@ -85,7 +137,6 @@ namespace Git4PL2.Plugin.Settings
                 Description = "Репозиторий Git",
                 DescriptionExt = "Необходимо указать расположение репозитрия Git с объектами DB",
                 Group = ePluginParameterGroupType.Main,
-                ParamterType = ePluginParameterType.Path,
                 OrderPosition = 1
             });
 
@@ -106,7 +157,6 @@ namespace Git4PL2.Plugin.Settings
                 Description = "Добавлять префикс схемы к названию объекта",
                 DescriptionExt = "Эта настройка, дополняет предыдущую. При отсутствии схемы в названии объекта БД, она будет добавлена. (Такое встречается в файлах Git)",
                 Group = ePluginParameterGroupType.GitDiff,
-                ParamterType = ePluginParameterType.CheckBox,
                 OrderPosition = 30
             });
 
@@ -116,7 +166,6 @@ namespace Git4PL2.Plugin.Settings
                 DescriptionExt = "Касается переноса после ‘Create or replace’ а также лишних пробелов, которые могут встречаться в файле Git и " +
                 "отсутствовать в PL/SQL Developer. При включенной настройке, вы не увидите этих изменений в первых строках файла.",
                 Group = ePluginParameterGroupType.GitDiff,
-                ParamterType = ePluginParameterType.CheckBox,
                 OrderPosition = 10
             });
 
@@ -126,7 +175,6 @@ namespace Git4PL2.Plugin.Settings
                 DescriptionExt = "Название объекта БД открытого в PL/SQL Developer может не всегда совпадать с названием того же объекта в Git. " +
                 "Если опция включена, название объекта всегда будет соответствовать версии названия в файле в репозитории Git.",
                 Group = ePluginParameterGroupType.GitDiff,
-                ParamterType = ePluginParameterType.CheckBox,
                 OrderPosition = 20
             });
 
@@ -135,10 +183,9 @@ namespace Git4PL2.Plugin.Settings
                 Description = "Игн. изменения пробелов в конце строк",
                 DescriptionExt = "В PL/SQL Developer применяется стандартный для Windows перенос строк в два символа CR-LF (“Carriage Return” и “Line Feed”). " +
                 "Если в локальном файле репозитория Git, перенос строк реализован через один символ LF (пока такое встречается редко), то при включённой опции, " +
-                "CR-LF в тексте объекта БД будет заменено на LF. Это позволит избежать конфликтов в каждой строчке текста. Так же эту проблему можно решить, "+
+                "CR-LF в тексте объекта БД будет заменено на LF. Это позволит избежать конфликтов в каждой строчке текста. Так же эту проблему можно решить, " +
                 "если в настрйоках Git установить переменную autocrlf в true(выполнить git config--global core.autocrlf true)",
                 Group = ePluginParameterGroupType.GitDiff,
-                ParamterType = ePluginParameterType.CheckBox,
                 OrderPosition = 50
             });
 
@@ -158,7 +205,6 @@ namespace Git4PL2.Plugin.Settings
                 DescriptionExt = "При сохранении текста объекта в репозитории, если название ветки не совпадает с соответствующим регулярным выражением " +
                 "– появится предупреждение, во избежание отправки изменений не в ту ветку.",
                 Group = ePluginParameterGroupType.Warning,
-                ParamterType = ePluginParameterType.CheckBox,
                 OrderPosition = 10
             });
 
@@ -168,7 +214,6 @@ namespace Git4PL2.Plugin.Settings
                 DescriptionExt = "При загрузке текста в PL/SQL Developer, если название сервера не совпадает с соответствующим регулярным выражением – " +
                 "появится предупреждение, во избежание изменения объекта БД не на том сервере",
                 Group = ePluginParameterGroupType.Warning,
-                ParamterType = ePluginParameterType.CheckBox,
                 OrderPosition = 20
             });
 
@@ -177,7 +222,6 @@ namespace Git4PL2.Plugin.Settings
                 Description = "Регулярное выражение, для проверки операции SaveText",
                 DescriptionExt = string.Empty,
                 Group = ePluginParameterGroupType.Warning,
-                ParamterType = ePluginParameterType.Text,
                 OrderPosition = 11
             });
 
@@ -186,7 +230,6 @@ namespace Git4PL2.Plugin.Settings
                 Description = "Регулярное выражение, для проверки операции LoadText",
                 DescriptionExt = string.Empty,
                 Group = ePluginParameterGroupType.Warning,
-                ParamterType = ePluginParameterType.Text,
                 OrderPosition = 21
             });
 
@@ -195,11 +238,27 @@ namespace Git4PL2.Plugin.Settings
                 Description = "Классическое расположение кнопок в окне Gitt Diff",
                 DescriptionExt = string.Empty,
                 Group = ePluginParameterGroupType.Others,
-                ParamterType = ePluginParameterType.CheckBox,
                 OrderPosition = 10
             });
 
-            Properties.Settings.Default.Save();
+            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterNames.ShowGitBlameProperties, true)
+            {
+                Description = "Запрашивать настройки для команды GitBlame",
+                DescriptionExt = "Если опция включена, то перед операцией GitBlame можно будет выбрать кол-во строк которое будет обработано. Если же отклчить настройку, то по умолчанию обработаются только 10 строк",
+                Group = ePluginParameterGroupType.Blame,
+                OrderPosition = 10
+            });
+
+            var CommitViewURL = _DefaultConfiguration.SelectToken("CommitViewURL").ToString();
+            if (string.IsNullOrEmpty(CommitViewURL)) 
+                CommitViewURL = "https://www.google.com/search?q=";
+            _ListSettings.Add(new PluginParameter<string>(ePluginParameterNames.CommitViewURL, CommitViewURL)
+            {
+                Description = "URL для запуска информации по коммиту",
+                DescriptionExt = "В окне GitBlame при запросе информации по комиту будет переход по этой ссылки. (К этой ссылке в конце будет добавлен sha комита)",
+                Group = ePluginParameterGroupType.Blame,
+                OrderPosition = 20
+            });
         }
     }
 }

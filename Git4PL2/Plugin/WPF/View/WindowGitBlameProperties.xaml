@@ -1,0 +1,58 @@
+﻿<Window x:Class="Git4PL2.Plugin.WPF.View.WindowGitBlameProperties"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Git4PL2.Plugin.WPF.View" SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/ListViewStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="TextBox">
+                <Setter Property="VerticalAlignment" Value="Bottom"/>
+                <Setter Property="Margin" Value="5,0,5,0"/>
+                <Setter Property="MinWidth" Value="30"/>
+                <Setter Property="TextAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="3"/>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="MinWidth" Value="80"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Background="{StaticResource  colorDarkBlue}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Border Style="{StaticResource BorderSettingsStyle}" MaxWidth="850">
+            <FlowDocumentScrollViewer>
+                <FlowDocument  Foreground="{StaticResource colotTextMain}" FontSize="14">
+                    <Paragraph>
+                        <Run Text="Выполнить операцию Git Blame для строки:"/>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Run Text="{Binding Line}" FontStyle="Italic" Foreground="{StaticResource colotTextSub }"/>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <Run Text="При этом захватить "/>
+                        <Span BaselineAlignment="Bottom">
+                            <TextBox Text="{Binding ValMinus}"/>
+                        </Span>
+                        <Run Text="строк 'ДО' неё и "/>
+                        <Span BaselineAlignment="Bottom">
+                            <TextBox Text="{Binding ValPlus}" TextAlignment="Center" Padding="3"/>
+                        </Span>
+                        <Run Text="строк 'ПОСЛЕ'"/>
+                    </Paragraph>
+                </FlowDocument>
+            </FlowDocumentScrollViewer>
+        </Border>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+            <Button Content="+5" Command="{Binding PlusFive}"/>
+            <Button Content="Выполнить" Command="{Binding Perform}"/>
+        </StackPanel>
+    </Grid>
+</Window>

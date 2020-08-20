@@ -27,7 +27,8 @@ namespace Git4PL2.Plugin.Settings
         public bool UnexpectedServer => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterNames.UnexpectedServer);
         public string WarnInRegEx => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterNames.WarnInRegEx);
         public string WarnOutRegEx => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterNames.WarnOutRegEx);
-
         public bool ClassicButtonsPosition => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterNames.ClassicButtonsPosition);
+        public bool ShowGitBlameProperties => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterNames.ShowGitBlameProperties);
+        public string CommitViewURL => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterNames.CommitViewURL);
     }
 }

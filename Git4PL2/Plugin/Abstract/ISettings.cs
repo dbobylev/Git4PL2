@@ -29,5 +29,9 @@ namespace Git4PL2.Plugin.Abstract
         string WarnOutRegEx { get; }
 
         bool ClassicButtonsPosition { get; }
+
+        bool ShowGitBlameProperties { get; }
+
+        string CommitViewURL { get; }
     }
 }

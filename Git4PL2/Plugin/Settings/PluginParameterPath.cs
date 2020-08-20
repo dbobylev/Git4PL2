@@ -16,6 +16,7 @@ namespace Git4PL2.Plugin.Settings
         public PluginParameterPath(ePluginParameterNames parameterName, string defaultValue) : base(parameterName, defaultValue)
         {
             SelectPathCommand = new RelayCommand(SelectFolder);
+            ParamterType = ePluginParameterType.Path;
         }
 
         private void SelectFolder(object param)

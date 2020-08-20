@@ -19,6 +19,8 @@ namespace Git4PL2.Plugin.Settings
         UnexpectedServer,
         WarnInRegEx,
         WarnOutRegEx,
-        ClassicButtonsPosition
+        ClassicButtonsPosition,
+        ShowGitBlameProperties,
+        CommitViewURL
     }
 }

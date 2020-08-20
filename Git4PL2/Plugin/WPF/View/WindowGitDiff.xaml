@@ -7,7 +7,7 @@
              xmlns:uc="clr-namespace:Git4PL2.Plugin.WPF.UserControl"
              xmlns:converters="clr-namespace:Git4PL2.Plugin.WPF.ModelView.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" SnapsToDevicePixels="False">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Margin" Value="5"/>
@@ -43,7 +43,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <uc:FlowDocumentScrollViewerExt Grid.Row="0" ListRuns="{Binding ListRuns, Mode=OneWay}" >
+        <uc:FlowDocumentScrollViewerExt Grid.Row="0" ListRuns="{Binding ListRuns, Mode=OneWay}">
             <FlowDocument FontFamily="Consolas" FontSize="12" PagePadding="0"/>
         </uc:FlowDocumentScrollViewerExt>
         <StackPanel Visibility="{Binding ButtonsClassicStyle, Mode=OneWay,Converter={StaticResource TrueToVisibilityConverter}}"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">

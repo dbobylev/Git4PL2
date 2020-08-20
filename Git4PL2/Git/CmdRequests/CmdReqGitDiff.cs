@@ -14,7 +14,7 @@ namespace Git4PL2.Git.CmdRequests
         private readonly IDbObjectText _dbObj;
         private string tmpPath;
 
-        public CmdReqGitDiff(IDbObjectText dbObj) : base(new CmdReadDiffText())
+        public CmdReqGitDiff(IDbObjectText dbObj, ICmdReader reader = null) : base(reader ?? new CmdReadDiffText())
         {
             _dbObj = dbObj;
         }

@@ -72,6 +72,15 @@ namespace Git4PL2.Plugin.Settings
                 throw ex;
             }
 
+            if (typeof(T) == typeof(string))
+            {
+                ParamterType = ePluginParameterType.Text;
+            } 
+            else if (typeof(T) == typeof(bool))
+            {
+                ParamterType = ePluginParameterType.CheckBox;
+            } 
+
             Seri.Log.Here().Verbose($"Значение параметра {Name}: {Value}");
         }
 

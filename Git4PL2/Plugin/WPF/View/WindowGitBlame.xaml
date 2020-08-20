@@ -1,0 +1,32 @@
+﻿<Window x:Class="Git4PL2.Plugin.WPF.View.WindowGitBlame"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Git4PL2.Plugin.WPF.View"
+             xmlns:uc="clr-namespace:Git4PL2.Plugin.WPF.UserControl"
+             mc:Ignorable="d"  WindowStartupLocation="CenterScreen" SizeToContent="Height" Width="1280">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="10,0"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <uc:FlowDocumentScrollViewerExt ListRuns="{Binding ListRuns, Mode=OneWay}" PreviewMouseLeftButtonUp="FlowDocumentScrollViewerExt_PreviewMouseLeftButtonUp">
+            <FlowDocument FontFamily="Consolas" FontSize="12" PagePadding="0"/>
+        </uc:FlowDocumentScrollViewerExt>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+            <TextBlock Text="Выбранный комит:" VerticalAlignment="Center" Margin="5"/>
+            <TextBlock FontWeight="Bold" FontFamily="Consolas" Text="{Binding CommitSha}" VerticalAlignment="Center" Margin="0,5,10,5"/>
+            <Button Content="Показать commit в TFS" 
+                    CommandParameter="{Binding CommitSha}"
+                    Command="{Binding ShowCommitCommand}"/>
+            <Button Content="Закрыть" Click="WindowClose"/>
+        </StackPanel>
+    </Grid>
+</Window>

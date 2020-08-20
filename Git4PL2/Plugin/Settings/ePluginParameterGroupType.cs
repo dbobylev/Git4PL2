@@ -11,6 +11,7 @@ namespace Git4PL2.Plugin.Settings
         Main,
         GitDiff,
         Warning,
+        Blame,
         Others
     }
 }

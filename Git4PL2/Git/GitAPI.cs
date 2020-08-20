@@ -126,6 +126,11 @@ namespace Git4PL2.Git
             return PerformProcess<string>(new CmdReqGitGetLastCommit());
         }
 
+        public int? GitDiffLineNumber(IDbObjectText dbObject, int SearchedLineNumber)
+        {
+            return PerformProcess<int?>(new CmdReqGitDiff(dbObject, new CmdReadDiffLineNumber(SearchedLineNumber)));
+        }
+
         private ICmdReader GetReader(ICmdReader reader, Type T)
         {
             if (reader == null)

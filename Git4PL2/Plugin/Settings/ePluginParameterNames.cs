@@ -21,6 +21,12 @@ namespace Git4PL2.Plugin.Settings
         WarnOutRegEx,
         ClassicButtonsPosition,
         ShowGitBlameProperties,
-        CommitViewURL
+        CommitViewURL,
+        SQL_DICTI_PARENT_COUNT,
+        SQL_DICTI_PARENT,
+        SQL_DICTI_HIERARCHY,
+        SQL_DICTIISN_BY_CONSTNAME,
+        DICTI_CHILDREN_LIMIT_ENABLE,
+        DICTI_CHILDREN_LIMIT_VALUE
     }
 }

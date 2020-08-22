@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Git4PL2.Plugin.Settings
+namespace Git4PL2.Plugin.WPF.Styles
 {
-    public enum ePluginParameterType
+    class DictiStyle
     {
-        Text,
-        CheckBox,
-        Path,
-        List
     }
 }

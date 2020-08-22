@@ -12,6 +12,7 @@ namespace Git4PL2.Plugin.WPF.ModelView.Converters
     class SettingsTemplateSelector : DataTemplateSelector
     {
         public DataTemplate SettingStringTemplate { get; set; }
+        public DataTemplate SettingIntTemplate { get; set; }
         public DataTemplate SettingsBoolTemplate { get; set; }
         public DataTemplate SettingsListTemplate { get; set; }
         public DataTemplate SettingsPathTemplate { get; set; }
@@ -26,14 +27,16 @@ namespace Git4PL2.Plugin.WPF.ModelView.Converters
             {
                 switch (Param.ParamterType)
                 {
-                    case Settings.ePluginParameterType.Path:
+                    case Settings.ePluginParameterUIType.Path:
                         return SettingsPathTemplate;
-                    case Settings.ePluginParameterType.Text:
+                    case Settings.ePluginParameterUIType.Text:
                         return SettingStringTemplate;
-                    case Settings.ePluginParameterType.CheckBox:
+                    case Settings.ePluginParameterUIType.CheckBox:
                         return SettingsBoolTemplate;
-                    case Settings.ePluginParameterType.List:
+                    case Settings.ePluginParameterUIType.List:
                         return SettingsListTemplate;
+                    case Settings.ePluginParameterUIType.Number:
+                        return SettingIntTemplate;
                     default:
                         break;
                 }

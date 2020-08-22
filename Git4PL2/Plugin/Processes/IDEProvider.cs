@@ -1,5 +1,7 @@
 ﻿using Git4PL2.Abstarct;
 using Git4PL2.IDE;
+using Git4PL2.IDE.Abstarct;
+using Git4PL2.IDE.SQL;
 using Git4PL2.Plugin.Abstract;
 using Git4PL2.Plugin.Model;
 using Serilog;
@@ -143,6 +145,32 @@ namespace Git4PL2.Plugin.Processes
         public int GetCurrentLine()
         {
             return _CallbackManager.GetDelegate<IDE_GetCursorY>()?.Invoke() ?? 1;
+        }
+
+        public List<T> SQLQueryExecute<T>(string query) where T : new()
+        {
+            List<T> result;
+            string ErrorMsg;
+
+            ISQLQueryExecute<T> SqlQueryExecute = NinjectCore.Get<ISQLQueryExecute<T>>();
+            SqlQueryExecute.SelectQuery = query;
+
+            Seri.Log.Here().Information("Начинаем запрос " + query);
+
+            if (!SqlQueryExecute.RunSQLSelectQuery(out result, out ErrorMsg))
+            {
+                // Возможно нужно обрабатывать по другому
+                throw new Exception(ErrorMsg);
+            }
+
+            Seri.Log.Here().Information("Запрос выполнен");
+
+            return result;
+        }
+
+        public string GetSelectedText()
+        {
+            return _CallbackManager.GetDelegate<IDE_GetSelectedText>()?.Invoke();
         }
     }
 }

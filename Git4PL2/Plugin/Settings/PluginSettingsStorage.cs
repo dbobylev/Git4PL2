@@ -7,6 +7,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Git4PL2.Plugin.Settings
@@ -132,6 +133,8 @@ namespace Git4PL2.Plugin.Settings
         {
             _ListSettings = new List<IPluginParameter>();
 
+            #region Main group
+
             _ListSettings.Add(new PluginParameterPath(ePluginParameterNames.GitRepositoryPath, @"D:\Repo")
             {
                 Description = "Репозиторий Git",
@@ -148,9 +151,14 @@ namespace Git4PL2.Plugin.Settings
                 "что в файле(потоке) используется Юникод, а также для косвенного указания кодировки и порядка байтов, " +
                 "с помощью которых символы Юникода были закодированы. Рекомендуется не менять существующий формат.",
                 Group = ePluginParameterGroupType.Main,
-                ParamterType = ePluginParameterType.List,
+                ParamterType = ePluginParameterUIType.List,
                 OrderPosition = 100
             });
+
+            #endregion
+
+
+            #region GitDiff group
 
             _ListSettings.Add(new PluginParameter<bool>(ePluginParameterNames.DiffAddSchema, true)
             {
@@ -195,9 +203,14 @@ namespace Git4PL2.Plugin.Settings
                 DescriptionExt = "Текст в файлах в репозитории Git заканчивается на ‘/’. Обработка этого символа предотвращает его " +
                 "затирание при операции сохранения текста. А также убирает этот символ при операции загрузки текста.",
                 Group = ePluginParameterGroupType.GitDiff,
-                ParamterType = ePluginParameterType.CheckBox,
+                ParamterType = ePluginParameterUIType.CheckBox,
                 OrderPosition = 40
             });
+
+            #endregion
+
+
+            #region Warning group
 
             _ListSettings.Add(new PluginParameter<bool>(ePluginParameterNames.UnexpectedBranch, true)
             {
@@ -233,13 +246,10 @@ namespace Git4PL2.Plugin.Settings
                 OrderPosition = 21
             });
 
-            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterNames.ClassicButtonsPosition, false)
-            {
-                Description = "Классическое расположение кнопок в окне Gitt Diff",
-                DescriptionExt = string.Empty,
-                Group = ePluginParameterGroupType.Others,
-                OrderPosition = 10
-            });
+            #endregion
+
+
+            #region Blame Group
 
             _ListSettings.Add(new PluginParameter<bool>(ePluginParameterNames.ShowGitBlameProperties, true)
             {
@@ -250,7 +260,7 @@ namespace Git4PL2.Plugin.Settings
             });
 
             var CommitViewURL = _DefaultConfiguration.SelectToken("CommitViewURL").ToString();
-            if (string.IsNullOrEmpty(CommitViewURL)) 
+            if (string.IsNullOrEmpty(CommitViewURL))
                 CommitViewURL = "https://www.google.com/search?q=";
             _ListSettings.Add(new PluginParameter<string>(ePluginParameterNames.CommitViewURL, CommitViewURL)
             {
@@ -259,6 +269,60 @@ namespace Git4PL2.Plugin.Settings
                 Group = ePluginParameterGroupType.Blame,
                 OrderPosition = 20
             });
+
+            #endregion
+
+
+            #region Others group
+
+            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterNames.ClassicButtonsPosition, false)
+            {
+                Description = "Классическое расположение кнопок в окне Gitt Diff",
+                DescriptionExt = string.Empty,
+                Group = ePluginParameterGroupType.Others,
+                OrderPosition = 10
+            });
+
+            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterNames.DICTI_CHILDREN_LIMIT_ENABLE, true)
+            {
+                Description = "Включить ограничение для отбора дочерних записей из Dicti",
+                Group = ePluginParameterGroupType.Others,
+                OrderPosition = 20
+            });
+
+            _ListSettings.Add(new PluginParameter<int>(ePluginParameterNames.DICTI_CHILDREN_LIMIT_VALUE, 20)
+            {
+                Description = "Лимит на кол0во отобранных дочерних записей для Dicti",
+                Group = ePluginParameterGroupType.Others,
+                OrderPosition = 20
+            });
+
+            #endregion
+
+
+            #region SQL Group
+
+            _ListSettings.Add(new PluginParameter<string>(ePluginParameterNames.SQL_DICTI_PARENT_COUNT,  _DefaultConfiguration.SelectToken("SQL_DICTI_PARENT_COUNT").ToString())
+            {
+                Group = ePluginParameterGroupType.SQL
+            });
+
+            _ListSettings.Add(new PluginParameter<string>(ePluginParameterNames.SQL_DICTI_PARENT, _DefaultConfiguration.SelectToken("SQL_DICTI_PARENT").ToString())
+            {
+                Group = ePluginParameterGroupType.SQL
+            });
+
+            _ListSettings.Add(new PluginParameter<string>(ePluginParameterNames.SQL_DICTI_HIERARCHY, _DefaultConfiguration.SelectToken("SQL_DICTI_HIERARCHY").ToString())
+            {
+                Group = ePluginParameterGroupType.SQL
+            });
+
+            _ListSettings.Add(new PluginParameter<string>(ePluginParameterNames.SQL_DICTIISN_BY_CONSTNAME, _DefaultConfiguration.SelectToken("SQL_DICTIISN_BY_CONSTNAME").ToString())
+            {
+                Group = ePluginParameterGroupType.SQL
+            });
+
+            #endregion
         }
     }
 }

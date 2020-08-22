@@ -174,6 +174,11 @@
     <Compile Include="Git\CmdRequests\CmdReqGitGetLastCommit.cs" />
     <Compile Include="Git\CommitInfo.cs" />
     <Compile Include="IDE\Abstarct\ICallbackManager.cs" />
+    <Compile Include="IDE\Abstarct\ISQLQueryExecute.cs" />
+    <Compile Include="IDE\SQL\SQLColumnAttribute.cs" />
+    <Compile Include="IDE\SQL\SQLQueryExecute.cs" />
+    <Compile Include="IDE\SQL\SQLResult.cs" />
+    <Compile Include="IDE\SQL\SQLRow.cs" />
     <Compile Include="Plugin\Abstract\IDiffLine.cs" />
     <Compile Include="Plugin\Abstract\IDiffText.cs" />
     <Compile Include="Plugin\Abstract\IIDEProvider.cs" />
@@ -226,6 +231,7 @@
     <Compile Include="Plugin\Processes\PluginCommand.cs" />
     <Compile Include="Plugin\Processes\PluginCommandOpenCommitByURL.cs" />
     <Compile Include="Plugin\Processes\PluginCommandSaveTextToRepository.cs" />
+    <Compile Include="Plugin\Processes\PluginCommandShowDicti.cs" />
     <Compile Include="Plugin\Processes\PluginCommandShowGitBlame.cs" />
     <Compile Include="Plugin\Processes\PluginCommandShowGitDiff.cs" />
     <Compile Include="Plugin\Processes\PluginCommandShowSettings.cs" />
@@ -233,7 +239,7 @@
     <Compile Include="Plugin\Processes\TextOperationsParametrs.cs" />
     <Compile Include="Plugin\Settings\ePluginParameterGroupType.cs" />
     <Compile Include="Plugin\Settings\ePluginParameterNames.cs" />
-    <Compile Include="Plugin\Settings\ePluginParameterType.cs" />
+    <Compile Include="Plugin\Settings\ePluginParameterUIType.cs" />
     <Compile Include="Plugin\Settings\PluginParameterPath.cs" />
     <Compile Include="Plugin\Settings\PluginParameter.cs" />
     <Compile Include="Plugin\Settings\PluginParameterGroup.cs" />
@@ -245,15 +251,23 @@
     <Compile Include="Plugin\WPF\ModelView\Converters\SettingsListConverter.cs" />
     <Compile Include="Plugin\WPF\ModelView\Converters\SettingsTemplateSelector.cs" />
     <Compile Include="Plugin\WPF\ModelView\Converters\WarningTextBlockConverter.cs" />
+    <Compile Include="Plugin\WPF\ModelView\DictiViewModel.cs" />
     <Compile Include="Plugin\WPF\ModelView\GitBlamePropertiesViewModel.cs" />
     <Compile Include="Plugin\WPF\ModelView\GitBlameViewModel.cs" />
     <Compile Include="Plugin\WPF\ModelView\GitDiffViewModel.cs" />
     <Compile Include="Plugin\WPF\ModelView\Helper.cs" />
     <Compile Include="Plugin\WPF\ModelView\PropertyChangedBase.cs" />
     <Compile Include="Plugin\WPF\ModelView\Converters\TrueToVisibilityConverter.cs" />
-    <Compile Include="Plugin\WPF\ModelView\PropertyTextViewModel.cs" />
     <Compile Include="Plugin\WPF\ModelView\SettingsViewModel.cs" />
-    <Compile Include="Plugin\WPF\UserControl\FlowDocumentScrollViewerExt.cs" />
+    <Compile Include="Plugin\WPF\Model\Dicti.cs" />
+    <Compile Include="Plugin\WPF\Model\DummyNumber.cs" />
+    <Compile Include="Plugin\WPF\UserControls\DataGridDicti.xaml.cs">
+      <DependentUpon>DataGridDicti.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Plugin\WPF\UserControls\FlowDocumentScrollViewerExt.cs" />
+    <Compile Include="Plugin\WPF\View\WindowDicti.xaml.cs">
+      <DependentUpon>WindowDicti.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Plugin\WPF\View\WindowGitBlame.xaml.cs">
       <DependentUpon>WindowGitBlame.xaml</DependentUpon>
     </Compile>
@@ -350,11 +364,17 @@
   <ItemGroup>
     <Resource Include="img\zoom-in.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Plugin\WPF\Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Page Include="Plugin\WPF\Styles\ListViewStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Plugin\WPF\UserControls\DataGridDicti.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Plugin\WPF\View\WindowDicti.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

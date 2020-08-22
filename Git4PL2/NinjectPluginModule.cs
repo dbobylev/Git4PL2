@@ -2,6 +2,8 @@
 using Git4PL2.Git;
 using Git4PL2.Git.Abstract;
 using Git4PL2.IDE;
+using Git4PL2.IDE.Abstarct;
+using Git4PL2.IDE.SQL;
 using Git4PL2.Plugin;
 using Git4PL2.Plugin.Abstract;
 using Git4PL2.Plugin.Model;
@@ -28,6 +30,8 @@ namespace Git4PL2
 
             Bind<CallbackManager>().ToSelf().InSingletonScope();
             Bind<ICallbackManager>().ToMethod(x => x.Kernel.Get<CallbackManager>());
+
+            Bind(typeof(ISQLQueryExecute<>)).To(typeof(SQLQueryExecute<>));
 
             Bind<Menu>().ToSelf().InSingletonScope();
             Bind<IMenu>().ToMethod(x => x.Kernel.Get<Menu>());

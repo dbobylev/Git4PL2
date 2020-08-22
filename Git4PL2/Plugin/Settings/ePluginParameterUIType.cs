@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace Git4PL2.Plugin.Settings
 {
-    public enum ePluginParameterGroupType
+    public enum ePluginParameterUIType
     {
-        Main,
-        GitDiff,
-        Warning,
-        Blame,
-        Others,
-        SQL
+        Text,
+        Number,
+        CheckBox,
+        Path,
+        List
     }
 }

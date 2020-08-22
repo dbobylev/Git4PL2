@@ -4,6 +4,7 @@
 
     <converter:EmptyValueToVisibilityConverter x:Key="EmptyValueToVisibilityConverter"/>
 
+    <SolidColorBrush x:Key="colorButtonOnDarkBlue" Color="#FFB6D3CF"/>
     <SolidColorBrush x:Key="colorDarkBlue" Color="#5e6472"/>
     <SolidColorBrush x:Key="colorBlue" Color="#aed9e0"/>
     <SolidColorBrush x:Key="colorSelectedGroup" Color="#faf3dd"/>
@@ -77,6 +78,9 @@
     </Style>
 
     <!-- Шаблоны в зависимости от конекта данных-->
+    <DataTemplate x:Key="SettingIntTemplate">
+        <TextBox Text="{Binding Path=ValueInt, UpdateSourceTrigger=LostFocus}"  VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+    </DataTemplate>
     <DataTemplate x:Key="SettingStringTemplate">
         <TextBox Text="{Binding Path=ValueString, UpdateSourceTrigger=LostFocus}"  VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
     </DataTemplate>

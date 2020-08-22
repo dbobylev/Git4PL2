@@ -1,5 +1,5 @@
 ﻿using Git4PL2.Plugin.WPF.ModelView;
-using Git4PL2.Plugin.WPF.UserControl;
+using Git4PL2.Plugin.WPF.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;

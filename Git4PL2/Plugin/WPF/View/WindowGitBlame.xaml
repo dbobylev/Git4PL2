@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Git4PL2.Plugin.WPF.View"
-             xmlns:uc="clr-namespace:Git4PL2.Plugin.WPF.UserControl"
+             xmlns:uc="clr-namespace:Git4PL2.Plugin.WPF.UserControls"
              mc:Ignorable="d"  WindowStartupLocation="CenterScreen" SizeToContent="Height" Width="1280">
     <Window.Resources>
         <Style TargetType="Button">

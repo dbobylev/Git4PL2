@@ -52,6 +52,7 @@
             <ListView.ItemTemplateSelector>
                 <converter:SettingsTemplateSelector 
                                 SettingsBoolTemplate="{StaticResource SettingsBoolTemplate}"
+                                SettingIntTemplate="{StaticResource SettingIntTemplate}"
                                 SettingStringTemplate="{StaticResource SettingStringTemplate}"
                                 SettingsListTemplate="{StaticResource SettingsListTemplate}"
                                 SettingsPathTemplate="{StaticResource SettingsPathTemplate}"/>

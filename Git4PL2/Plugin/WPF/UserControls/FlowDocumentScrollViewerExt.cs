@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 
-namespace Git4PL2.Plugin.WPF.UserControl
+namespace Git4PL2.Plugin.WPF.UserControls
 {
     class FlowDocumentScrollViewerExt : FlowDocumentScrollViewer
     {

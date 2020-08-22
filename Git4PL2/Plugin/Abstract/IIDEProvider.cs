@@ -18,5 +18,9 @@ namespace Git4PL2.Plugin.Abstract
         bool SetText(string Text);
 
         int GetCurrentLine();
+
+        List<T> SQLQueryExecute<T>(string query) where T : new();
+
+        string GetSelectedText();
     }
 }

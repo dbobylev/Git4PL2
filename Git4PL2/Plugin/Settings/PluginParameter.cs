@@ -17,18 +17,18 @@ namespace Git4PL2.Plugin.Settings
     public class PluginParameter<T> :IPluginParameter
     {
         public ePluginParameterNames Name { get; private set; }
+        public ePluginParameterGroupType Group { get; set; }
+        public ePluginParameterUIType ParamterType { get; set; }
 
-        public ePluginParameterType ParamterType { get; set; }
 
         public string Description { get; set; }
-
         public string DescriptionExt { get; set; }
 
         public T Value { get; private set; }
 
-        public ePluginParameterGroupType Group { get; set; }
 
         public int OrderPosition { get; set; }
+
 
         public PluginParameter(ePluginParameterNames parameterName, T DefaultValue)
         {
@@ -74,12 +74,16 @@ namespace Git4PL2.Plugin.Settings
 
             if (typeof(T) == typeof(string))
             {
-                ParamterType = ePluginParameterType.Text;
+                ParamterType = ePluginParameterUIType.Text;
             } 
             else if (typeof(T) == typeof(bool))
             {
-                ParamterType = ePluginParameterType.CheckBox;
+                ParamterType = ePluginParameterUIType.CheckBox;
             } 
+            else if (typeof(T) == typeof(int))
+            {
+                ParamterType = ePluginParameterUIType.Number;
+            }
 
             Seri.Log.Here().Verbose($"Значение параметра {Name}: {Value}");
         }

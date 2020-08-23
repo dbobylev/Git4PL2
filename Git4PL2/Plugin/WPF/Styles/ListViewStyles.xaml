@@ -3,6 +3,7 @@
                     xmlns:converter="clr-namespace:Git4PL2.Plugin.WPF.ModelView.Converters">
 
     <converter:EmptyValueToVisibilityConverter x:Key="EmptyValueToVisibilityConverter"/>
+    <converter:IsEnableSettingsConverter x:Key="IsEnableSettingsConverter"/>
 
     <SolidColorBrush x:Key="colorButtonOnDarkBlue" Color="#FFB6D3CF"/>
     <SolidColorBrush x:Key="colorDarkBlue" Color="#5e6472"/>
@@ -11,6 +12,7 @@
     <SolidColorBrush x:Key="colotTextMain" Color="Black"/>
     <SolidColorBrush x:Key="colotTextSub" Color="#5e6472"/>
     <SolidColorBrush x:Key="colorSettingsBorder" Color="#b8f2e6"/>
+    <SolidColorBrush x:Key="colorSettingsBorderDisable" Color="#FFC9D1D1"/>
 
     <Style x:Key="BorderSettingsStyle" TargetType="Border">
         <Setter Property="Margin" Value="5"/>
@@ -20,6 +22,13 @@
         <Setter Property="VerticalAlignment" Value="Stretch"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="Background" Value="{StaticResource colorBlue}"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="{StaticResource colorSettingsBorderDisable}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource colorSettingsBorderDisable}"/>
+                <Setter Property="TextBlock.Foreground" Value="Gray"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <Style x:Key="ListViewItemGroupStyle" TargetType="ListViewItem">
@@ -52,26 +61,38 @@
                             <Setter Property="TextWrapping" Value="Wrap"/>
                         </Style>
                     </ControlTemplate.Resources>
-                        <Border Width="600" Style="{StaticResource BorderSettingsStyle}">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="300"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Text="{Binding Description}" VerticalAlignment="Center"/>
-                                <ContentPresenter Grid.Column="1" Margin="5" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                                <TextBlock Grid.Row="1" 
-                                           Grid.ColumnSpan="2" 
-                                           Text="{Binding DescriptionExt}" 
-                                           FontStyle="Italic" 
-                                           Foreground="{StaticResource colotTextSub}"
-                                           Visibility="{Binding DescriptionExt, Converter={StaticResource EmptyValueToVisibilityConverter}}"/>
-                            </Grid>
-                        </Border>
+                    <Border Width="600" IsEnabled="{Binding ElementName=content, Path=IsEnabled}" Style="{StaticResource BorderSettingsStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="300"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="{Binding Description}" VerticalAlignment="Center"/>
+                            <ContentPresenter 
+                                x:Name="content"
+                                Grid.Column="1" 
+                                Margin="5" 
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                                <!--Здесь определяется вкл или выключена настройка-->
+                                <ContentPresenter.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource IsEnableSettingsConverter}">
+                                        <Binding Path="ItemsSource" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=ListView}"/>
+                                        <Binding Path="ParentParameter"/>
+                                    </MultiBinding>
+                                </ContentPresenter.IsEnabled>
+                            </ContentPresenter>
+                            <TextBlock Grid.Row="1" 
+                                        Grid.ColumnSpan="2" 
+                                        Text="{Binding DescriptionExt}" 
+                                        FontStyle="Italic" 
+                                        Foreground="{StaticResource colotTextSub}"
+                                        Visibility="{Binding DescriptionExt, Converter={StaticResource EmptyValueToVisibilityConverter}}"/>
+                        </Grid>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

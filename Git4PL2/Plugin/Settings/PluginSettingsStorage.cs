@@ -58,12 +58,12 @@ namespace Git4PL2.Plugin.Settings
 
         public IPluginParameter GetParam(ePluginParameterNames name)
         {
-            return _ListSettings.First(x => x.Name == name);
+            return _ListSettings.First(x => x.ID == name);
         }
 
         public T GetParamValue<T>(ePluginParameterNames name)
         {
-            return _ListSettings.First(x => x.Name == name).GetValue<T>();
+            return _ListSettings.First(x => x.ID == name).GetValue<T>();
         }
 
         public IEnumerable<IPluginParameter> ParametersByGroup(ePluginParameterGroupType GroupType)
@@ -151,7 +151,7 @@ namespace Git4PL2.Plugin.Settings
                 "что в файле(потоке) используется Юникод, а также для косвенного указания кодировки и порядка байтов, " +
                 "с помощью которых символы Юникода были закодированы. Рекомендуется не менять существующий формат.",
                 Group = ePluginParameterGroupType.Main,
-                ParamterType = ePluginParameterUIType.List,
+                ParamterUIType = ePluginParameterUIType.List,
                 OrderPosition = 100
             });
 
@@ -203,7 +203,7 @@ namespace Git4PL2.Plugin.Settings
                 DescriptionExt = "Текст в файлах в репозитории Git заканчивается на ‘/’. Обработка этого символа предотвращает его " +
                 "затирание при операции сохранения текста. А также убирает этот символ при операции загрузки текста.",
                 Group = ePluginParameterGroupType.GitDiff,
-                ParamterType = ePluginParameterUIType.CheckBox,
+                ParamterUIType = ePluginParameterUIType.CheckBox,
                 OrderPosition = 40
             });
 
@@ -235,6 +235,7 @@ namespace Git4PL2.Plugin.Settings
                 Description = "Регулярное выражение, для проверки операции SaveText",
                 DescriptionExt = string.Empty,
                 Group = ePluginParameterGroupType.Warning,
+                ParentParameter = ePluginParameterNames.UnexpectedBranch,
                 OrderPosition = 11
             });
 
@@ -243,6 +244,7 @@ namespace Git4PL2.Plugin.Settings
                 Description = "Регулярное выражение, для проверки операции LoadText",
                 DescriptionExt = string.Empty,
                 Group = ePluginParameterGroupType.Warning,
+                ParentParameter = ePluginParameterNames.UnexpectedServer,
                 OrderPosition = 21
             });
 
@@ -294,6 +296,7 @@ namespace Git4PL2.Plugin.Settings
             {
                 Description = "Лимит на кол0во отобранных дочерних записей для Dicti",
                 Group = ePluginParameterGroupType.Others,
+                ParentParameter = ePluginParameterNames.DICTI_CHILDREN_LIMIT_ENABLE,
                 OrderPosition = 20
             });
 

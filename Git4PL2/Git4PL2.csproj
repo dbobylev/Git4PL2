@@ -184,6 +184,8 @@
     <Compile Include="Plugin\Settings\Settings.cs" />
     <Compile Include="Plugin\WPF\ModelView\Converters\EmptyValueToVisibilityConverter.cs" />
     <Compile Include="Plugin\WPF\ModelView\Converters\FalseToVisibilityConverter.cs" />
+    <Compile Include="Plugin\WPF\ModelView\Converters\IsEnableSettingsConverter.cs" />
+    <Compile Include="Plugin\WPF\ModelView\ParameterViewModel.cs" />
     <Compile Include="Plugin\WPF\ModelView\Converters\SettingsListConverter.cs" />
     <Compile Include="Plugin\WPF\ModelView\Converters\SettingsTemplateSelector.cs" />
     <Compile Include="Plugin\WPF\ModelView\Converters\WarningTextBlockConverter.cs" />

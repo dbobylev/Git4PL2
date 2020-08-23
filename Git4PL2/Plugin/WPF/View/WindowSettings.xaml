@@ -29,7 +29,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <ListView Margin="5,5,-5,5" x:Name="ListViewGroups" ItemsSource="{Binding Path=Groups, Mode=OneTime}" SelectedIndex="0" Foreground="{StaticResource colotTextMain}" HorizontalAlignment="Stretch">
+        <ListView Margin="5,5,-5,5" x:Name="ListViewGroups" SelectedValue="{Binding SelectedGroup, Mode=OneWayToSource}" ItemsSource="{Binding Path=Groups, Mode=OneTime}" SelectedIndex="0" Foreground="{StaticResource colotTextMain}" HorizontalAlignment="Stretch">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem" BasedOn="{StaticResource ListViewItemGroupStyle}"/>
             </ListView.ItemContainerStyle>
@@ -39,13 +39,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView Grid.Column="1">
-            <ListView.ItemsSource>
-                <MultiBinding Converter="{StaticResource SettingsListConverter}">
-                    <Binding ElementName="ListViewGroups" Path="SelectedItem"/>
-                    <Binding Path="SettingStorages"/>
-                </MultiBinding>
-            </ListView.ItemsSource>
+        <ListView Grid.Column="1"  ItemsSource="{Binding ParametersList}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem" BasedOn="{StaticResource ListViewItemSettingsStyle}"/>
             </ListView.ItemContainerStyle>

@@ -23,9 +23,9 @@ namespace Git4PL2.Plugin.WPF.ModelView.Converters
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            if (item is IPluginParameter Param)
+            if (item is ParameterViewModel Param)
             {
-                switch (Param.ParamterType)
+                switch (Param.ParamterUIType)
                 {
                     case Settings.ePluginParameterUIType.Path:
                         return SettingsPathTemplate;

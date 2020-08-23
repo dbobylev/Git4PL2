@@ -16,25 +16,58 @@ namespace Git4PL2.Plugin.Settings
 {
     public class PluginParameter<T> :IPluginParameter
     {
-        public ePluginParameterNames Name { get; private set; }
+        /// <summary>
+        /// ID параметра, используется при сохранении в user.config
+        /// </summary>
+        public ePluginParameterNames ID { get; private set; }
+
+        /// <summary>
+        /// Группа к которой относится параметр
+        /// </summary>
         public ePluginParameterGroupType Group { get; set; }
-        public ePluginParameterUIType ParamterType { get; set; }
 
+        /// <summary>
+        /// Тип отображения параметра в окне настроек
+        /// </summary>
+        public ePluginParameterUIType ParamterUIType { get; set; }
 
+        /// <summary>
+        /// Название параметра 
+        /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Подробное описание работы параметра
+        /// </summary>
         public string DescriptionExt { get; set; }
 
+        /// <summary>
+        /// Значение параметра
+        /// </summary>
         public T Value { get; private set; }
 
-
+        /// <summary>
+        /// Порядок сортировки параматров в рамках одной группы
+        /// </summary>
         public int OrderPosition { get; set; }
+
+        /// <summary>
+        /// Ссылка на параметр родителя. 
+        /// Родитель должен быть обязательно с типом bool
+        /// Если родитель имеет значение false или отключен, этот параметр становится отключенным 
+        /// (т.е. недоступным для редактирования в окне настроек)
+        /// Поиск родителя происходит в рамках группы
+        /// 
+        /// Если ParentParameter не указывать то параметр останется всегда включен 
+        /// </summary>
+        public ePluginParameterNames ParentParameter { get; set; }
 
 
         public PluginParameter(ePluginParameterNames parameterName, T DefaultValue)
         {
             Seri.Log.Here().Verbose($"Настройка параметра {parameterName}");
 
-            Name = parameterName;
+            ID = parameterName;
 
             var ConstantName = parameterName.ToString();
 
@@ -74,76 +107,45 @@ namespace Git4PL2.Plugin.Settings
 
             if (typeof(T) == typeof(string))
             {
-                ParamterType = ePluginParameterUIType.Text;
+                ParamterUIType = ePluginParameterUIType.Text;
             } 
             else if (typeof(T) == typeof(bool))
             {
-                ParamterType = ePluginParameterUIType.CheckBox;
+                ParamterUIType = ePluginParameterUIType.CheckBox;
             } 
             else if (typeof(T) == typeof(int))
             {
-                ParamterType = ePluginParameterUIType.Number;
+                ParamterUIType = ePluginParameterUIType.Number;
             }
 
-            Seri.Log.Here().Verbose($"Значение параметра {Name}: {Value}");
+            Seri.Log.Here().Verbose($"Значение параметра {ID}: {Value}");
         }
 
 
         public P GetValue<P>()
         {
+            if (typeof(P) == typeof(string))
+                return (P)(object)Value;
             if (Value is P answerValue)
                 return answerValue;
 
+            
             throw new NotImplementedException();
         }
 
         public void SetValue<P>(P value)
         {
-            Seri.Log.Here().Verbose($"Патыемся сохранить праметр {Name}, значение: {value}");
+            Seri.Log.Here().Verbose($"Патыемся сохранить праметр {ID}, значение: {value}");
             if (value is T SetValue)
             {
                 Value = SetValue;
-                Properties.Settings.Default[Name.ToString()] = value;
+                Properties.Settings.Default[ID.ToString()] = value;
 
-                Seri.Log.Here().Verbose($"Сохранияем праметр {Name}, значение: {value}");
+                Seri.Log.Here().Verbose($"Сохранияем праметр {ID}, значение: {value}");
                 Properties.Settings.Default.Save();
             }
         }
 
-        public string ValueString
-        {
-            get
-            {
-                return GetValue<string>();
-            }
-            set
-            {
-                SetValue(value);
-            }
-        }
 
-        public bool ValueBool
-        {
-            get
-            {
-                return GetValue<bool>();
-            }
-            set
-            {
-                SetValue(value);
-            }
-        }
-
-        public int ValueInt
-        {
-            get
-            {
-                return GetValue<int>();
-            }
-            set
-            {
-                SetValue(value);
-            }
-        }
     }
 }

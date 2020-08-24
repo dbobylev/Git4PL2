@@ -11,15 +11,19 @@ namespace Git4PL2.Plugin.WPF.ModelView.Converters
 {
     class WarningTextBlockConverter :IValueConverter
     {
-        public Style WarningStyle { get; set; }
-        public Style DefaultStyle { get; set; }
+        public Style WarningAllowColorTextBlock { get; set; }
+        public Style WarningErrorColorTextBlock { get; set; }
+        public Style DefaultColorTextBlock { get; set; }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is bool boolValue && boolValue)
-                return WarningStyle;
+            if (value == null)
+                return DefaultColorTextBlock;
 
-            return DefaultStyle;
+            if (value is bool boolValue)
+                return boolValue ? WarningErrorColorTextBlock : WarningAllowColorTextBlock;
+
+            return DefaultColorTextBlock;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

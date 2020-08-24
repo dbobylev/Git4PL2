@@ -28,8 +28,8 @@ namespace Git4PL2.Plugin.WPF.ModelView
         public string CurrentDataBase { get; private set; }
         public string ObjectDescrName { get; private set; }
         public string ObjectFullPath { get; private set; }
-        public bool UnexpectedBranch { get; private set; }
-        public bool UnexpectedServer { get; private set; }
+        public bool? UnexpectedBranch { get; private set; }
+        public bool? UnexpectedServer { get; private set; }
 
         #endregion
 
@@ -65,8 +65,10 @@ namespace Git4PL2.Plugin.WPF.ModelView
             ObjectDescrName = DbObjectText.DescriptionName;
             ObjectFullPath = DbObjectText.GetRawFilePath();
 
-            UnexpectedBranch = Warnings.IsBranchUnexsepted(CurrentBranch, true);
-            UnexpectedServer = Warnings.IsServerUnexsepted(CurrentDataBase, true);
+            if (Settings.UnexpectedBranch)
+                UnexpectedBranch = Warnings.IsBranchUnexsepted(CurrentBranch, true);
+            if (Settings.UnexpectedServer)
+                UnexpectedServer = Warnings.IsServerUnexsepted(CurrentDataBase, true);
 
             SaveTextCommand = NinjectCore.Get<PluginCommandSaveTextToRepository>();
             LoadTextCommand = NinjectCore.Get<PluginCommandLoadTextFromRepository>();

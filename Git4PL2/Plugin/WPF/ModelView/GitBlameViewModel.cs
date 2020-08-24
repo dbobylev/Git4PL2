@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -40,7 +41,12 @@ namespace Git4PL2.Plugin.WPF.ModelView
                     brush = ColorsByCommit[sha];
                 else
                 {
-                    brush = new SolidColorBrush(Color.FromRgb(GenRGBVal(), GenRGBVal(), GenRGBVal()));
+                    int pos255 = random.Next(0, 3);
+                    byte colorR = pos255 == 0 ? (byte)255 : GenRGBVal();
+                    byte colorG = pos255 == 1 ? (byte)255 : GenRGBVal();
+                    byte colorB = pos255 == 2 ? (byte)255 : GenRGBVal();
+
+                    brush = new SolidColorBrush(Color.FromRgb(colorR, colorG, colorB));
                     ColorsByCommit.Add(sha, brush);
                 }
 

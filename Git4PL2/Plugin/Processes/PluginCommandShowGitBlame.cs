@@ -41,7 +41,7 @@ namespace Git4PL2.Plugin.Processes
 
                 if (_Settings.ShowGitBlameProperties)
                 {
-                    string[] TextLines = DbObjectText.Text.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] TextLines = DbObjectText.Text.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
                     WindowGitBlameProperties wgbp = new WindowGitBlameProperties(TextLines[(int)CurrentLineNumber - 1]);
                     bool? result = wgbp.ShowDialog();

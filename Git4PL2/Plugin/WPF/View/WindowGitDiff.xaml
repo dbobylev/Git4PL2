@@ -22,17 +22,24 @@
             <Setter Property="Margin" Value="5,0,0,0"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
-        <Style x:Key="WarningColorTextBlock" TargetType="TextBlock" BasedOn="{StaticResource StatusBarTextStyle}">
+        <Style x:Key="WarningErrorColorTextBlock" TargetType="TextBlock" BasedOn="{StaticResource StatusBarTextStyle}">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Background" Value="Red"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="TextDecorations" Value="Underline"/>
         </Style>
-        <Style x:Key="DefaultColorTextBlock" TargetType="TextBlock" BasedOn="{StaticResource StatusBarTextStyle}">
+        <Style x:Key="WarningAllowColorTextBlock" TargetType="TextBlock" BasedOn="{StaticResource StatusBarTextStyle}">
             <Setter Property="Foreground" Value="#303030"/>
             <Setter Property="Background" Value="LightGreen"/>
         </Style>
-        <converters:WarningTextBlockConverter x:Key="WarningTextBlockConverter" WarningStyle="{StaticResource WarningColorTextBlock}" DefaultStyle="{StaticResource DefaultColorTextBlock}"/>
+        <Style x:Key="DefaultColorTextBlock" TargetType="TextBlock" BasedOn="{StaticResource StatusBarTextStyle}">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+        <converters:WarningTextBlockConverter x:Key="WarningTextBlockConverter" 
+                                              WarningAllowColorTextBlock="{StaticResource WarningAllowColorTextBlock}"
+                                              WarningErrorColorTextBlock="{StaticResource WarningErrorColorTextBlock}"
+                                              DefaultColorTextBlock="{StaticResource DefaultColorTextBlock}"/>
         <converters:TrueToVisibilityConverter x:Key="TrueToVisibilityConverter"/>
         <converters:FalseToVisibilityConverter x:Key="FalseToVisibilityConverter"/>
         <SolidColorBrush x:Key="colorLoadButton" Color="#FFC0FFFF"/>

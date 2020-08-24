@@ -7,8 +7,8 @@
              xmlns:uc="clr-namespace:Git4PL2.Plugin.WPF.UserControls"
              xmlns:converters="clr-namespace:Git4PL2.Plugin.WPF.ModelView.Converters"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             SizeToContent="Manual"
-             WindowStartupLocation="CenterScreen" Height="650"
+             SizeToContent="Height"
+             WindowStartupLocation="CenterScreen" Height="700"
              mc:Ignorable="d">
     <Window.Resources>
         <ResourceDictionary>
@@ -33,8 +33,8 @@
             <RowDefinition Height="25"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="25"/>
-            <RowDefinition Height="Auto" MaxHeight="460"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Запись Dicti и родители элемета:"/>
         <Border Style="{StaticResource BorderSettingsStyle}" Padding="5" Margin="10,5" Grid.Row="1">

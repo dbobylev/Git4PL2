@@ -80,8 +80,9 @@ namespace Git4PL2.Plugin.Settings
 
         try
         {
-            Seri.Log.Here().Debug("Пробуем загрузить Json файл с найстройками по умолчанию");
-            _DefaultConfiguration = JObject.Parse(File.ReadAllText("Git4PL2DefaultPreset.json"));
+            var JsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Git4PL2DefaultPreset.json");
+            Seri.Log.Here().Debug("Пробуем загрузить Json файл с найстройками по умолчанию " + JsonPath);
+            _DefaultConfiguration = JObject.Parse(File.ReadAllText(JsonPath));
             Seri.Log.Here().Information("Json файл загружен");
         }
         catch (Exception ex)

@@ -176,7 +176,6 @@
     <Compile Include="Plugin\Settings\ePluginParameterGroupType.cs" />
     <Compile Include="Plugin\Settings\ePluginParameterNames.cs" />
     <Compile Include="Plugin\Settings\ePluginParameterUIType.cs" />
-    <Compile Include="Plugin\Settings\PluginParameterPath.cs" />
     <Compile Include="Plugin\Settings\PluginParameter.cs" />
     <Compile Include="Plugin\Settings\PluginParameterGroup.cs" />
     <Compile Include="Plugin\Settings\PluginParameterList.cs" />

@@ -12,6 +12,7 @@ namespace Git4PL2.Plugin.Settings
         GitDiff,
         Warning,
         Blame,
+        TeamCoding,
         Others,
         SQL
     }

@@ -8,14 +8,8 @@ namespace Git4PL2.Plugin.Abstract
 {
     public interface IDbObject
     {
-        void DirectoriesChecks();
-        
-        string DescriptionName { get; }
-
-        string GetRawFilePath();
-
-        string FileName { get; }
-
-        string RepName { get;  }
+        string ObjectOwner { get; }
+        string ObjectName { get; }
+        string ObjectType { get; }
     }
 }

@@ -30,13 +30,18 @@ namespace Git4PL2.Plugin.Settings
         public bool ClassicButtonsPosition => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterNames.ClassicButtonsPosition);
         public bool ShowGitBlameProperties => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterNames.ShowGitBlameProperties);
         public string CommitViewURL => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterNames.CommitViewURL);
-
         public string SQL_DICTI_PARENT_COUNT => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterNames.SQL_DICTI_PARENT_COUNT);
         public string SQL_DICTI_PARENT => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterNames.SQL_DICTI_PARENT);
         public string SQL_DICTI_HIERARCHY => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterNames.SQL_DICTI_HIERARCHY);
-
         public bool DICTI_CHILDREN_LIMIT_ENABLE => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterNames.DICTI_CHILDREN_LIMIT_ENABLE);
         public int DICTI_CHILDREN_LIMIT_VALUE => _PluginSettingsStorage.GetParamValue<int>(ePluginParameterNames.DICTI_CHILDREN_LIMIT_VALUE);
         public string SQL_DICTIISN_BY_CONSTNAME => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterNames.SQL_DICTIISN_BY_CONSTNAME);
+        public string SQL_SERVERNAME => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterNames.SQL_SERVERNAME);
+        public bool TEAMCODING_ENABLE => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterNames.TEAMCODING_ENABLE);
+        public string TEAMCODING_LOGIN => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterNames.TEAMCODING_LOGIN);
+        public bool TEAMCODING_RESTRICT_COMPILE_WITHOUT_CHECKOUT => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterNames.TEAMCODING_RESTRICT_COMPILE_WITHOUT_CHECKOUT);
+        public int TEAMCODING_PROVIDER => _PluginSettingsStorage.GetParamValue<int>(ePluginParameterNames.TEAMCODING_PROVIDER);
+        public string TEAMCODING_FILEPROVIDER_PATH => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterNames.TEAMCODING_FILEPROVIDER_PATH);
+        public string TEAMCODING_SERVERNAME_REGEX => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterNames.TEAMCODING_SERVERNAME_REGEX);
     }
 }

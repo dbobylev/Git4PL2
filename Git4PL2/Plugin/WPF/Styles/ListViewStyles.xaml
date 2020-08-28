@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:converter="clr-namespace:Git4PL2.Plugin.WPF.ModelView.Converters">
+                    xmlns:converter="clr-namespace:Git4PL2.Plugin.WPF.ViewModel.Converters">
 
     <converter:EmptyValueToVisibilityConverter x:Key="EmptyValueToVisibilityConverter"/>
     <converter:IsEnableSettingsConverter x:Key="IsEnableSettingsConverter"/>

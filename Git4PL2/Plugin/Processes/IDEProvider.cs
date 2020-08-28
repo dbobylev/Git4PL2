@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 
 namespace Git4PL2.Plugin.Processes
 {
@@ -25,7 +26,7 @@ namespace Git4PL2.Plugin.Processes
             _PlsqlCodeFormatter = PlsqlCodeFormatter;
         }
 
-        public T GetDbObject<T>() where T: IDbObject
+        public T GetDbObject<T>(bool silent = false) where T: IDbObject
         {
             Seri.Log.Here().Debug("Begin GetDbObject");
 
@@ -33,7 +34,10 @@ namespace Git4PL2.Plugin.Processes
 
             if (IDEWindowType != 4 && IDEWindowType != 3)
             {
-                throw new Exception("Объект БД должен находиться в прграмном окне");
+                if (silent)
+                    return default;
+                else
+                    throw new Exception("Объект БД должен находиться в прграмном окне");
             }
 
             string ObjectType = string.Empty;
@@ -65,14 +69,17 @@ namespace Git4PL2.Plugin.Processes
                     }
                 }
 
-                DbObject dbObj = new DbObject(ObjectOwner, ObjectName, ObjectType);
+                DbObject dbObject = new DbObject(ObjectOwner, ObjectName, ObjectType);
+                if (dbObject is T ansDbObject)
+                    return ansDbObject;
 
-                if (dbObj is T ansdbObj)
-                    return ansdbObj;
+                DbObjectRepository dbObjectRepository = new DbObjectRepository(ObjectOwner, ObjectName, ObjectType);
+                if (dbObjectRepository is T ansDbObjectRepository)
+                    return ansDbObjectRepository;
 
-                DbObjectText dbObjText = new DbObjectText(dbObj, text);
-                if (dbObjText is T ansdbObjText)
-                    return ansdbObjText;
+                DbObjectText dbObjectText = new DbObjectText(dbObjectRepository, text);
+                if (dbObjectText is T ansDbObjectText)
+                    return ansDbObjectText;
             }
 
             return default;

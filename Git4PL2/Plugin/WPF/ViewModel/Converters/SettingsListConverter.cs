@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace Git4PL2.Plugin.WPF.ModelView.Converters
+namespace Git4PL2.Plugin.WPF.ViewModel.Converters
 {
     class SettingsListConverter : IMultiValueConverter
     {

@@ -1,4 +1,4 @@
-﻿using Git4PL2.Plugin.WPF.ModelView;
+﻿using Git4PL2.Plugin.WPF.ViewModel;
 using Git4PL2.Plugin.WPF.UserControls;
 using System;
 using System.Collections.Generic;

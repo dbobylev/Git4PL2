@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Git4PL2.Plugin.Abstract
 {
-    public interface IDbObjectText :IDbObject
+    public interface IDbObjectText :IDbObjectRepository
     {
         string Text { get;  }
 

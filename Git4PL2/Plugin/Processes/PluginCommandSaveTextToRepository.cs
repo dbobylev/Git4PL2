@@ -29,7 +29,7 @@ namespace Git4PL2.Plugin.Processes
             _Warnings = Warnings;
         }
 
-        public override async void Execute(object parameter)
+        public override void Execute(object parameter)
         {
             _CanExecute = false;
             try
@@ -39,7 +39,7 @@ namespace Git4PL2.Plugin.Processes
                     _DbObjectText = TextParam.DbObjectText;
                     _BranchName = TextParam.StringParam;
                 }
-                await SaveText();
+                SaveText();
             }
             catch (Exception ex)
             {
@@ -51,27 +51,24 @@ namespace Git4PL2.Plugin.Processes
             }
         }
 
-        private Task SaveText()
+        private void SaveText()
         {
-            return Task.Run(() => {
-                if (_DbObjectText == null)
-                    _DbObjectText = _IDEProvider.GetDbObject<IDbObjectText>();
-                else
-                    _DbObjectText.DirectoriesChecks();
+            if (_DbObjectText == null)
+                _DbObjectText = _IDEProvider.GetDbObject<IDbObjectText>();
+            else
+                _DbObjectText.DirectoriesChecks();
 
-                if (_BranchName == null)
-                    _BranchName = _GitAPI.GetCurrentBranch();
+            if (_BranchName == null)
+                _BranchName = _GitAPI.GetCurrentBranch();
 
-                if (_Warnings.IsBranchUnexsepted(_BranchName))
-                    return;
+            if (_Warnings.IsBranchUnexsepted(_BranchName))
+                return;
 
-                string FilePath = _DbObjectText.GetRawFilePath();
-                Seri.Log.Here().Debug("FilePath={0}", FilePath);
+            string FilePath = _DbObjectText.GetRawFilePath();
+            Seri.Log.Here().Debug("FilePath={0}", FilePath);
 
-                File.WriteAllText(FilePath, _DbObjectText.Text, _DbObjectText.GetSaveEncoding());
-                _IDEProvider.SetStatusMessage($"Объект БД сохранён в: {FilePath}");
-            });
-
+            File.WriteAllText(FilePath, _DbObjectText.Text, _DbObjectText.GetSaveEncoding());
+            _IDEProvider.SetStatusMessage($"Объект БД сохранён в: {FilePath}");
         }
 
         public override bool CanExecute(object parameter)

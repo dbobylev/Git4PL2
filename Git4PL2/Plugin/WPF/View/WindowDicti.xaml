@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Git4PL2.Plugin.WPF.View"
              xmlns:uc="clr-namespace:Git4PL2.Plugin.WPF.UserControls"
-             xmlns:converters="clr-namespace:Git4PL2.Plugin.WPF.ModelView.Converters"
+             xmlns:converters="clr-namespace:Git4PL2.Plugin.WPF.ViewModel.Converters"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              SizeToContent="Height"
              WindowStartupLocation="CenterScreen" Height="700"

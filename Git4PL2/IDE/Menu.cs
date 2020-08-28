@@ -45,6 +45,7 @@ namespace Git4PL2.IDE
             MenuItems.Add(new MenuItem("Settings", "Тест tip", () => _PluginCommands.ShowSettings(), Properties.Resources.settings));
             MenuItems.Add(new MenuItem("Blame", "Blame", _PluginCommands.ShowGitBlame, Properties.Resources.trumpet));
             MenuItems.Add(new MenuItem("Dicti", "Dicti", _PluginCommands.ShowDicti, Properties.Resources.database_red_icon));
+            MenuItems.Add(new MenuItem("TeamCoding", "TeamCoding", _PluginCommands.ShowTeamCoding, Properties.Resources.Categories_system_help_icon));
         }
 
         public string CreateMenuItem(int index)

@@ -20,5 +20,7 @@ namespace Git4PL2.Abstarct
         void ShowGitBlame();
 
         void ShowDicti();
+
+        void ShowTeamCoding();
     }
 }

@@ -145,7 +145,5 @@ namespace Git4PL2.Plugin.Settings
                 Properties.Settings.Default.Save();
             }
         }
-
-
     }
 }

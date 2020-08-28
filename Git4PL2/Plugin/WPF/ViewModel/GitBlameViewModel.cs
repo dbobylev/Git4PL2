@@ -9,7 +9,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace Git4PL2.Plugin.WPF.ModelView
+namespace Git4PL2.Plugin.WPF.ViewModel
 {
     class GitBlameViewModel : PropertyChangedBase
     {

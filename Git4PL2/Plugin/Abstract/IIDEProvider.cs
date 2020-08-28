@@ -9,7 +9,7 @@ namespace Git4PL2.Plugin.Abstract
 {
     interface IIDEProvider
     {
-        T GetDbObject<T>() where T : IDbObject;
+        T GetDbObject<T>(bool silent = false) where T : IDbObject;
 
         void SetStatusMessage(string text);
 

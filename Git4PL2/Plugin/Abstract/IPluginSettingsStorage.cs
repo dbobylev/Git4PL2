@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Git4PL2.Plugin.Abstract
 {
-    interface IPluginSettingsStorage
+    public interface IPluginSettingsStorage
     {
         IPluginParameter GetParam(ePluginParameterNames name);
 

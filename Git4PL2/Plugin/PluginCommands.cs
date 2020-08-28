@@ -63,5 +63,10 @@ namespace Git4PL2.Plugin
         {
             RunCommand(NinjectCore.Get<PluginCommandShowDicti>());
         }
+
+        public void ShowTeamCoding()
+        {
+            RunCommand(NinjectCore.Get<PluginCommandShowTeamCoding>());
+        }
     }
 }

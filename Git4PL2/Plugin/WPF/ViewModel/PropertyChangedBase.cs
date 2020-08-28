@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Git4PL2.Plugin.WPF.ModelView
+namespace Git4PL2.Plugin.WPF.ViewModel
 {
 
     public class PropertyChangedBase : INotifyPropertyChanged

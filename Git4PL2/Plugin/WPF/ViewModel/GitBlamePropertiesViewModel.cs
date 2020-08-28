@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Git4PL2.Plugin.WPF.ModelView
+namespace Git4PL2.Plugin.WPF.ViewModel
 {
     class GitBlamePropertiesViewModel :PropertyChangedBase
     {

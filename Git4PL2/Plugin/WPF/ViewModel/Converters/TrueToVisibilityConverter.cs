@@ -7,18 +7,20 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Git4PL2.Plugin.WPF.ModelView.Converters
+namespace Git4PL2.Plugin.WPF.ViewModel.Converters
 {
-    class EmptyValueToVisibilityConverter : IValueConverter
+    class TrueToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null || string.IsNullOrEmpty(value.ToString()))
+            bool Result = true;
+
+            if (value is bool boolValue)
             {
-                return Visibility.Collapsed;
+                Result = boolValue;
             }
 
-            return Visibility.Visible;
+            return Result ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

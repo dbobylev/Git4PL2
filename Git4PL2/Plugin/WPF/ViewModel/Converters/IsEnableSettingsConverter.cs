@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Git4PL2.Plugin.WPF.ModelView.Converters
+namespace Git4PL2.Plugin.WPF.ViewModel.Converters
 {
      public class IsEnableSettingsConverter : IMultiValueConverter
     {

@@ -1,4 +1,5 @@
-﻿using Git4PL2.Plugin.WPF.View;
+﻿using Git4PL2.Plugin.Abstract;
+using Git4PL2.Plugin.WPF.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,13 +26,26 @@ namespace Git4PL2.IDEStub
         {
             InitializeComponent();
 
-            ButtonSettings_Click(null, null);
+            var x = NinjectCore.Get<IPluginSettingsStorage>();
+
+            var p = x.GetParam(Plugin.Settings.ePluginParameterNames.TEAMCODING_FILEPROVIDER_PATH);
+            p.SetValue("D:\\");
+
+            ButtonTeamCoding_Click(null, null);
         }
 
         private void ButtonSettings_Click(object sender, RoutedEventArgs e)
         {
             WindowSettings ws = new WindowSettings();
             ws.Show();
+
+            Close();
+        }
+
+        private void ButtonTeamCoding_Click(object sender, RoutedEventArgs e)
+        {
+            WindowTeamCoding wtg = new WindowTeamCoding();
+            wtg.Show();
 
             Close();
         }

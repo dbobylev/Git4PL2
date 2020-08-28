@@ -1,4 +1,5 @@
 ﻿using Git4PL2.Abstarct;
+using Git4PL2.Plugin.TeamCoding;
 using RGiesecke.DllExport;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace Git4PL2.IDE
     {
         private static int _pluginID;
         private static ICallbackManager _CallbackManager;
+        private static ITeamCodingChecks _TeamCodingChecks;
         private static IMenu _Menu;
 
         static API()
@@ -22,6 +24,7 @@ namespace Git4PL2.IDE
             {
                 _CallbackManager = NinjectCore.Get<ICallbackManager>();
                 _Menu = NinjectCore.Get<IMenu>();
+                _TeamCodingChecks = NinjectCore.Get<ITeamCodingChecks>();
             }
             catch(Exception ex)
             {
@@ -72,6 +75,48 @@ namespace Git4PL2.IDE
         public static void OnMenuClick(int index)
         {
             _Menu.ClickOnMenu(index);
+        }
+
+        [DllExport("BeforeExecuteWindow", CallingConvention = CallingConvention.Cdecl)]
+        public static bool BeforeExecuteWindow(int WindowType)
+        {
+            if (WindowType == 3 || WindowType == 4)
+            {
+                var result = _TeamCodingChecks.CheckBeforeCompile(out string ErrorMsg);
+                Seri.Log.Here().Debug($"BeforeExecuteWindow ChackResult: {result}");
+
+                if (result.HasFlag(eTeamCodingChecksResult.Restrict))
+                {
+                    MessageBox.Show(ErrorMsg, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+                else if (result.HasFlag(eTeamCodingChecksResult.Allow))
+                {
+                    return true;
+                }
+            }
+
+            Seri.Log.Here().Warning("Здесь не должны оказаться!");
+            return true;
+        }
+
+        [DllExport("OnWindowCreated", CallingConvention = CallingConvention.Cdecl)]
+        public static void OnWindowCreated(int WindowType)
+        {
+            if (WindowType == 3 || WindowType == 4)
+            {
+                var result = _TeamCodingChecks.CheckBeforeOpen(out string ErrorMsg);
+                Seri.Log.Here().Debug($"OnWindowCreated ChackResult: {result}");
+
+                if (result.HasFlag(eTeamCodingChecksResult.ProviderNotSet))
+                {
+                    _CallbackManager.GetDelegate<IDE_SetStatusMessage>()?.Invoke($"Ошибка TeamCoding: {ErrorMsg}");
+                }
+                else if (result.HasFlag(eTeamCodingChecksResult.Restrict))
+                {
+                    _CallbackManager.GetDelegate<IDE_SetStatusMessage>()?.Invoke(ErrorMsg);
+                }
+            }
         }
     }
 }

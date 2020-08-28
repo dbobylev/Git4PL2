@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Git4PL2.Plugin.Model
 {
-    class DbObjectText :DbObject, IDbObjectText
+    class DbObjectText :DbObjectRepository, IDbObjectText
     {
         private IPlsqlCodeFormatter _PlsqlCodeFormatter;
 
@@ -16,7 +16,7 @@ namespace Git4PL2.Plugin.Model
         public string Text { get => _text; set => _text = value; }
         protected bool UTF8HaveBOM { get; set; }
 
-        public DbObjectText(DbObject dbObj, string text) : base(dbObj)
+        public DbObjectText(DbObjectRepository dbObj, string text) : base(dbObj)
         {
             Seri.Log.Here().Debug($"Создаём объект DbObjectText. text.length={text.Length}");
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Git4PL2.Plugin.WPF.ModelView.Converters
+namespace Git4PL2.Plugin.WPF.ViewModel.Converters
 {
     class SettingsTemplateSelector : DataTemplateSelector
     {

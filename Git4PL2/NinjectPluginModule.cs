@@ -9,6 +9,8 @@ using Git4PL2.Plugin.Abstract;
 using Git4PL2.Plugin.Model;
 using Git4PL2.Plugin.Processes;
 using Git4PL2.Plugin.Settings;
+using Git4PL2.Plugin.TeamCoding;
+using Git4PL2.Plugin.TeamCoding.FileProvider;
 using Moq;
 using Ninject;
 using Ninject.Modules;
@@ -39,7 +41,7 @@ namespace Git4PL2
             Bind<IPlsqlCodeFormatter>().To<PlsqlCodeFormatter>();
             Bind<IPluginCommands>().To<PluginCommands>();
             Bind<IIDEProvider>().To<IDEProvider>();
-            
+
             Bind<IWarnings>().To<Warnings>();
 
             // Тест предупреждений
@@ -50,6 +52,41 @@ namespace Git4PL2
 
             Bind<IDiffText>().To<DiffText>();
             Bind<IGitAPI>().To<GitAPI>();
+
+            /*var TeamCodingProvider = GetMockProvider();
+            Bind<ITeamCodingProvider>().ToConstant(TeamCodingProvider);*/
+
+            Bind<ITeamCodingProviderChecks>().To<TeamCodingProviderChecks>();
+            Bind<ITeamCodingProvider>().To<TeamCodingFileProvider>();
+            Bind<ITeamCodingChecks>().To<TeamCodingChecks>();
+        }
+
+        private ITeamCodingProvider GetMockProvider()
+        {
+            Mock<ICheckOutObject> mock = new Mock<ICheckOutObject>();
+            mock.Setup(x => x.Login).Returns("bobylev");
+            mock.Setup(x => x.ServerName).Returns("XE");
+            mock.Setup(x => x.ObjectOwner).Returns("SIA");
+            mock.Setup(x => x.ObjectName).Returns("LDOCTOP");
+            mock.Setup(x => x.ObjectType).Returns("PACKAGE BODY");
+            mock.Setup(x => x.CheckoutDate).Returns(DateTime.Now);
+            var CO = mock.Object;
+
+            mock = new Mock<ICheckOutObject>();
+            mock.Setup(x => x.Login).Returns("Gareev");
+            mock.Setup(x => x.ServerName).Returns("XE");
+            mock.Setup(x => x.ObjectOwner).Returns("SIA");
+            mock.Setup(x => x.ObjectName).Returns("LDOCTOP");
+            mock.Setup(x => x.ObjectType).Returns("PACKAGE");
+            mock.Setup(x => x.CheckoutDate).Returns(DateTime.Now.AddDays(-1));
+            var CO2 = mock.Object;
+
+            var teamCodingMock = new Mock<ITeamCodingProvider>();
+            teamCodingMock.Setup(x => x.GetCheckOutObjectsList()).Returns(new[] { CO, CO2 });
+            teamCodingMock.Setup(x => x.CheckIn(It.IsAny<string>(), It.IsAny<IDbObject>(), out It.Ref<string>.IsAny)).Returns(true);
+            teamCodingMock.Setup(x => x.CheckOut(It.IsAny<string>(), It.IsAny<IDbObject>(), out It.Ref<string>.IsAny)).Returns(true);
+
+            return teamCodingMock.Object;
         }
     }
 }

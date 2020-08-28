@@ -1,5 +1,4 @@
-﻿using Git4PL2.Plugin.Abstract;
-using Git4PL2.Plugin.WPF.ViewModel;
+﻿using Git4PL2.Plugin.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,21 +17,18 @@ using System.Windows.Shapes;
 namespace Git4PL2.Plugin.WPF.View
 {
     /// <summary>
-    /// Interaction logic for WindowGitDiff.xaml
+    /// Interaction logic for WindowTeamCoding.xaml
     /// </summary>
-    public partial class WindowGitDiff : Window
+    public partial class WindowTeamCoding : Window
     {
-        public WindowGitDiff(IDbObjectText DbObjectText)
+        private TeamCodingViewModel _viewmodel;
+
+        public WindowTeamCoding()
         {
             InitializeComponent();
 
-            var param = NinjectCore.GetParameter("DbObjectText", DbObjectText);
-            DataContext = NinjectCore.Get<GitDiffViewModel>(param);
-        }
-
-        private void CloseWindow(object sender, RoutedEventArgs e)
-        {
-            Close();
+            _viewmodel = NinjectCore.Get<TeamCodingViewModel>();
+            DataContext = _viewmodel;
         }
 
         protected override void OnPreviewKeyDown(KeyEventArgs e)

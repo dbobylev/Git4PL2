@@ -27,7 +27,7 @@ namespace Git4PL2.Plugin.Processes
             _Warnings = Warnings;
         }
 
-        public override async void Execute(object parameter)
+        public override void Execute(object parameter)
         {
             _CanExecute = false;
             try
@@ -37,7 +37,7 @@ namespace Git4PL2.Plugin.Processes
                     _DbObjectText = TextParam.DbObjectText;
                     _ServerName = TextParam.StringParam;
                 }
-                await LoadText();
+                LoadText();
             }
             catch (Exception ex)
             {
@@ -49,31 +49,28 @@ namespace Git4PL2.Plugin.Processes
             }
         }
 
-        private Task LoadText()
+        private void LoadText()
         {
-            return Task.Run(() =>
-            {
-                if (_DbObjectText == null)
-                    _DbObjectText = _IDEProvider.GetDbObject<IDbObjectText>();
-                else
-                    _DbObjectText.DirectoriesChecks();
+            if (_DbObjectText == null)
+                _DbObjectText = _IDEProvider.GetDbObject<IDbObjectText>();
+            else
+                _DbObjectText.DirectoriesChecks();
 
-                if (_ServerName == null)
-                    _ServerName = _IDEProvider.GetDatabaseConnection();
+            if (_ServerName == null)
+                _ServerName = _IDEProvider.GetDatabaseConnection();
 
-                if (_Warnings.IsServerUnexsepted(_ServerName))
-                    return;
+            if (_Warnings.IsServerUnexsepted(_ServerName))
+                return;
 
-                string FilePath = _DbObjectText.GetRawFilePath();
-                Seri.Log.Here().Debug("FilePath={0}", FilePath);
+            string FilePath = _DbObjectText.GetRawFilePath();
+            Seri.Log.Here().Debug("FilePath={0}", FilePath);
 
-                string LocalText = File.ReadAllText(FilePath);
+            string LocalText = File.ReadAllText(FilePath);
 
-                _PlsqlCodeFormatter.RemoveSlash(ref LocalText);
+            _PlsqlCodeFormatter.RemoveSlash(ref LocalText);
 
-                _IDEProvider.SetText(LocalText);
-                _IDEProvider.SetStatusMessage($"Объект БД загружен из: {FilePath}");
-            });
+            _IDEProvider.SetText(LocalText);
+            _IDEProvider.SetStatusMessage($"Объект БД загружен из: {FilePath}");
         }
 
         public override bool CanExecute(object parameter)

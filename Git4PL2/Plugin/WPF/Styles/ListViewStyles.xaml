@@ -81,7 +81,8 @@
                                 <ContentPresenter.IsEnabled>
                                     <MultiBinding Converter="{StaticResource IsEnableSettingsConverter}">
                                         <Binding Path="ItemsSource" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=ListView}"/>
-                                        <Binding Path="ParentParameter"/>
+                                        <Binding Path="ParentParameterID"/>
+                                        <Binding Path="ParentParameterStringValue"/>
                                     </MultiBinding>
                                 </ContentPresenter.IsEnabled>
                             </ContentPresenter>
@@ -109,6 +110,15 @@
         <CheckBox VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding Path=ValueBool}"/>
     </DataTemplate>
     <DataTemplate x:Key="SettingsListTemplate">
+        <DataTemplate.Resources>
+            <Style TargetType="ComboBox">
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Foreground" Value="Gray"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </DataTemplate.Resources>
         <ComboBox VerticalAlignment="Center" HorizontalAlignment="Stretch" ItemsSource="{Binding ListItems}" SelectedIndex="{Binding ValueInt}"/>
     </DataTemplate>
     <DataTemplate x:Key="SettingsPathTemplate">

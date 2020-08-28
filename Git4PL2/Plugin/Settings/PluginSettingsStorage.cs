@@ -246,7 +246,7 @@ namespace Git4PL2.Plugin.Settings
                 Description = "Регулярное выражение, для проверки операции SaveText",
                 DescriptionExt = string.Empty,
                 Group = ePluginParameterGroupType.Warning,
-                ParentParameter = ePluginParameterNames.UnexpectedBranch,
+                ParentParameterID = ePluginParameterNames.UnexpectedBranch,
                 OrderPosition = 11
             });
 
@@ -255,7 +255,7 @@ namespace Git4PL2.Plugin.Settings
                 Description = "Регулярное выражение, для проверки операции LoadText",
                 DescriptionExt = string.Empty,
                 Group = ePluginParameterGroupType.Warning,
-                ParentParameter = ePluginParameterNames.UnexpectedServer,
+                ParentParameterID = ePluginParameterNames.UnexpectedServer,
                 OrderPosition = 21
             });
 
@@ -307,7 +307,7 @@ namespace Git4PL2.Plugin.Settings
             {
                 Description = "Лимит на кол0во отобранных дочерних записей для Dicti",
                 Group = ePluginParameterGroupType.Others,
-                ParentParameter = ePluginParameterNames.DICTI_CHILDREN_LIMIT_ENABLE,
+                ParentParameterID = ePluginParameterNames.DICTI_CHILDREN_LIMIT_ENABLE,
                 OrderPosition = 20
             });
 
@@ -359,6 +359,7 @@ namespace Git4PL2.Plugin.Settings
                 Description = "Логин",
                 DescriptionExt = "Ваше имя под которым объекты БД будут браться в пользование",
                 Group = ePluginParameterGroupType.TeamCoding,
+                ParentParameterID = ePluginParameterNames.TEAMCODING_ENABLE,
                 OrderPosition = 20
             });
 
@@ -369,6 +370,7 @@ namespace Git4PL2.Plugin.Settings
                                 "Эта настройка общая, изменения распространится на всех участников TEAMCODING. " +
                                 "Пожалуйста договоритесь с командой о политиках работы на общей среде прежде чем менять настрйоку",
                 Group = ePluginParameterGroupType.TeamCoding,
+                ParentParameterID = ePluginParameterNames.TEAMCODING_ENABLE,
                 OrderPosition = 25
             });
 
@@ -381,6 +383,7 @@ namespace Git4PL2.Plugin.Settings
                                  "При операции CheckOut в этот файл добавится информация, что пользователь <Логин> взял в пользование такой объект БД. " +
                                  "Другие участники при обращении к этому объекту БД, будут видеть предупреждение, что объект в настоящий момент занят.",
                 Group = ePluginParameterGroupType.TeamCoding,
+                ParentParameterID = ePluginParameterNames.TEAMCODING_ENABLE,
                 OrderPosition = 30
             });
 
@@ -389,6 +392,8 @@ namespace Git4PL2.Plugin.Settings
                 Description = "Путь для общего файла",
                 ParamterUIType = ePluginParameterUIType.Path,
                 Group = ePluginParameterGroupType.TeamCoding,
+                ParentParameterID = ePluginParameterNames.TEAMCODING_PROVIDER,
+                ParentParameterStringValue = "0",
                 OrderPosition = 40
             });
 
@@ -397,6 +402,7 @@ namespace Git4PL2.Plugin.Settings
                 Description = "Название рабочего сервера",
                 DescriptionExt = "Регулярное выражение для имени сервера, который должен быть подключен к TeamCoding",
                 Group = ePluginParameterGroupType.TeamCoding,
+                ParentParameterID = ePluginParameterNames.TEAMCODING_ENABLE,
                 OrderPosition = 50
             });
 

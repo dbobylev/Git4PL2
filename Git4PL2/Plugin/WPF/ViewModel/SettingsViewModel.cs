@@ -88,7 +88,7 @@ namespace Git4PL2.Plugin.WPF.ViewModel
         {
             // Так как от булевых параметров у нас зависит вкл/выкл зависимых параметров
             // То при нажатии чекбокса, перезагружаем параметры в окне
-            if (e.PropertyName == "ValueBool")
+            if (e.PropertyName == "ValueBool" || e.PropertyName == "ValueInt")
                 FillParemetersList();
         }
     }

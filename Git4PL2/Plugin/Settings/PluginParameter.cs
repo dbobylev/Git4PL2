@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,14 +54,18 @@ namespace Git4PL2.Plugin.Settings
 
         /// <summary>
         /// Ссылка на параметр родителя. 
-        /// Родитель должен быть обязательно с типом bool
-        /// Если родитель имеет значение false или отключен, этот параметр становится отключенным 
+        /// Если родитель имеет значение отличное от ParentParameterStringValue или отключен, этот параметр становится отключенным 
         /// (т.е. недоступным для редактирования в окне настроек)
         /// Поиск родителя происходит в рамках группы
         /// 
         /// Если ParentParameter не указывать то параметр останется всегда включен 
         /// </summary>
-        public ePluginParameterNames ParentParameter { get; set; }
+        public ePluginParameterNames ParentParameterID { get; set; } = ePluginParameterNames.NULL;
+
+        /// <summary>
+        /// Значение ParentParameterID при котором этот параметр будет активный на UI
+        /// </summary>
+        public string ParentParameterStringValue { get; set; } = "True";
 
 
         public PluginParameter(ePluginParameterNames parameterName, T DefaultValue)
@@ -96,7 +101,7 @@ namespace Git4PL2.Plugin.Settings
                     // Перезагружаем настройки. Так как мы добавили параметр, он теперь считается из файла настроек с диска (или возьмет значение по умолчанию)
                     Properties.Settings.Default.Reload();
                 }
-
+                
                 Value = (T)Properties.Settings.Default[ConstantName];
             }
             catch(Exception ex)
@@ -120,7 +125,8 @@ namespace Git4PL2.Plugin.Settings
 
             Seri.Log.Here().Verbose($"Значение параметра {ID}: {Value}");
         }
-
+        
+        public string GetStringValue => Value.ToString();
 
         public P GetValue<P>()
         {

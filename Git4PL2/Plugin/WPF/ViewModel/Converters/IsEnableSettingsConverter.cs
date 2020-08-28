@@ -25,6 +25,8 @@ namespace Git4PL2.Plugin.WPF.ViewModel.Converters
                 return true;
 
             IEnumerable Group = values[0] as IEnumerable;
+            string exceptedStringValue = (string)values[2];
+
 
             bool LoopFlag = false;
             while (!LoopFlag)
@@ -37,14 +39,15 @@ namespace Git4PL2.Plugin.WPF.ViewModel.Converters
                     // Если нашли проверяем его
                     if (item.ID == Parent)
                     {
-                        if (!item.ValueBool)
+                        if (item.ValueString != exceptedStringValue)
                             return false;
-                        else if (item.ParentParameter == ePluginParameterNames.NULL)
+                        else if (item.ParentParameterID == ePluginParameterNames.NULL)
                             return true;
                         else
                         {
-                            // Родитель включен и сам имеет параметр родитя, поднимаемся выше
-                            Parent = item.ParentParameter;
+                            // Родитель включен и сам имеет параметр родителя, поднимаемся выше
+                            Parent = item.ParentParameterID;
+                            exceptedStringValue = item.ParentParameterStringValue;
                             LoopFlag = false;
                             break;
                         }

@@ -32,7 +32,8 @@ namespace Git4PL2.Plugin.WPF.ViewModel.Converters
         {
             get
             {
-                return _model.GetValue<string>();
+                //return _model.GetValue<string>();
+                return _model.GetStringValue;
             }
             set
             {
@@ -67,7 +68,9 @@ namespace Git4PL2.Plugin.WPF.ViewModel.Converters
             }
         }
 
-        public ePluginParameterNames ParentParameter => _model.ParentParameter;
+        public ePluginParameterNames ParentParameterID => _model.ParentParameterID;
+
+        public string ParentParameterStringValue => _model.ParentParameterStringValue;
 
         public IEnumerable<string> ListItems => (_model as PluginParameterList).ListItems;
 

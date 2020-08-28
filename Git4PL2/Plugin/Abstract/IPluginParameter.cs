@@ -12,14 +12,12 @@ namespace Git4PL2.Plugin.Abstract
         ePluginParameterNames ID { get; }
         ePluginParameterGroupType Group { get; }
         ePluginParameterUIType ParamterUIType { get; }
-
-
         string Description { get; }
         string DescriptionExt { get; }
         int OrderPosition { get; }
-
-        ePluginParameterNames ParentParameter { get; }
-
+        ePluginParameterNames ParentParameterID { get; }
+        string ParentParameterStringValue { get; }
+        string GetStringValue { get; }
         P GetValue<P>();
         void SetValue<P>(P value);
     }

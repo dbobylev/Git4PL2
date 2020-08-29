@@ -4,7 +4,7 @@ using System.Windows.Media;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Git4PL2.Plugin.Model;
+using Git4PL2.Plugin.Diff;
 
 namespace Git4PL2.Plugin.Abstract
 {

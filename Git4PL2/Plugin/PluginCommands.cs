@@ -1,7 +1,7 @@
 ﻿using Git4PL2.Abstarct;
 using Git4PL2.Plugin.Abstract;
-using Git4PL2.Plugin.Model;
-using Git4PL2.Plugin.Processes;
+using Git4PL2.Plugin.Diff;
+using Git4PL2.Plugin.Commands;
 using Git4PL2.Plugin.Settings;
 using System;
 using System.Collections.Generic;
@@ -43,51 +43,51 @@ namespace Git4PL2.Plugin
 
         public void SaveTextToRepository(TextOperationsParametrs param = null)
         {
-            RunCommand(NinjectCore.Get<PluginCommandSaveTextToRepository>(), param);
+            RunCommand(NinjectCore.Get<CommandSaveTextToRepository>(), param);
         }
 
         public void LoadTextFromRepository(TextOperationsParametrs param = null)
         {
-            RunCommand(NinjectCore.Get<PluginCommandLoadTextFromRepository>(), param);
+            RunCommand(NinjectCore.Get<CommandLoadTextFromRepository>(), param);
         }
 
         public void ShowGitDiff()
         {
-            RunCommand(NinjectCore.Get<PluginCommandShowGitDiff>());
+            RunCommand(NinjectCore.Get<CommandShowGitDiff>());
         }
 
         public void ShowSettings()
         {
-            RunCommand(NinjectCore.Get<PluginCommandShowSettings>());
+            RunCommand(NinjectCore.Get<CommandShowSettings>());
         }
 
         public void ShowGitBlame()
         {
-            RunCommand(NinjectCore.Get<PluginCommandShowGitBlame>());
+            RunCommand(NinjectCore.Get<CommandShowGitBlame>());
         }
 
         public void ShowDicti()
         {
-            RunCommand(NinjectCore.Get<PluginCommandShowDicti>());
+            RunCommand(NinjectCore.Get<CommandShowDicti>());
         }
 
         public void ShowTeamCoding()
         {
-            RunCommand(NinjectCore.Get<PluginCommandShowTeamCoding>());
+            RunCommand(NinjectCore.Get<CommandShowTeamCoding>());
         }
 
         public void CheckOut()
         {
             var dbObject = _IDEProvider.GetDbObject<IDbObject>(true);
             if (dbObject != null)
-                RunCommand(NinjectCore.Get<PluginCommandCheckOut>(), dbObject);
+                RunCommand(NinjectCore.Get<CommandCheckOut>(), dbObject);
         }
 
         public void CheckIn()
         {
             var dbObject = _IDEProvider.GetDbObject<IDbObject>(true);
             if (dbObject != null)
-                RunCommand(NinjectCore.Get<PluginCommandCheckIn>(), dbObject);
+                RunCommand(NinjectCore.Get<CommandCheckIn>(), dbObject);
         }
     }
 }

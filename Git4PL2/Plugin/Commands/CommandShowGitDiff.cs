@@ -9,13 +9,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Git4PL2.Plugin.Processes
+namespace Git4PL2.Plugin.Commands
 {
-    class PluginCommandShowGitDiff :PluginCommand
+    class CommandShowGitDiff :PluginCommand
     {
         private IIDEProvider _IDEProvider;
 
-        public PluginCommandShowGitDiff(IIDEProvider IDEProvider) :base("ShowGitDiff")
+        public CommandShowGitDiff(IIDEProvider IDEProvider) :base("ShowGitDiff")
         {
             _IDEProvider = IDEProvider;
         }

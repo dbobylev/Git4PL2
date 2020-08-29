@@ -7,15 +7,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Git4PL2.Plugin.Processes
+namespace Git4PL2.Plugin.Commands
 {
-    class PluginCommandCheckOut : PluginCommand
+    class CommandCheckIn : PluginCommand
     {
-        private readonly ITeamCodingProvider _TeamCodingProvider;
-        private readonly ISettings _Settings;
-        private readonly IIDEProvider _IDEProvider;
+        private ITeamCodingProvider _TeamCodingProvider;
+        private ISettings _Settings;
+        private IIDEProvider _IDEProvider;
 
-        public PluginCommandCheckOut(ITeamCodingProvider TeamCodingProvider, ISettings Settings, IIDEProvider IDEProvider) : base("PluginCommandCheckOut")
+        public CommandCheckIn(ITeamCodingProvider TeamCodingProvider, ISettings Settings, IIDEProvider IDEProvider) : base("PluginCommandCheckOut")
         {
             _TeamCodingProvider = TeamCodingProvider;
             _Settings = Settings;
@@ -26,15 +26,15 @@ namespace Git4PL2.Plugin.Processes
         {
             if (parameter is IDbObject dbObject)
             {
-                if (!_TeamCodingProvider.CheckOut(_Settings.TEAMCODING_LOGIN, dbObject, out string ErrorMsg))
+                if (!_TeamCodingProvider.CheckIn(_Settings.TEAMCODING_LOGIN, dbObject, out string ErrorMsg))
                 {
                     Seri.Log.Here().Error(ErrorMsg);
                     MessageBox.Show(ErrorMsg, "Team Coding Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
-                    var OutputString = $"Сделан CheckOut для объекта {dbObject.ToString()}";
-                    MessageBox.Show(OutputString, "CheckOut", MessageBoxButton.OK, MessageBoxImage.Information);
+                    var OutputString = $"Сделан CheckIn для объекта {dbObject.ToString()}";
+                    MessageBox.Show(OutputString, "CheckIn", MessageBoxButton.OK, MessageBoxImage.Information);
                     _IDEProvider.SetStatusMessage(OutputString);
                 }
             }

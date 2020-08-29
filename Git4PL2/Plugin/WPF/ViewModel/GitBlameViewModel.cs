@@ -1,4 +1,4 @@
-﻿using Git4PL2.Plugin.Processes;
+﻿using Git4PL2.Plugin.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace Git4PL2.Plugin.WPF.ViewModel
 
         public GitBlameViewModel(IEnumerable<string> lines)
         {
-            ShowCommitCommand = NinjectCore.Get<PluginCommandOpenCommitByURL>();
+            ShowCommitCommand = NinjectCore.Get<CommandOpenCommitByURL>();
 
             ListRuns = new List<Run>();
 

@@ -1,4 +1,5 @@
-﻿using Git4PL2.Plugin.TeamCoding;
+﻿using Git4PL2.Plugin.Abstract;
+using Git4PL2.Plugin.TeamCoding;
 using Git4PL2.Plugin.TeamCoding.FileProvider;
 using Ninject;
 using Ninject.Parameters;

@@ -1,6 +1,7 @@
 ﻿using Git4PL2.Abstarct;
 using Git4PL2.Git.Abstract;
 using Git4PL2.Plugin.Abstract;
+using Git4PL2.Plugin.Diff;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,22 +9,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Git4PL2.Plugin.Processes
+namespace Git4PL2.Plugin.Commands
 {
-    class PluginCommandLoadTextFromRepository : PluginCommand
+    class CommandSaveTextToRepository : PluginCommand
     {
-        private static bool _CanExecute = true;
+        private bool _CanExecute = true;
 
         private IIDEProvider _IDEProvider;
         private IDbObjectText _DbObjectText;
-        private IPlsqlCodeFormatter _PlsqlCodeFormatter;
+        private IGitAPI _GitAPI;
         private IWarnings _Warnings;
-        private string _ServerName;
+        private string _BranchName;
 
-        public PluginCommandLoadTextFromRepository(IIDEProvider IDEProvider, IPlsqlCodeFormatter PlsqlCodeFormatter, IWarnings Warnings) :base("LoadTextFromRepository")
+
+        public CommandSaveTextToRepository(IIDEProvider IDEProvider, IGitAPI GitAPI, IWarnings Warnings):base("SaveTextToRepository")
         {
             _IDEProvider = IDEProvider;
-            _PlsqlCodeFormatter = PlsqlCodeFormatter;
+            _GitAPI = GitAPI;
             _Warnings = Warnings;
         }
 
@@ -35,13 +37,13 @@ namespace Git4PL2.Plugin.Processes
                 if (parameter != null && parameter is TextOperationsParametrs TextParam)
                 {
                     _DbObjectText = TextParam.DbObjectText;
-                    _ServerName = TextParam.StringParam;
+                    _BranchName = TextParam.StringParam;
                 }
-                LoadText();
+                SaveText();
             }
             catch (Exception ex)
             {
-                throw ex;    
+                throw ex;
             }
             finally
             {
@@ -49,28 +51,24 @@ namespace Git4PL2.Plugin.Processes
             }
         }
 
-        private void LoadText()
+        private void SaveText()
         {
             if (_DbObjectText == null)
                 _DbObjectText = _IDEProvider.GetDbObject<IDbObjectText>();
             else
                 _DbObjectText.DirectoriesChecks();
 
-            if (_ServerName == null)
-                _ServerName = _IDEProvider.GetDatabaseConnection();
+            if (_BranchName == null)
+                _BranchName = _GitAPI.GetCurrentBranch();
 
-            if (_Warnings.IsServerUnexsepted(_ServerName))
+            if (_Warnings.IsBranchUnexsepted(_BranchName))
                 return;
 
             string FilePath = _DbObjectText.GetRawFilePath();
             Seri.Log.Here().Debug("FilePath={0}", FilePath);
 
-            string LocalText = File.ReadAllText(FilePath);
-
-            _PlsqlCodeFormatter.RemoveSlash(ref LocalText);
-
-            _IDEProvider.SetText(LocalText);
-            _IDEProvider.SetStatusMessage($"Объект БД загружен из: {FilePath}");
+            File.WriteAllText(FilePath, _DbObjectText.Text, _DbObjectText.GetSaveEncoding());
+            _IDEProvider.SetStatusMessage($"Объект БД сохранён в: {FilePath}");
         }
 
         public override bool CanExecute(object parameter)

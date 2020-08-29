@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 
-namespace Git4PL2.Plugin.Processes
+namespace Git4PL2.Plugin.Commands
 {
     public class RelayCommand : ICommand
     {

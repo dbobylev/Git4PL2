@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Git4PL2.Plugin.Processes
+namespace Git4PL2.Plugin.Commands
 {
-    class PluginCommandShowTeamCoding :PluginCommand
+    class CommandShowTeamCoding :PluginCommand
     {
-        public PluginCommandShowTeamCoding(ISettings Settings) : base("PluginCommandShowTeamCoding")
+        public CommandShowTeamCoding(ISettings Settings) : base("PluginCommandShowTeamCoding")
         {
             if (string.IsNullOrEmpty(Settings.TEAMCODING_LOGIN))
             {

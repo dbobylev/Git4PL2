@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Git4PL2.Plugin.Model
+namespace Git4PL2.Plugin.Diff
 {
     /// <summary>
     /// Класс для построчного преобразования результата сравнения из консоли (git diff) к отображаемому типу в окне git diff в плагиен

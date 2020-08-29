@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Git4PL2.Plugin.Abstract;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,6 @@ namespace Git4PL2.Plugin.TeamCoding
                 && ObjectOwner == other.ObjectOwner
                 && ObjectName == other.ObjectName
                 && ObjectType == other.ObjectType;
-
         }
     }
 }

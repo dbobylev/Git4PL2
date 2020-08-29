@@ -1,7 +1,7 @@
 ﻿using Git4PL2.Git.Abstract;
 using Git4PL2.Plugin.Abstract;
-using Git4PL2.Plugin.Model;
-using Git4PL2.Plugin.Processes;
+using Git4PL2.Plugin.Diff;
+using Git4PL2.Plugin.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -70,8 +70,8 @@ namespace Git4PL2.Plugin.WPF.ViewModel
             if (Settings.UnexpectedServer)
                 UnexpectedServer = Warnings.IsServerUnexsepted(CurrentDataBase, true);
 
-            SaveTextCommand = NinjectCore.Get<PluginCommandSaveTextToRepository>();
-            LoadTextCommand = NinjectCore.Get<PluginCommandLoadTextFromRepository>();
+            SaveTextCommand = NinjectCore.Get<CommandSaveTextToRepository>();
+            LoadTextCommand = NinjectCore.Get<CommandLoadTextFromRepository>();
 
             ButtonsClassicStyle = Settings.ClassicButtonsPosition;
         }

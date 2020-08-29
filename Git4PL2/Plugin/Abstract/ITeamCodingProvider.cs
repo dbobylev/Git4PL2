@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Git4PL2.Plugin.TeamCoding
+namespace Git4PL2.Plugin.Abstract
 {
     public interface ITeamCodingProvider
     {

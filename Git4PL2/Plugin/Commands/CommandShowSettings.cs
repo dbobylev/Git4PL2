@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Git4PL2.Plugin.Processes
+namespace Git4PL2.Plugin.Commands
 {
-    class PluginCommandShowSettings :PluginCommand
+    class CommandShowSettings :PluginCommand
     {
-        public PluginCommandShowSettings() :base("PluginCommandShowSettings")
+        public CommandShowSettings() :base("PluginCommandShowSettings")
         {
 
         }

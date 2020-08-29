@@ -1,5 +1,5 @@
 ﻿using Git4PL2.Plugin.Abstract;
-using Git4PL2.Plugin.Processes;
+using Git4PL2.Plugin.Commands;
 using Git4PL2.Plugin.WPF.Model;
 using System;
 using System.Collections.Generic;

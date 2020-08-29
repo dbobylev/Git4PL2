@@ -3,7 +3,7 @@ using Git4PL2.IDE;
 using Git4PL2.IDE.Abstarct;
 using Git4PL2.IDE.SQL;
 using Git4PL2.Plugin.Abstract;
-using Git4PL2.Plugin.Model;
+using Git4PL2.Plugin.Diff;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
 
-namespace Git4PL2.Plugin.Processes
+namespace Git4PL2.Plugin.Commands
 {
     class IDEProvider : IIDEProvider
     {

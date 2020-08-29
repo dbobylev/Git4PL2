@@ -8,7 +8,7 @@ using Git4PL2.Git.Abstract;
 using Git4PL2.Git.CmdReaders;
 using Git4PL2.Git.CmdRequests;
 using Git4PL2.Plugin.Abstract;
-using Git4PL2.Plugin.Model;
+using Git4PL2.Plugin.Diff;
 
 namespace Git4PL2.Git
 {

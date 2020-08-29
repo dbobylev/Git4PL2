@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Git4PL2.Plugin.Model
+namespace Git4PL2.Plugin.Diff
 {
     class DbObject : IDbObject
     {

@@ -8,15 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Git4PL2.Plugin.Processes
+namespace Git4PL2.Plugin.Commands
 {
-    class PluginCommandShowGitBlame : PluginCommand
+    class CommandShowGitBlame : PluginCommand
     {
         IGitAPI _GitAPI;
         IIDEProvider _IIDEProveider;
         ISettings _Settings;
 
-        public PluginCommandShowGitBlame(IIDEProvider IDEProvider, IGitAPI GitApi, ISettings Settings) : base("PluginCommandShowGitBlame")
+        public CommandShowGitBlame(IIDEProvider IDEProvider, IGitAPI GitApi, ISettings Settings) : base("PluginCommandShowGitBlame")
         {
             _GitAPI = GitApi;
             _IIDEProveider = IDEProvider;

@@ -7,13 +7,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Git4PL2.Plugin.Processes
+namespace Git4PL2.Plugin.Commands
 {
-    class PluginCommandShowDicti :PluginCommand
+    class CommandShowDicti :PluginCommand
     {
         private IIDEProvider _IDEProvider;
 
-        public PluginCommandShowDicti(IIDEProvider IDEProvider):base("PluginCommandShowDicti")
+        public CommandShowDicti(IIDEProvider IDEProvider):base("PluginCommandShowDicti")
         {
             _IDEProvider = IDEProvider;
         }

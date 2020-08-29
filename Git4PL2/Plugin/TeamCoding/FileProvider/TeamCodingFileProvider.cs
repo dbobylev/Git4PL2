@@ -1,5 +1,5 @@
 ﻿using Git4PL2.Plugin.Abstract;
-using Git4PL2.Plugin.Model;
+using Git4PL2.Plugin.Diff;
 using Git4PL2.Plugin.WPF.Model;
 using Newtonsoft.Json;
 using Ninject.Infrastructure.Language;

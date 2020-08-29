@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows.Media;
 
-namespace Git4PL2.Plugin.Model
+namespace Git4PL2.Plugin.Diff
 {
     /// <summary>
     /// Строка которая будет отображаться в окне GitDiff

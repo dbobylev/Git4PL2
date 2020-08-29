@@ -1,4 +1,4 @@
-﻿using Git4PL2.Plugin.Model;
+﻿using Git4PL2.Plugin.Diff;
 using System;
 using System.Collections.Generic;
 using System.Linq;

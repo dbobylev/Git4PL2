@@ -1,6 +1,6 @@
 ﻿using Git4PL2.Plugin.Abstract;
-using Git4PL2.Plugin.Model;
-using Git4PL2.Plugin.Processes;
+using Git4PL2.Plugin.Diff;
+using Git4PL2.Plugin.Commands;
 using Git4PL2.Plugin.TeamCoding;
 using System;
 using System.Collections.Generic;
@@ -36,8 +36,8 @@ namespace Git4PL2.Plugin.WPF.ViewModel
             if (DbObject == null)
                 DbObject = new DbObject("SIA", "LOLKEK", "PACKAGE");
 
-            CheckInSource = NinjectCore.Get<PluginCommandCheckIn>();
-            CheckOutSource = NinjectCore.Get<PluginCommandCheckOut>();
+            CheckInSource = NinjectCore.Get<CommandCheckIn>();
+            CheckOutSource = NinjectCore.Get<CommandCheckOut>();
             CheckInCommand = new RelayCommand(CheckIn, CheckInSource.CanExecute);
             CheckOutCommand = new RelayCommand(CheckOut, CheckOutSource.CanExecute);
 

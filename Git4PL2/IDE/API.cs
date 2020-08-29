@@ -1,4 +1,5 @@
 ﻿using Git4PL2.Abstarct;
+using Git4PL2.Plugin.Abstract;
 using Git4PL2.Plugin.TeamCoding;
 using RGiesecke.DllExport;
 using System;

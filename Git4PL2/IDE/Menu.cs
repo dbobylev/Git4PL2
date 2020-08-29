@@ -65,7 +65,7 @@ namespace Git4PL2.IDE
             var item = MenuItems.FirstOrDefault(x => x.Index == index);
             if (item != null)
             {
-                // Не отображаем мене TeamCoding если он отключен
+                // Не отображаем меню TeamCoding если он отключен
                 if (!_Settings.TEAMCODING_ENABLE 
                     && (  item.MenuName == "TeamCoding"
                        || item.MenuName == "CheckOut"

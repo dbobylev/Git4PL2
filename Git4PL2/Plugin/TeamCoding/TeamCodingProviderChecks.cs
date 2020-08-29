@@ -61,6 +61,7 @@ namespace Git4PL2.Plugin.TeamCoding
                 ErrorMsg = $"Текущий сервер [{Server}] не прошел проверку [{_Settings.TEAMCODING_SERVERNAME_REGEX}]";
                 return false;
             }
+            else
             {
                 ErrorMsg = string.Empty;
                 return true;

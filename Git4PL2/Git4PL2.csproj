@@ -391,6 +391,10 @@
     <None Include="img\back.png" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Plugin\WPF\Styles\CommonStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Plugin\WPF\Styles\ListViewStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -7,39 +7,17 @@
              mc:Ignorable="d" x:Name="uc"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <SolidColorBrush x:Key="colorVerticalLine" Color="#FFCFCFCF"/>
-        <SolidColorBrush x:Key="colorHorizontalLine" Color="#FFAAAAAA"/>
-        <SolidColorBrush x:Key="colorRow1" Color="#FFD6EAE8"/>
-        <SolidColorBrush x:Key="colorRow2" Color="#FFC7E2DF"/>
-        <SolidColorBrush x:Key="colorButton" Color="#FFB6D3CF"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/CommonStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
     <DataGrid x:Name="DataGrid_Main"
-              AutoGenerateColumns="False" 
               ItemsSource="{Binding ElementName=uc, Path=ItemsSource}" 
-              CanUserReorderColumns="False" 
-              SelectionMode="Extended" 
-              SelectionUnit="Cell"
-              GridLinesVisibility="All"
-              VerticalGridLinesBrush="{StaticResource colorVerticalLine}"
-              HorizontalGridLinesBrush="{StaticResource colorHorizontalLine}" 
-              RowBackground="{StaticResource colorRow1}"
-              AlternatingRowBackground="{StaticResource colorRow2}"
-              IsReadOnly="True"
-              VerticalScrollBarVisibility="Auto"
               MaxHeight="400"
-              HeadersVisibility="Column" LoadingRow="DataGrid_Main_LoadingRow">
+              LoadingRow="DataGrid_Main_LoadingRow">
         <DataGrid.Resources>
-            <Style TargetType="{x:Type DataGridCell}">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type DataGridCell}">
-                            <Border Padding="5,2"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                                <ContentPresenter VerticalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
             <Style TargetType="TextBlock">
                 <Setter Property="Margin" Value="5"/>
             </Style>

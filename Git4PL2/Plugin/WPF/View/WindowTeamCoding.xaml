@@ -14,6 +14,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/ListViewStyles.xaml"/>
+                <ResourceDictionary Source="../Styles/CommonStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="TextBlock">
                 <Setter Property="Margin" Value="5"/>
@@ -26,46 +27,34 @@
     <Grid Background="{StaticResource colorDarkBlue}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*" MinHeight="300"/>
+            <RowDefinition Height="*" MinHeight="500"/>
         </Grid.RowDefinitions>
         <Border Style="{StaticResource BorderSettingsStyle}" Padding="5" Margin="10,10,10,0">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Сделать CheckOut текущего объекта:"/>
                 <TextBlock FontWeight="Bold" Text="{Binding DbObject}"/>
                 <Button Content="CheckOut" Margin="10,0" MinWidth="70" 
+                        Background="{StaticResource colorButton}"
                         Command="{Binding CheckOutCommand}" 
                         CommandParameter="{Binding DbObject}"/>
             </StackPanel>
         </Border>
         <Border Style="{StaticResource BorderSettingsStyle}" Grid.Row="1" Padding="5" Margin="10">
             <DataGrid ItemsSource="{Binding CheckOutList}" AutoGenerateColumns="False" Tag="{Binding UserLogin}">
-                <DataGrid.Resources>
-                    <Style TargetType="{x:Type DataGridCell}">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type DataGridCell}">
-                                    <Border Padding="5,2"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                                        <ContentPresenter VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Сервер" Binding="{Binding ServerName}"/>
-                    <DataGridTextColumn Header="Владелец" Binding="{Binding Login}"/>
-                    <DataGridTextColumn Header="Схема" Binding="{Binding ObjectOwner}"/>
-                    <DataGridTextColumn Header="Объект" Binding="{Binding ObjectName}"/>
-                    <DataGridTextColumn Header="Тип объекта" Binding="{Binding ObjectType}"/>
-                    <DataGridTextColumn Header="Дата CheckOut" Binding="{Binding CheckoutDate}"/>
-                    <DataGridTemplateColumn>
+                    <DataGridTextColumn Width="Auto" Header="Сервер" Binding="{Binding ServerName}"/>
+                    <DataGridTextColumn Width="Auto" Header="Владелец" Binding="{Binding Login}"/>
+                    <DataGridTextColumn Width="Auto" Header="Схема" Binding="{Binding ObjectOwner}"/>
+                    <DataGridTextColumn Width="Auto" Header="Объект" Binding="{Binding ObjectName}"/>
+                    <DataGridTextColumn Width="Auto" Header="Тип объекта" Binding="{Binding ObjectType}"/>
+                    <DataGridTextColumn Width="Auto" Header="Дата CheckOut" Binding="{Binding CheckoutDate}"/>
+                    <DataGridTemplateColumn Width="Auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Margin="5" 
-                                        Content="CheckIn" 
+                                <Button Content="CheckIn" 
                                         Command="{Binding ElementName=window, Path=DataContext.CheckInCommand}" 
-                                        CommandParameter="{Binding}">
+                                        CommandParameter="{Binding}"
+                                        Margin="0" Padding="0" Width="80" Background="{StaticResource colorButton}">
                                     <Button.Visibility>
                                         <MultiBinding Converter="{StaticResource UserLoginToCheckinButtonVisibilityConverter}">
                                             <Binding Path="Login" />

@@ -47,7 +47,7 @@ namespace Git4PL2.Plugin.WPF.ViewModel
         {
             get
             {
-                return new TextOperationsParametrs() { DbObjectText = _DbObjectText, StringParam = CurrentBranch };
+                return new TextOperationsParametrs() { DbObjectText = _DbObjectText, StringParam = CurrentDataBase };
             }
         }
         #endregion

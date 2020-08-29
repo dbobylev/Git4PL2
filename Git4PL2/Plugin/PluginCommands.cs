@@ -14,7 +14,7 @@ namespace Git4PL2.Plugin
 {
     class PluginCommands : IPluginCommands
     {
-        private IIDEProvider _IDEProvider;
+        private readonly IIDEProvider _IDEProvider;
 
         public PluginCommands(IIDEProvider IDEProvider)
         {

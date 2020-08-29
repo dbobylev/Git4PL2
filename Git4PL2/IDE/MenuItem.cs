@@ -11,7 +11,6 @@ namespace Git4PL2.IDE
     class MenuItem : IMenuItem
     {
         private static int _indexCounter = 10;
-
         public int Index { get; private set; }
         public string MenuName { get; private set; }
         private Action ActionClick { get; set; }

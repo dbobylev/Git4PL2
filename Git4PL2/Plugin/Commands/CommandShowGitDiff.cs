@@ -13,7 +13,7 @@ namespace Git4PL2.Plugin.Commands
 {
     class CommandShowGitDiff :PluginCommand
     {
-        private IIDEProvider _IDEProvider;
+        private readonly IIDEProvider _IDEProvider;
 
         public CommandShowGitDiff(IIDEProvider IDEProvider) :base("ShowGitDiff")
         {

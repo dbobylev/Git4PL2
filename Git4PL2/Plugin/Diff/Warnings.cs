@@ -11,7 +11,7 @@ namespace Git4PL2.Plugin.Diff
 {
     public class Warnings : IWarnings
     {
-        private ISettings _Settings;
+        private readonly ISettings _Settings;
 
         public Warnings(ISettings Settings)
         {

@@ -10,7 +10,7 @@ namespace Git4PL2.Plugin.Commands
 {
     class CommandOpenCommitByURL : PluginCommand
     {
-        private ISettings _Settings;
+        private readonly ISettings _Settings;
 
         public CommandOpenCommitByURL(ISettings Settings) : base("PluginCommandOpenCommitByURL")
         {

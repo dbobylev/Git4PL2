@@ -11,9 +11,9 @@ namespace Git4PL2.Plugin.Commands
 {
     class CommandCheckIn : PluginCommand
     {
-        private ITeamCodingProvider _TeamCodingProvider;
-        private ISettings _Settings;
-        private IIDEProvider _IDEProvider;
+        private readonly ITeamCodingProvider _TeamCodingProvider;
+        private readonly ISettings _Settings;
+        private readonly IIDEProvider _IDEProvider;
 
         public CommandCheckIn(ITeamCodingProvider TeamCodingProvider, ISettings Settings, IIDEProvider IDEProvider) : base("PluginCommandCheckOut")
         {

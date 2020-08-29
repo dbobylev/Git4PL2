@@ -13,7 +13,7 @@ namespace Git4PL2.Plugin.Diff
 {
     class PlsqlCodeFormatter: IPlsqlCodeFormatter
     {
-        private ISettings _Settings;
+        private readonly ISettings _Settings;
 
         private string GitText { get; set; }
         private string GitFilePath { get; set; }

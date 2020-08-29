@@ -12,9 +12,9 @@ namespace Git4PL2.Plugin.Commands
 {
     class CommandShowGitBlame : PluginCommand
     {
-        IGitAPI _GitAPI;
-        IIDEProvider _IIDEProveider;
-        ISettings _Settings;
+        private readonly IGitAPI _GitAPI;
+        private readonly IIDEProvider _IIDEProveider;
+        private readonly ISettings _Settings;
 
         public CommandShowGitBlame(IIDEProvider IDEProvider, IGitAPI GitApi, ISettings Settings) : base("PluginCommandShowGitBlame")
         {

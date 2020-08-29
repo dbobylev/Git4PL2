@@ -9,7 +9,7 @@ namespace Git4PL2.Plugin.Settings
 {
     class Settings :ISettings
     {
-        private IPluginSettingsStorage _PluginSettingsStorage;
+        private readonly IPluginSettingsStorage _PluginSettingsStorage;
 
         public Settings(IPluginSettingsStorage PluginSettingsStorage)
         {

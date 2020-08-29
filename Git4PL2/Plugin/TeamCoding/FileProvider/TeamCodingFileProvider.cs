@@ -18,8 +18,8 @@ namespace Git4PL2.Plugin.TeamCoding.FileProvider
     {
         private const string FILE_NAME = "Git4PL2_TeamCoding.json";
         private readonly string FILE_PATH;
-        private ITeamCodingProviderChecks _TeamCodingChecks;
-        private ISettings _Settings;
+        private readonly ITeamCodingProviderChecks _TeamCodingChecks;
+        private readonly ISettings _Settings;
         private string _ServerName;
 
         public TeamCodingFileProvider(ITeamCodingProviderChecks TeamCodingChecks, ISettings Settings, IIDEProvider IDEProvider)

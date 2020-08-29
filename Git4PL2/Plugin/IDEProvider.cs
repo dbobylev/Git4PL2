@@ -17,8 +17,8 @@ namespace Git4PL2.Plugin.Commands
 {
     class IDEProvider : IIDEProvider
     {
-        ICallbackManager _CallbackManager;
-        IPlsqlCodeFormatter _PlsqlCodeFormatter;
+        private readonly ICallbackManager _CallbackManager;
+        private readonly IPlsqlCodeFormatter _PlsqlCodeFormatter;
 
         public IDEProvider(ICallbackManager CallbackManager, IPlsqlCodeFormatter PlsqlCodeFormatter)
         {

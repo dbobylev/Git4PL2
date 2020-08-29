@@ -11,16 +11,20 @@ namespace Git4PL2.Plugin.Commands
 {
     class CommandShowTeamCoding :PluginCommand
     {
+        private readonly ISettings _Settings;
+
         public CommandShowTeamCoding(ISettings Settings) : base("PluginCommandShowTeamCoding")
         {
-            if (string.IsNullOrEmpty(Settings.TEAMCODING_LOGIN))
-            {
-                throw new Exception("Не указан Логин для Team Coding");
-            }
+            _Settings = Settings;
         }
 
         public override void Execute(object parameter)
         {
+            if (string.IsNullOrEmpty(_Settings.TEAMCODING_LOGIN))
+            {
+                throw new Exception("Не указан Логин для Team Coding");
+            }
+
             WindowTeamCoding wtg = new WindowTeamCoding();
             wtg.Show();
         }

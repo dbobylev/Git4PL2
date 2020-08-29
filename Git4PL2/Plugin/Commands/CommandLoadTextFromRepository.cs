@@ -14,10 +14,10 @@ namespace Git4PL2.Plugin.Commands
     {
         private static bool _CanExecute = true;
 
-        private IIDEProvider _IDEProvider;
+        private readonly IIDEProvider _IDEProvider;
         private IDbObjectText _DbObjectText;
-        private IPlsqlCodeFormatter _PlsqlCodeFormatter;
-        private IWarnings _Warnings;
+        private readonly IPlsqlCodeFormatter _PlsqlCodeFormatter;
+        private readonly IWarnings _Warnings;
         private string _ServerName;
 
         public CommandLoadTextFromRepository(IIDEProvider IDEProvider, IPlsqlCodeFormatter PlsqlCodeFormatter, IWarnings Warnings) :base("LoadTextFromRepository")

@@ -10,7 +10,7 @@ namespace Git4PL2.Plugin.Diff
 {
     class DbObjectText :DbObjectRepository, IDbObjectText
     {
-        private IPlsqlCodeFormatter _PlsqlCodeFormatter;
+        private readonly IPlsqlCodeFormatter _PlsqlCodeFormatter;
 
         protected string _text;
         public string Text { get => _text; set => _text = value; }

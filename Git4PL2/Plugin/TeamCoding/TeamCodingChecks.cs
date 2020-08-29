@@ -11,8 +11,8 @@ namespace Git4PL2.Plugin.TeamCoding
 {
     class TeamCodingChecks : ITeamCodingChecks
     {
-        private IIDEProvider _IDEProvider;
-        private ISettings _Settings;
+        private readonly IIDEProvider _IDEProvider;
+        private readonly ISettings _Settings;
         private ITeamCodingProvider _TeamCodingProvider;
 
         public TeamCodingChecks(IIDEProvider IDEProvider, ISettings Settings)

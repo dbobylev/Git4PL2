@@ -15,10 +15,10 @@ namespace Git4PL2.Plugin.Commands
     {
         private bool _CanExecute = true;
 
-        private IIDEProvider _IDEProvider;
+        private readonly IIDEProvider _IDEProvider;
         private IDbObjectText _DbObjectText;
-        private IGitAPI _GitAPI;
-        private IWarnings _Warnings;
+        private readonly IGitAPI _GitAPI;
+        private readonly IWarnings _Warnings;
         private string _BranchName;
 
 

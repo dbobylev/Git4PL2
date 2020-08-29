@@ -15,9 +15,9 @@ namespace Git4PL2.IDE
     public class API
     {
         private static int _pluginID;
-        private static ICallbackManager _CallbackManager;
-        private static ITeamCodingChecks _TeamCodingChecks;
-        private static IMenu _Menu;
+        private readonly static ICallbackManager _CallbackManager;
+        private readonly static ITeamCodingChecks _TeamCodingChecks;
+        private readonly static IMenu _Menu;
 
         static API()
         {

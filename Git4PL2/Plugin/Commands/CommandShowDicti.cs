@@ -11,7 +11,7 @@ namespace Git4PL2.Plugin.Commands
 {
     class CommandShowDicti :PluginCommand
     {
-        private IIDEProvider _IDEProvider;
+        private readonly IIDEProvider _IDEProvider;
 
         public CommandShowDicti(IIDEProvider IDEProvider):base("PluginCommandShowDicti")
         {

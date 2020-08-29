@@ -1,4 +1,5 @@
-﻿using Git4PL2.Plugin.Abstract;
+﻿using Git4PL2.Abstarct;
+using Git4PL2.Plugin.Abstract;
 using Git4PL2.Plugin.Model;
 using Git4PL2.Plugin.TeamCoding;
 using Newtonsoft.Json.Linq;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Git4PL2.Plugin.Settings
 {
@@ -59,12 +61,12 @@ namespace Git4PL2.Plugin.Settings
 
         public IEnumerable<PluginParameterGroup> GetGroups => _ListGroup;
 
-        public IPluginParameter GetParam(ePluginParameterNames name)
+        public IPluginParameter GetParam(ePluginParameterID name)
         {
             return _ListSettings.First(x => x.ID == name);
         }
 
-        public T GetParamValue<T>(ePluginParameterNames name)
+        public T GetParamValue<T>(ePluginParameterID name)
         {
             return _ListSettings.First(x => x.ID == name).GetValue<T>();
         }
@@ -96,6 +98,8 @@ namespace Git4PL2.Plugin.Settings
             FillSettings();
 
             Properties.Settings.Default.Save();
+
+            NinjectCore.SetTeamCodingProvider((eTeamCodingProviderType)GetParamValue<int>(ePluginParameterID.TEAMCODING_PROVIDER));
         }
 
         private void FillGroups()
@@ -145,7 +149,7 @@ namespace Git4PL2.Plugin.Settings
 
             #region Main group
 
-            _ListSettings.Add(new PluginParameter<string>(ePluginParameterNames.GitRepositoryPath, @"D:\Repo")
+            _ListSettings.Add(new PluginParameter<string>(ePluginParameterID.GitRepositoryPath, @"D:\Repo")
             {
                 Description = "Репозиторий Git",
                 DescriptionExt = "Необходимо указать расположение репозитрия Git с объектами DB",
@@ -154,7 +158,7 @@ namespace Git4PL2.Plugin.Settings
                 OrderPosition = 1
             });
 
-            _ListSettings.Add(new PluginParameterList(ePluginParameterNames.SaveEncodingType, 2, typeof(eSaveEncodingType))
+            _ListSettings.Add(new PluginParameterList(ePluginParameterID.SaveEncodingType, 2, typeof(eSaveEncodingType))
             {
                 Description = "Кодировка по умолчанию",
                 DescriptionExt = @"Файл в репозитории Git может иметь маркер кодировки UTF8 – BOM. BOM - Byte Order Mark, Маркер последовательности " +
@@ -171,7 +175,7 @@ namespace Git4PL2.Plugin.Settings
 
             #region GitDiff group
 
-            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterNames.DiffAddSchema, true)
+            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterID.DiffAddSchema, true)
             {
                 Description = "Добавлять префикс схемы к названию объекта",
                 DescriptionExt = "Эта настройка, дополняет предыдущую. При отсутствии схемы в названии объекта БД, она будет добавлена. (Такое встречается в файлах Git)",
@@ -179,7 +183,7 @@ namespace Git4PL2.Plugin.Settings
                 OrderPosition = 30
             });
 
-            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterNames.DiffChangeCor, true)
+            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterID.DiffChangeCor, true)
             {
                 Description = "Игнорировать изменения до названия объекта",
                 DescriptionExt = "Касается переноса после ‘Create or replace’ а также лишних пробелов, которые могут встречаться в файле Git и " +
@@ -188,7 +192,7 @@ namespace Git4PL2.Plugin.Settings
                 OrderPosition = 10
             });
 
-            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterNames.DiffChangeName, true)
+            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterID.DiffChangeName, true)
             {
                 Description = "Сохранять название объекта, как в git",
                 DescriptionExt = "Название объекта БД открытого в PL/SQL Developer может не всегда совпадать с названием того же объекта в Git. " +
@@ -197,7 +201,7 @@ namespace Git4PL2.Plugin.Settings
                 OrderPosition = 20
             });
 
-            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterNames.DiffCRLF, true)
+            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterID.DiffCRLF, true)
             {
                 Description = "Игн. изменения пробелов в конце строк",
                 DescriptionExt = "В PL/SQL Developer применяется стандартный для Windows перенос строк в два символа CR-LF (“Carriage Return” и “Line Feed”). " +
@@ -208,7 +212,7 @@ namespace Git4PL2.Plugin.Settings
                 OrderPosition = 50
             });
 
-            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterNames.DiffWorkWithSlash, true)
+            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterID.DiffWorkWithSlash, true)
             {
                 Description = "Обрабатывать '/' в конце файла",
                 DescriptionExt = "Текст в файлах в репозитории Git заканчивается на ‘/’. Обработка этого символа предотвращает его " +
@@ -223,7 +227,7 @@ namespace Git4PL2.Plugin.Settings
 
             #region Warning group
 
-            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterNames.UnexpectedBranch, true)
+            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterID.UnexpectedBranch, true)
             {
                 Description = "Проверка ветки при сохранении текста в репозиторий",
                 DescriptionExt = "При сохранении текста объекта в репозитории, если название ветки не совпадает с соответствующим регулярным выражением " +
@@ -232,7 +236,7 @@ namespace Git4PL2.Plugin.Settings
                 OrderPosition = 10
             });
 
-            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterNames.UnexpectedServer, true)
+            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterID.UnexpectedServer, true)
             {
                 Description = "Проверка сервера при загрузки текста в PL/SQL Developer",
                 DescriptionExt = "При загрузке текста в PL/SQL Developer, если название сервера не совпадает с соответствующим регулярным выражением – " +
@@ -241,21 +245,21 @@ namespace Git4PL2.Plugin.Settings
                 OrderPosition = 20
             });
 
-            _ListSettings.Add(new PluginParameter<string>(ePluginParameterNames.WarnInRegEx, string.Empty)
+            _ListSettings.Add(new PluginParameter<string>(ePluginParameterID.WarnInRegEx, string.Empty)
             {
                 Description = "Регулярное выражение, для проверки операции SaveText",
                 DescriptionExt = string.Empty,
                 Group = ePluginParameterGroupType.Warning,
-                ParentParameterID = ePluginParameterNames.UnexpectedBranch,
+                ParentParameterID = ePluginParameterID.UnexpectedBranch,
                 OrderPosition = 11
             });
 
-            _ListSettings.Add(new PluginParameter<string>(ePluginParameterNames.WarnOutRegEx, string.Empty)
+            _ListSettings.Add(new PluginParameter<string>(ePluginParameterID.WarnOutRegEx, string.Empty)
             {
                 Description = "Регулярное выражение, для проверки операции LoadText",
                 DescriptionExt = string.Empty,
                 Group = ePluginParameterGroupType.Warning,
-                ParentParameterID = ePluginParameterNames.UnexpectedServer,
+                ParentParameterID = ePluginParameterID.UnexpectedServer,
                 OrderPosition = 21
             });
 
@@ -264,7 +268,7 @@ namespace Git4PL2.Plugin.Settings
 
             #region Blame Group
 
-            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterNames.ShowGitBlameProperties, true)
+            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterID.ShowGitBlameProperties, true)
             {
                 Description = "Запрашивать настройки для команды GitBlame",
                 DescriptionExt = "Если опция включена, то перед операцией GitBlame можно будет выбрать кол-во строк которое будет обработано. Если же отклчить настройку, то по умолчанию обработаются только 10 строк",
@@ -275,7 +279,7 @@ namespace Git4PL2.Plugin.Settings
             var CommitViewURL = _DefaultConfiguration.SelectToken("CommitViewURL").ToString();
             if (string.IsNullOrEmpty(CommitViewURL))
                 CommitViewURL = "https://www.google.com/search?q=";
-            _ListSettings.Add(new PluginParameter<string>(ePluginParameterNames.CommitViewURL, CommitViewURL)
+            _ListSettings.Add(new PluginParameter<string>(ePluginParameterID.CommitViewURL, CommitViewURL)
             {
                 Description = "URL для запуска информации по коммиту",
                 DescriptionExt = "В окне GitBlame при запросе информации по комиту будет переход по этой ссылки. (К этой ссылке в конце будет добавлен sha комита)",
@@ -288,7 +292,7 @@ namespace Git4PL2.Plugin.Settings
 
             #region Others group
 
-            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterNames.ClassicButtonsPosition, false)
+            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterID.ClassicButtonsPosition, false)
             {
                 Description = "Классическое расположение кнопок в окне Gitt Diff",
                 DescriptionExt = string.Empty,
@@ -296,18 +300,18 @@ namespace Git4PL2.Plugin.Settings
                 OrderPosition = 10
             });
 
-            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterNames.DICTI_CHILDREN_LIMIT_ENABLE, true)
+            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterID.DICTI_CHILDREN_LIMIT_ENABLE, true)
             {
                 Description = "Включить ограничение для отбора дочерних записей из Dicti",
                 Group = ePluginParameterGroupType.Others,
                 OrderPosition = 20
             });
 
-            _ListSettings.Add(new PluginParameter<int>(ePluginParameterNames.DICTI_CHILDREN_LIMIT_VALUE, 20)
+            _ListSettings.Add(new PluginParameter<int>(ePluginParameterID.DICTI_CHILDREN_LIMIT_VALUE, 20)
             {
                 Description = "Лимит на кол0во отобранных дочерних записей для Dicti",
                 Group = ePluginParameterGroupType.Others,
-                ParentParameterID = ePluginParameterNames.DICTI_CHILDREN_LIMIT_ENABLE,
+                ParentParameterID = ePluginParameterID.DICTI_CHILDREN_LIMIT_ENABLE,
                 OrderPosition = 20
             });
 
@@ -316,27 +320,27 @@ namespace Git4PL2.Plugin.Settings
 
             #region SQL Group
 
-            _ListSettings.Add(new PluginParameter<string>(ePluginParameterNames.SQL_DICTI_PARENT_COUNT, _DefaultConfiguration.SelectToken("SQL_DICTI_PARENT_COUNT").ToString())
+            _ListSettings.Add(new PluginParameter<string>(ePluginParameterID.SQL_DICTI_PARENT_COUNT, _DefaultConfiguration.SelectToken("SQL_DICTI_PARENT_COUNT").ToString())
             {
                 Group = ePluginParameterGroupType.SQL
             });
 
-            _ListSettings.Add(new PluginParameter<string>(ePluginParameterNames.SQL_DICTI_PARENT, _DefaultConfiguration.SelectToken("SQL_DICTI_PARENT").ToString())
+            _ListSettings.Add(new PluginParameter<string>(ePluginParameterID.SQL_DICTI_PARENT, _DefaultConfiguration.SelectToken("SQL_DICTI_PARENT").ToString())
             {
                 Group = ePluginParameterGroupType.SQL
             });
 
-            _ListSettings.Add(new PluginParameter<string>(ePluginParameterNames.SQL_DICTI_HIERARCHY, _DefaultConfiguration.SelectToken("SQL_DICTI_HIERARCHY").ToString())
+            _ListSettings.Add(new PluginParameter<string>(ePluginParameterID.SQL_DICTI_HIERARCHY, _DefaultConfiguration.SelectToken("SQL_DICTI_HIERARCHY").ToString())
             {
                 Group = ePluginParameterGroupType.SQL
             });
 
-            _ListSettings.Add(new PluginParameter<string>(ePluginParameterNames.SQL_DICTIISN_BY_CONSTNAME, _DefaultConfiguration.SelectToken("SQL_DICTIISN_BY_CONSTNAME").ToString())
+            _ListSettings.Add(new PluginParameter<string>(ePluginParameterID.SQL_DICTIISN_BY_CONSTNAME, _DefaultConfiguration.SelectToken("SQL_DICTIISN_BY_CONSTNAME").ToString())
             {
                 Group = ePluginParameterGroupType.SQL
             });
 
-            _ListSettings.Add(new PluginParameter<string>(ePluginParameterNames.SQL_SERVERNAME, _DefaultConfiguration.SelectToken("SQL_SERVERNAME").ToString())
+            _ListSettings.Add(new PluginParameter<string>(ePluginParameterID.SQL_SERVERNAME, _DefaultConfiguration.SelectToken("SQL_SERVERNAME").ToString())
             {
                 Group = ePluginParameterGroupType.SQL
             });
@@ -346,35 +350,45 @@ namespace Git4PL2.Plugin.Settings
 
             #region TeamCoding Group
 
-            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterNames.TEAMCODING_ENABLE, false)
+            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterID.TEAMCODING_ENABLE, false)
             {
                 Description = "Вкл. TeamCoding",
                 DescriptionExt = "TeamCoding позволяет команде работать на одном сервере. Добавляет возможность делать CheckOut, CheckIn для объектов",
                 Group = ePluginParameterGroupType.TeamCoding,
-                OrderPosition = 10
+                OrderPosition = 10,
+                OnParameterChanged = (x) =>
+                {
+                    var menu = NinjectCore.Get<IMenu>();
+                    menu.RefreshMenu();
+                }
             });
 
-            _ListSettings.Add(new PluginParameter<string>(ePluginParameterNames.TEAMCODING_LOGIN, string.Empty)
+            _ListSettings.Add(new PluginParameter<string>(ePluginParameterID.TEAMCODING_LOGIN, string.Empty)
             {
                 Description = "Логин",
                 DescriptionExt = "Ваше имя под которым объекты БД будут браться в пользование",
                 Group = ePluginParameterGroupType.TeamCoding,
-                ParentParameterID = ePluginParameterNames.TEAMCODING_ENABLE,
+                ParentParameterID = ePluginParameterID.TEAMCODING_ENABLE,
                 OrderPosition = 20
             });
 
-            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterNames.TEAMCODING_RESTRICT_COMPILE_WITHOUT_CHECKOUT, false) 
+            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterID.TEAMCODING_RESTRICT_COMPILE_WITHOUT_CHECKOUT, false) 
             {
                 Description = "Запретить компиляцию без CheckOut",
                 DescriptionExt = "Если объект в настоящий момет никем не занят, можно разрешить его компилировать без CheckOut. " +
                                 "Эта настройка общая, изменения распространится на всех участников TEAMCODING. " +
                                 "Пожалуйста договоритесь с командой о политиках работы на общей среде прежде чем менять настрйоку",
                 Group = ePluginParameterGroupType.TeamCoding,
-                ParentParameterID = ePluginParameterNames.TEAMCODING_ENABLE,
-                OrderPosition = 25
+                ParentParameterID = ePluginParameterID.TEAMCODING_ENABLE,
+                OrderPosition = 25,
+                OnParameterChanged = (x) =>
+                {
+                    ITeamCodingProvider provider = NinjectCore.Get<ITeamCodingProvider>();
+                    provider.RestrickCompileWithoutCheckOut = x;
+                }
             });
 
-            _ListSettings.Add(new PluginParameterList(ePluginParameterNames.TEAMCODING_PROVIDER, 0, typeof(eTeamCodingProviderType))
+            _ListSettings.Add(new PluginParameterList(ePluginParameterID.TEAMCODING_PROVIDER, 0, typeof(eTeamCodingProviderType))
             {
                 Description = "Провайдер для TeamCoding-а",
                 DescriptionExt = "Вариант обмена информацией между несколькими пользователями PL/SQL Developer. Для того что-бы команды была в одной \"сети\", " +
@@ -383,26 +397,27 @@ namespace Git4PL2.Plugin.Settings
                                  "При операции CheckOut в этот файл добавится информация, что пользователь <Логин> взял в пользование такой объект БД. " +
                                  "Другие участники при обращении к этому объекту БД, будут видеть предупреждение, что объект в настоящий момент занят.",
                 Group = ePluginParameterGroupType.TeamCoding,
-                ParentParameterID = ePluginParameterNames.TEAMCODING_ENABLE,
-                OrderPosition = 30
+                ParentParameterID = ePluginParameterID.TEAMCODING_ENABLE,
+                OrderPosition = 30,
+                OnParameterChanged = (x) => NinjectCore.SetTeamCodingProvider((eTeamCodingProviderType)x)
             });
 
-            _ListSettings.Add(new PluginParameter<string>(ePluginParameterNames.TEAMCODING_FILEPROVIDER_PATH, string.Empty)
+            _ListSettings.Add(new PluginParameter<string>(ePluginParameterID.TEAMCODING_FILEPROVIDER_PATH, string.Empty)
             {
                 Description = "Путь для общего файла",
                 ParamterUIType = ePluginParameterUIType.Path,
                 Group = ePluginParameterGroupType.TeamCoding,
-                ParentParameterID = ePluginParameterNames.TEAMCODING_PROVIDER,
+                ParentParameterID = ePluginParameterID.TEAMCODING_PROVIDER,
                 ParentParameterStringValue = "0",
                 OrderPosition = 40
             });
 
-            _ListSettings.Add(new PluginParameter<string>(ePluginParameterNames.TEAMCODING_SERVERNAME_REGEX, string.Empty)
+            _ListSettings.Add(new PluginParameter<string>(ePluginParameterID.TEAMCODING_SERVERNAME_REGEX, string.Empty)
             {
                 Description = "Название рабочего сервера",
                 DescriptionExt = "Регулярное выражение для имени сервера, который должен быть подключен к TeamCoding",
                 Group = ePluginParameterGroupType.TeamCoding,
-                ParentParameterID = ePluginParameterNames.TEAMCODING_ENABLE,
+                ParentParameterID = ePluginParameterID.TEAMCODING_ENABLE,
                 OrderPosition = 50
             });
 

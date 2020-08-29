@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Git4PL2.Plugin.Settings
 {
-    public enum ePluginParameterNames
+    public enum ePluginParameterID
     {
         NULL,
         GitRepositoryPath,

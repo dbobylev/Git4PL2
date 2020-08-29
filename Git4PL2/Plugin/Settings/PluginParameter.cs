@@ -20,7 +20,7 @@ namespace Git4PL2.Plugin.Settings
         /// <summary>
         /// ID параметра, используется при сохранении в user.config
         /// </summary>
-        public ePluginParameterNames ID { get; private set; }
+        public ePluginParameterID ID { get; private set; }
 
         /// <summary>
         /// Группа к которой относится параметр
@@ -48,6 +48,11 @@ namespace Git4PL2.Plugin.Settings
         public T Value { get; private set; }
 
         /// <summary>
+        /// Действие происходит при смене параметра
+        /// </summary>
+        public Action<T> OnParameterChanged { get; set; }
+
+        /// <summary>
         /// Порядок сортировки параматров в рамках одной группы
         /// </summary>
         public int OrderPosition { get; set; }
@@ -60,7 +65,7 @@ namespace Git4PL2.Plugin.Settings
         /// 
         /// Если ParentParameter не указывать то параметр останется всегда включен 
         /// </summary>
-        public ePluginParameterNames ParentParameterID { get; set; } = ePluginParameterNames.NULL;
+        public ePluginParameterID ParentParameterID { get; set; } = ePluginParameterID.NULL;
 
         /// <summary>
         /// Значение ParentParameterID при котором этот параметр будет активный на UI
@@ -68,7 +73,7 @@ namespace Git4PL2.Plugin.Settings
         public string ParentParameterStringValue { get; set; } = "True";
 
 
-        public PluginParameter(ePluginParameterNames parameterName, T DefaultValue)
+        public PluginParameter(ePluginParameterID parameterName, T DefaultValue)
         {
             Seri.Log.Here().Verbose($"Настройка параметра {parameterName}");
 
@@ -149,6 +154,8 @@ namespace Git4PL2.Plugin.Settings
 
                 Seri.Log.Here().Verbose($"Сохранияем праметр {ID}, значение: {value}");
                 Properties.Settings.Default.Save();
+
+                OnParameterChanged?.Invoke(SetValue);
             }
         }
     }

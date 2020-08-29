@@ -22,5 +22,9 @@ namespace Git4PL2.Abstarct
         void ShowDicti();
 
         void ShowTeamCoding();
+
+        void CheckOut();
+
+        void CheckIn();
     }
 }

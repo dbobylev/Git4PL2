@@ -13,11 +13,13 @@ namespace Git4PL2.Plugin.Processes
     {
         private ITeamCodingProvider _TeamCodingProvider;
         private ISettings _Settings;
+        private IIDEProvider _IDEProvider;
 
-        public PluginCommandCheckIn(ITeamCodingProvider TeamCodingProvider, ISettings Settings) : base("PluginCommandCheckOut")
+        public PluginCommandCheckIn(ITeamCodingProvider TeamCodingProvider, ISettings Settings, IIDEProvider IDEProvider) : base("PluginCommandCheckOut")
         {
             _TeamCodingProvider = TeamCodingProvider;
             _Settings = Settings;
+            _IDEProvider = IDEProvider;
         }
 
         public override void Execute(object parameter)
@@ -31,7 +33,9 @@ namespace Git4PL2.Plugin.Processes
                 }
                 else
                 {
-                    MessageBox.Show($"Сделан CheckIn для объекта {dbObject.ToString()}", "CheckIn", MessageBoxButton.OK, MessageBoxImage.Information);
+                    var OutputString = $"Сделан CheckIn для объекта {dbObject.ToString()}";
+                    MessageBox.Show(OutputString, "CheckIn", MessageBoxButton.OK, MessageBoxImage.Information);
+                    _IDEProvider.SetStatusMessage(OutputString);
                 }
             }
         }

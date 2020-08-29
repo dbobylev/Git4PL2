@@ -14,5 +14,7 @@ namespace Git4PL2.Abstarct
         void CreateToolButtons(int pluginID);
 
         void ClickOnMenu(int index);
+
+        void RefreshMenu();
     }
 }

@@ -1,4 +1,6 @@
-﻿using Ninject;
+﻿using Git4PL2.Plugin.TeamCoding;
+using Git4PL2.Plugin.TeamCoding.FileProvider;
+using Ninject;
 using Ninject.Parameters;
 using System;
 using System.Collections.Generic;
@@ -41,6 +43,12 @@ namespace Git4PL2
         public static IParameter GetParameter(string name, object obj)
         {
             return new ConstructorArgument(name, obj);
+        }
+
+        public static void SetTeamCodingProvider(eTeamCodingProviderType TeamCodingProviderType)
+        {
+            if (TeamCodingProviderType == eTeamCodingProviderType.ShareFileProvider)
+                kernel.Rebind<ITeamCodingProvider>().To<TeamCodingFileProvider>();
         }
     }
 }

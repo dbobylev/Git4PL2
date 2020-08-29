@@ -11,13 +11,15 @@ namespace Git4PL2.Plugin.Processes
 {
     class PluginCommandCheckOut : PluginCommand
     {
-        private ITeamCodingProvider _TeamCodingProvider;
-        private ISettings _Settings;
+        private readonly ITeamCodingProvider _TeamCodingProvider;
+        private readonly ISettings _Settings;
+        private readonly IIDEProvider _IDEProvider;
 
-        public PluginCommandCheckOut(ITeamCodingProvider TeamCodingProvider, ISettings Settings) : base("PluginCommandCheckOut")
+        public PluginCommandCheckOut(ITeamCodingProvider TeamCodingProvider, ISettings Settings, IIDEProvider IDEProvider) : base("PluginCommandCheckOut")
         {
             _TeamCodingProvider = TeamCodingProvider;
             _Settings = Settings;
+            _IDEProvider = IDEProvider;
         }
 
         public override void Execute(object parameter)
@@ -31,7 +33,9 @@ namespace Git4PL2.Plugin.Processes
                 }
                 else
                 {
-                    MessageBox.Show($"Сделан CheckOut для объекта {dbObject.ToString()}", "CheckOut", MessageBoxButton.OK, MessageBoxImage.Information);
+                    var OutputString = $"Сделан CheckOut для объекта {dbObject.ToString()}";
+                    MessageBox.Show(OutputString, "CheckOut", MessageBoxButton.OK, MessageBoxImage.Information);
+                    _IDEProvider.SetStatusMessage(OutputString);
                 }
             }
         }

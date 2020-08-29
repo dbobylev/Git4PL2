@@ -14,17 +14,15 @@ namespace Git4PL2.IDE
 
         public int Index { get; private set; }
         public string MenuName { get; private set; }
-        public string MenuTip { get; private set; }
         private Action ActionClick { get; set; }
         public Bitmap Icon { get; private set; }
 
-        public MenuItem(string menuName, string menuTip, Action click, Bitmap icon)
+        public MenuItem(string menuName, Action click, Bitmap icon)
         {
             Index = _indexCounter++;
             MenuName = menuName;
             ActionClick = click;
             Icon = icon;
-            MenuTip = menuTip;
         }
 
         public void Click()

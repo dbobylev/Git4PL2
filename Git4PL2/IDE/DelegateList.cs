@@ -57,6 +57,9 @@ namespace Git4PL2.IDE
     // # 52
     delegate bool SQL_CheckConnection();
 
+    // #64
+    delegate void IDE_RefreshMenus(int ID);
+
     // # 110
     delegate bool IDE_GetWindowObject(out string ObjectType, out string ObjectOwner, out string ObjectName, out string SubObject);
 

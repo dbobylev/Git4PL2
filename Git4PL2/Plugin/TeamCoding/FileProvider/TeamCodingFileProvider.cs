@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Git4PL2.Plugin.TeamCoding.FileProvider
 {
@@ -38,21 +39,6 @@ namespace Git4PL2.Plugin.TeamCoding.FileProvider
             _ServerName = IDEProvider.SQLQueryExecute<DummyString>(Settings.SQL_SERVERNAME)[0].Value;
         }
 
-        private TeamCodingFile ReadFile()
-        {
-            if (!File.Exists(FILE_PATH))
-                return new TeamCodingFile() { RestrickCompileWithoutCheckOut = false, CheckOutObjectsList = new CheckOutObject[] { } };
-            string FileText = File.ReadAllText(FILE_PATH);
-            return JsonConvert.DeserializeObject<TeamCodingFile>(FileText);
-        }
-
-        private void SaveFile(TeamCodingFile file)
-        {
-            var json = JsonConvert.SerializeObject(file);
-            File.WriteAllText(FILE_PATH, json);
-        }
-
-
         public IEnumerable<ICheckOutObject> GetCheckOutObjectsList()
         {
             return ReadFile().CheckOutObjectsList;
@@ -76,6 +62,7 @@ namespace Git4PL2.Plugin.TeamCoding.FileProvider
         public bool CheckIn(string Login, IDbObject dbObject, out string ErrorMsg)
         {
             TeamCodingFile file = ReadFile();
+            CheckSettings(file);
             CheckOutObject CheckInObject = new CheckOutObject()
             {
                 Login = _Settings.TEAMCODING_LOGIN,
@@ -97,6 +84,7 @@ namespace Git4PL2.Plugin.TeamCoding.FileProvider
         public bool CheckOut(string Login, IDbObject dbObject, out string ErrorMsg)
         {
             TeamCodingFile file = ReadFile();
+            CheckSettings(file);
             CheckOutObject CheckOutbject = new CheckOutObject()
             {
                 Login = _Settings.TEAMCODING_LOGIN,
@@ -131,6 +119,33 @@ namespace Git4PL2.Plugin.TeamCoding.FileProvider
                 return CheckOutObject.First().Login;
             else
                 return string.Empty;
+        }
+
+        private TeamCodingFile ReadFile()
+        {
+            if (!File.Exists(FILE_PATH))
+                return new TeamCodingFile() { RestrickCompileWithoutCheckOut = false, CheckOutObjectsList = new CheckOutObject[] { } };
+            string FileText = File.ReadAllText(FILE_PATH);
+            return JsonConvert.DeserializeObject<TeamCodingFile>(FileText);
+        }
+
+        private void SaveFile(TeamCodingFile file)
+        {
+            var json = JsonConvert.SerializeObject(file);
+            File.WriteAllText(FILE_PATH, json);
+        }
+
+        private void CheckSettings(TeamCodingFile file)
+        {
+            if (_Settings.TEAMCODING_RESTRICT_COMPILE_WITHOUT_CHECKOUT != file.RestrickCompileWithoutCheckOut)
+            {
+                var storage = NinjectCore.Get<IPluginSettingsStorage>();
+                var parameter = storage.GetParam(Settings.ePluginParameterID.TEAMCODING_RESTRICT_COMPILE_WITHOUT_CHECKOUT);
+                parameter.SetValue<bool>(file.RestrickCompileWithoutCheckOut);
+
+                MessageBox.Show($"В TeamCoding зафиксировано изменение настройки RestrickCompileWithoutCheckOut. " +
+                    $"Установлено значение [{file.RestrickCompileWithoutCheckOut}]", "Обновление настрйоки", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }    
         }
     }
 }

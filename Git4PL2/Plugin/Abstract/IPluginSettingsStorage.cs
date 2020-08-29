@@ -9,9 +9,9 @@ namespace Git4PL2.Plugin.Abstract
 {
     public interface IPluginSettingsStorage
     {
-        IPluginParameter GetParam(ePluginParameterNames name);
+        IPluginParameter GetParam(ePluginParameterID name);
 
-        T GetParamValue<T>(ePluginParameterNames name);
+        T GetParamValue<T>(ePluginParameterID name);
 
         IEnumerable<PluginParameterGroup> GetGroups { get; }
 

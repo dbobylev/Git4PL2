@@ -11,7 +11,7 @@ namespace Git4PL2.Plugin.Settings
     {
         public IEnumerable<string> ListItems { get; set; }
 
-        public PluginParameterList(ePluginParameterNames parameterName, int defaultValue, Type ListType) :base(parameterName, defaultValue)
+        public PluginParameterList(ePluginParameterID parameterName, int defaultValue, Type ListType) :base(parameterName, defaultValue)
         {
             ListItems = Helper.GetTypeDescriptions(ListType);
             ParamterUIType = ePluginParameterUIType.List;

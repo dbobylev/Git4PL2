@@ -28,7 +28,7 @@ namespace Git4PL2.IDEStub
 
             var x = NinjectCore.Get<IPluginSettingsStorage>();
 
-            var p = x.GetParam(Plugin.Settings.ePluginParameterNames.TEAMCODING_FILEPROVIDER_PATH);
+            var p = x.GetParam(Plugin.Settings.ePluginParameterID.TEAMCODING_FILEPROVIDER_PATH);
             p.SetValue("D:\\");
 
             ButtonTeamCoding_Click(null, null);

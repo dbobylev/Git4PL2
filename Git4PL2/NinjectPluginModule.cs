@@ -57,7 +57,6 @@ namespace Git4PL2
             Bind<ITeamCodingProvider>().ToConstant(TeamCodingProvider);*/
 
             Bind<ITeamCodingProviderChecks>().To<TeamCodingProviderChecks>();
-            Bind<ITeamCodingProvider>().To<TeamCodingFileProvider>();
             Bind<ITeamCodingChecks>().To<TeamCodingChecks>();
         }
 

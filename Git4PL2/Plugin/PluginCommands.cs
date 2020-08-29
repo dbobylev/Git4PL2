@@ -1,4 +1,5 @@
 ﻿using Git4PL2.Abstarct;
+using Git4PL2.Plugin.Abstract;
 using Git4PL2.Plugin.Model;
 using Git4PL2.Plugin.Processes;
 using Git4PL2.Plugin.Settings;
@@ -13,6 +14,12 @@ namespace Git4PL2.Plugin
 {
     class PluginCommands : IPluginCommands
     {
+        private IIDEProvider _IDEProvider;
+
+        public PluginCommands(IIDEProvider IDEProvider)
+        {
+            _IDEProvider = IDEProvider;
+        }
 
         private void RunCommand(PluginCommand command, object param = null)
         {
@@ -67,6 +74,20 @@ namespace Git4PL2.Plugin
         public void ShowTeamCoding()
         {
             RunCommand(NinjectCore.Get<PluginCommandShowTeamCoding>());
+        }
+
+        public void CheckOut()
+        {
+            var dbObject = _IDEProvider.GetDbObject<IDbObject>(true);
+            if (dbObject != null)
+                RunCommand(NinjectCore.Get<PluginCommandCheckOut>(), dbObject);
+        }
+
+        public void CheckIn()
+        {
+            var dbObject = _IDEProvider.GetDbObject<IDbObject>(true);
+            if (dbObject != null)
+                RunCommand(NinjectCore.Get<PluginCommandCheckIn>(), dbObject);
         }
     }
 }

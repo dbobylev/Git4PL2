@@ -1,4 +1,5 @@
 ﻿using Git4PL2.Plugin.Abstract;
+using Git4PL2.Plugin.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +18,17 @@ namespace Git4PL2.Plugin.TeamCoding
             _Settings = Settings;
         }
 
-        public bool ChecksBeforeCheckIn(IEnumerable<ICheckOutObject> list, ICheckOutObject checkOutObject, out string ErrorMsg)
+        public bool ChecksBeforeCheckIn(IEnumerable<ICheckOutObject> list, ICheckOutObject checkInObject, out string ErrorMsg)
         {
-            if (!CheckServer(checkOutObject.ServerName, out ErrorMsg))
+            if (!CheckServer(checkInObject.ServerName, out ErrorMsg))
                 return false;
+
+            if (!list.Contains(checkInObject))
+            {
+                var objName = $"{checkInObject.ObjectType} {checkInObject.ObjectOwner}.{checkInObject.ObjectName}";
+                ErrorMsg = $"В настоящий момент вы не являетесь владельцем {objName}";
+                return false;
+            }
 
             return true;
         }

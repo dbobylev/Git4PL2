@@ -19,9 +19,9 @@ namespace Git4PL2.Plugin.WPF.ViewModel.Converters
             if (values[1] == DependencyProperty.UnsetValue)
                 return true;
 
-            ePluginParameterNames Parent = (ePluginParameterNames)values[1];
+            ePluginParameterID Parent = (ePluginParameterID)values[1];
 
-            if (Parent == ePluginParameterNames.NULL)
+            if (Parent == ePluginParameterID.NULL)
                 return true;
 
             IEnumerable Group = values[0] as IEnumerable;
@@ -41,7 +41,7 @@ namespace Git4PL2.Plugin.WPF.ViewModel.Converters
                     {
                         if (item.ValueString != exceptedStringValue)
                             return false;
-                        else if (item.ParentParameterID == ePluginParameterNames.NULL)
+                        else if (item.ParentParameterID == ePluginParameterID.NULL)
                             return true;
                         else
                         {

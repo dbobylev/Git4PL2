@@ -57,6 +57,7 @@ namespace Git4PL2.IDE
                 {46,  new Callback<SQL_FieldIndex>() },
                 {48,  new Callback<SQL_ErrorMessage>() },
                 {52,  new Callback<SQL_CheckConnection>() },
+                {64,  new Callback<IDE_RefreshMenus>() },
                 {110, new Callback<IDE_GetWindowObject>() },
                 {141, new Callback<IDE_GetCursorX>() },
                 {142, new Callback<IDE_GetCursorY>() },

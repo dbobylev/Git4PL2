@@ -20,7 +20,7 @@ namespace Git4PL2.Plugin.WPF.ViewModel.Converters
             SelectPathCommand = new RelayCommand(SelectFolder);
         }
 
-        public ePluginParameterNames ID => _model.ID;
+        public ePluginParameterID ID => _model.ID;
 
         public ePluginParameterUIType ParamterUIType => _model.ParamterUIType;
 
@@ -68,7 +68,7 @@ namespace Git4PL2.Plugin.WPF.ViewModel.Converters
             }
         }
 
-        public ePluginParameterNames ParentParameterID => _model.ParentParameterID;
+        public ePluginParameterID ParentParameterID => _model.ParentParameterID;
 
         public string ParentParameterStringValue => _model.ParentParameterStringValue;
 

@@ -37,6 +37,7 @@ namespace Git4PL2.Plugin.Settings
         public int DICTI_CHILDREN_LIMIT_VALUE => _PluginSettingsStorage.GetParamValue<int>(ePluginParameterID.DICTI_CHILDREN_LIMIT_VALUE);
         public string SQL_DICTIISN_BY_CONSTNAME => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterID.SQL_DICTIISN_BY_CONSTNAME);
         public string SQL_SERVERNAME => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterID.SQL_SERVERNAME);
+        public string SQL_FTOGGLE => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterID.SQL_FTOGGLE);
         public bool TEAMCODING_ENABLE => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterID.TEAMCODING_ENABLE);
         public string TEAMCODING_LOGIN => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterID.TEAMCODING_LOGIN);
         public bool TEAMCODING_RESTRICT_COMPILE_WITHOUT_CHECKOUT => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterID.TEAMCODING_RESTRICT_COMPILE_WITHOUT_CHECKOUT);

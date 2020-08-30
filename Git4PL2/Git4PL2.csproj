@@ -216,6 +216,7 @@
     <Compile Include="Plugin\Abstract\IPluginSettingsStorage.cs" />
     <Compile Include="Plugin\Abstract\ISettings.cs" />
     <Compile Include="Plugin\Abstract\IWarnings.cs" />
+    <Compile Include="Plugin\Commands\CommandShowFtoggle.cs" />
     <Compile Include="Plugin\Diff\DbObject.cs" />
     <Compile Include="Plugin\Diff\DbObjectRepository.cs" />
     <Compile Include="Plugin\Diff\DbObjectText.cs" />
@@ -262,10 +263,12 @@
     <Compile Include="Plugin\TeamCoding\TeamCodingChecks.cs" />
     <Compile Include="Plugin\TeamCoding\TeamCodingProviderChecks.cs" />
     <Compile Include="Plugin\WPF\Model\DummyString.cs" />
+    <Compile Include="Plugin\WPF\Model\Ftoggle.cs" />
     <Compile Include="Plugin\WPF\ViewModel\Converters\EmptyValueToVisibilityConverter.cs" />
     <Compile Include="Plugin\WPF\ViewModel\Converters\FalseToVisibilityConverter.cs" />
     <Compile Include="Plugin\WPF\ViewModel\Converters\IsEnableSettingsConverter.cs" />
     <Compile Include="Plugin\WPF\ViewModel\Converters\UserLoginToCheckinButtonVisibilityConverter.cs" />
+    <Compile Include="Plugin\WPF\ViewModel\FtoggleViewModel.cs" />
     <Compile Include="Plugin\WPF\ViewModel\ParameterViewModel.cs" />
     <Compile Include="Plugin\WPF\ViewModel\Converters\SettingsListConverter.cs" />
     <Compile Include="Plugin\WPF\ViewModel\Converters\SettingsTemplateSelector.cs" />
@@ -287,6 +290,9 @@
     <Compile Include="Plugin\WPF\UserControls\FlowDocumentScrollViewerExt.cs" />
     <Compile Include="Plugin\WPF\View\WindowDicti.xaml.cs">
       <DependentUpon>WindowDicti.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Plugin\WPF\View\WindowFtoggle.xaml.cs">
+      <DependentUpon>WindowFtoggle.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugin\WPF\View\WindowGitBlame.xaml.cs">
       <DependentUpon>WindowGitBlame.xaml</DependentUpon>
@@ -404,6 +410,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Plugin\WPF\View\WindowDicti.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Plugin\WPF\View\WindowFtoggle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

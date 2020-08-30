@@ -345,6 +345,12 @@ namespace Git4PL2.Plugin.Settings
                 Group = ePluginParameterGroupType.SQL
             });
 
+            _ListSettings.Add(new PluginParameter<string>(ePluginParameterID.SQL_FTOGGLE, _DefaultConfiguration.SelectToken("SQL_FTOGGLE").ToString())
+            {
+                Group = ePluginParameterGroupType.SQL
+            });
+
+
             #endregion
 
 

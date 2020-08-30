@@ -89,5 +89,10 @@ namespace Git4PL2.Plugin
             if (dbObject != null)
                 RunCommand(NinjectCore.Get<CommandCheckIn>(), dbObject);
         }
+
+        public void ShowFtoggle()
+        {
+            RunCommand(NinjectCore.Get<CommandShowFtoggle>());
+        }
     }
 }

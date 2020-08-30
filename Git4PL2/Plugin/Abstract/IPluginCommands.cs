@@ -26,5 +26,7 @@ namespace Git4PL2.Abstarct
         void CheckOut();
 
         void CheckIn();
+
+        void ShowFtoggle();
     }
 }

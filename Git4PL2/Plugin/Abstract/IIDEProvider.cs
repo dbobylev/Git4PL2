@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Git4PL2.Plugin.Abstract
 {
-    interface IIDEProvider
+    public interface IIDEProvider
     {
         T GetDbObject<T>(bool silent = false) where T : IDbObject;
 

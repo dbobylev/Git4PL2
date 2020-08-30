@@ -2,34 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:converter="clr-namespace:Git4PL2.Plugin.WPF.ViewModel.Converters">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="./CommonStyles.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    
     <converter:EmptyValueToVisibilityConverter x:Key="EmptyValueToVisibilityConverter"/>
     <converter:IsEnableSettingsConverter x:Key="IsEnableSettingsConverter"/>
-
-    <SolidColorBrush x:Key="colorButtonOnDarkBlue" Color="#FFB6D3CF"/>
-    <SolidColorBrush x:Key="colorDarkBlue" Color="#5e6472"/>
-    <SolidColorBrush x:Key="colorBlue" Color="#aed9e0"/>
-    <SolidColorBrush x:Key="colorSelectedGroup" Color="#faf3dd"/>
-    <SolidColorBrush x:Key="colotTextMain" Color="Black"/>
-    <SolidColorBrush x:Key="colotTextSub" Color="#5e6472"/>
-    <SolidColorBrush x:Key="colorSettingsBorder" Color="#b8f2e6"/>
-    <SolidColorBrush x:Key="colorSettingsBorderDisable" Color="#FFC9D1D1"/>
-
-    <Style x:Key="BorderSettingsStyle" TargetType="Border">
-        <Setter Property="Margin" Value="5"/>
-        <Setter Property="BorderThickness" Value="2"/>
-        <Setter Property="CornerRadius" Value="3"/>
-        <Setter Property="BorderBrush" Value="{StaticResource colorSettingsBorder}"/>
-        <Setter Property="VerticalAlignment" Value="Stretch"/>
-        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-        <Setter Property="Background" Value="{StaticResource colorBlue}"/>
-        <Style.Triggers>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Background" Value="{StaticResource colorSettingsBorderDisable}"/>
-                <Setter Property="BorderBrush" Value="{StaticResource colorSettingsBorderDisable}"/>
-                <Setter Property="TextBlock.Foreground" Value="Gray"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
 
     <Style x:Key="ListViewItemGroupStyle" TargetType="ListViewItem">
         <Setter Property="Control.Foreground" Value="{StaticResource colotTextMain}"/>

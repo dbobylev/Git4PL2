@@ -52,6 +52,7 @@ namespace Git4PL2.IDE
             MenuItems.Add(new MenuItem("TeamCoding", _PluginCommands.ShowTeamCoding, Properties.Resources.Categories_system_help_icon));
             MenuItems.Add(new MenuItem("CheckOut", _PluginCommands.CheckOut, Properties.Resources.Stock_Index_Down_icon));
             MenuItems.Add(new MenuItem("CheckIn", _PluginCommands.CheckIn, Properties.Resources.Stock_Index_Up_icon));
+            MenuItems.Add(new MenuItem("Ftoggle", _PluginCommands.ShowFtoggle, Properties.Resources.gear));
         }
 
         public string CreateMenuItem(int index)

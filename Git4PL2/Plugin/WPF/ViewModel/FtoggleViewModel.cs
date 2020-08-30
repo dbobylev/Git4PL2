@@ -14,9 +14,10 @@ namespace Git4PL2.Plugin.WPF.ViewModel
 
         public ObservableCollection<Ftoggle> FtoggleList { get; private set; }
 
-        public FtoggleViewModel(ISettings Settings, IIDEProvider IDEProvider)
+        public FtoggleViewModel(ISettings Settings, IIDEProvider IDEProvider, string SelectedText)
         {
-            var CurrentToggle = IDEProvider.SQLQueryExecute<Ftoggle>(Settings.SQL_FTOGGLE);
+            var FtoggleQuery = string.Format(Settings.SQL_FTOGGLE, SelectedText);
+            var CurrentToggle = IDEProvider.SQLQueryExecute<Ftoggle>(FtoggleQuery);
             FtoggleList = new ObservableCollection<Ftoggle>(CurrentToggle);
         }
     }

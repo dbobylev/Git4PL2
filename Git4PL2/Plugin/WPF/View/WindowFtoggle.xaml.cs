@@ -21,11 +21,12 @@ namespace Git4PL2.Plugin.WPF.View
     /// </summary>
     public partial class WindowFtoggle : Window
     {
-        public WindowFtoggle()
+        public WindowFtoggle(string SelectedText)
         {
             InitializeComponent();
 
-            DataContext = NinjectCore.Get<FtoggleViewModel>();
+            var param = NinjectCore.GetParameter("SelectedText", SelectedText);
+            DataContext = NinjectCore.Get<FtoggleViewModel>(param);
         }
 
         protected override void OnPreviewKeyDown(KeyEventArgs e)

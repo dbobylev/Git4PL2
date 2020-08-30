@@ -46,13 +46,14 @@ namespace Git4PL2.IDE
             MenuItems.Add(new MenuItem("GitDiff", _PluginCommands.ShowGitDiff, Properties.Resources.diskette));
             MenuItems.Add(new MenuItem("Load", () => _PluginCommands.LoadTextFromRepository(), Properties.Resources.backred));
             MenuItems.Add(new MenuItem("Save", () => _PluginCommands.SaveTextToRepository(), Properties.Resources.forward));
-            MenuItems.Add(new MenuItem("Settings", _PluginCommands.ShowSettings, Properties.Resources.settings));
             MenuItems.Add(new MenuItem("Blame", _PluginCommands.ShowGitBlame, Properties.Resources.trumpet));
             MenuItems.Add(new MenuItem("Dicti", _PluginCommands.ShowDicti, Properties.Resources.database_red_icon));
+            MenuItems.Add(new MenuItem("Ftoggle", _PluginCommands.ShowFtoggle, Properties.Resources.gear));
             MenuItems.Add(new MenuItem("TeamCoding", _PluginCommands.ShowTeamCoding, Properties.Resources.Categories_system_help_icon));
             MenuItems.Add(new MenuItem("CheckOut", _PluginCommands.CheckOut, Properties.Resources.Stock_Index_Down_icon));
             MenuItems.Add(new MenuItem("CheckIn", _PluginCommands.CheckIn, Properties.Resources.Stock_Index_Up_icon));
-            MenuItems.Add(new MenuItem("Ftoggle", _PluginCommands.ShowFtoggle, Properties.Resources.gear));
+            MenuItems.Add(new MenuItem("Settings", _PluginCommands.ShowSettings, Properties.Resources.settings));
+
         }
 
         public string CreateMenuItem(int index)

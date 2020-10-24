@@ -18,6 +18,7 @@
         <StackPanel>
             <Button x:Name="ButtonSettings" Content="Settings" Click="ButtonSettings_Click"/>
             <Button x:Name="ButtonTeamCoding" Content="TeamCoding" Click="ButtonTeamCoding_Click"/>
+            <Button x:Name="ButtonDicti" Content="Dicti" Click="ButtonDicti_Click"/>
         </StackPanel>
     </Grid>
 </Window>

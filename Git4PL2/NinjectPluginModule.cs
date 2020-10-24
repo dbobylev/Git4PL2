@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Git4PL2.Plugin.WPF.Model;
 
 namespace Git4PL2
 {
@@ -40,7 +41,13 @@ namespace Git4PL2
 
             Bind<IPlsqlCodeFormatter>().To<PlsqlCodeFormatter>();
             Bind<IPluginCommands>().To<PluginCommands>();
+
+#if DEBUG
+            var mockIDEProvider = GetIDEStub();
+            Bind<IIDEProvider>().ToConstant(mockIDEProvider);
+#else
             Bind<IIDEProvider>().To<IDEProvider>();
+#endif
 
             Bind<IWarnings>().To<Warnings>();
 
@@ -56,8 +63,37 @@ namespace Git4PL2
             /*var TeamCodingProvider = GetMockProvider();
             Bind<ITeamCodingProvider>().ToConstant(TeamCodingProvider);*/
 
+
+
             Bind<ITeamCodingProviderChecks>().To<TeamCodingProviderChecks>();
             Bind<ITeamCodingChecks>().To<TeamCodingChecks>();
+        }
+
+        private IIDEProvider GetIDEStub()
+        {
+            Mock<IIDEProvider> mock = new Mock<IIDEProvider>();
+
+            // Запрос имени сервера
+            mock.Setup(x => x.SQLQueryExecute<DummyString>(It.IsRegex("global_name")))
+                .Returns(new List<DummyString>() { new DummyString() { Value = "STUB SERVER" }});
+
+            // Запрос Dicti
+            mock.Setup(x => x.SQLQueryExecute<Dicti>(It.IsAny<string>()))
+                .Returns(new List<Dicti>()
+                {
+                    new Dicti() {
+                        Active = "A",
+                        Code   = "1",
+                        FullName = "Stub Fullname",
+                        ConstName = "StubConstname", 
+                        Isn = 123, 
+                        Level = 1, 
+                        ParentIsn = 123, 
+                        ShortName = "Stub shortname"
+                    }
+                });
+
+            return mock.Object;
         }
 
         private ITeamCodingProvider GetMockProvider()

@@ -56,5 +56,23 @@ namespace Git4PL2.Plugin.WPF.UserControls
                 e.Row.FontWeight = FontWeights.Bold;
             }
         }
+
+        protected override void OnPreviewKeyUp(KeyEventArgs e)
+        {
+            if (Keyboard.IsKeyUp(Key.LeftCtrl) && e.Key == Key.C)
+            {
+                var cells = DataGrid_Main.SelectedCells;
+
+                if (cells.Count == 1)
+                {
+                    var cell = cells[0];
+                    if (cell.IsValid)
+                    {
+                        var content = cell.Column.GetCellContent(cell.Item) as TextBlock;
+                        Clipboard.SetText(content.Text);
+                    }
+                }
+            }
+        }
     }
 }

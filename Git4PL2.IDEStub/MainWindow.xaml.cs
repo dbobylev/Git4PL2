@@ -30,8 +30,6 @@ namespace Git4PL2.IDEStub
 
             var p = x.GetParam(Plugin.Settings.ePluginParameterID.TEAMCODING_FILEPROVIDER_PATH);
             p.SetValue("D:\\");
-
-            ButtonTeamCoding_Click(null, null);
         }
 
         private void ButtonSettings_Click(object sender, RoutedEventArgs e)
@@ -48,6 +46,12 @@ namespace Git4PL2.IDEStub
             wtg.Show();
 
             Close();
+        }
+
+        private void ButtonDicti_Click(object sender, RoutedEventArgs e)
+        {
+            WindowDicti d = new WindowDicti("123");
+            d.Show();
         }
     }
 }

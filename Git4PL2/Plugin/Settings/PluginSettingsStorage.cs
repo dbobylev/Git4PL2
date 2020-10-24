@@ -203,7 +203,7 @@ namespace Git4PL2.Plugin.Settings
 
             _ListSettings.Add(new PluginParameter<bool>(ePluginParameterID.DiffCRLF, true)
             {
-                Description = "Игн. изменения пробелов в конце строк",
+                Description = "Обрабатывать перенос строк LF",
                 DescriptionExt = "В PL/SQL Developer применяется стандартный для Windows перенос строк в два символа CR-LF (“Carriage Return” и “Line Feed”). " +
                 "Если в локальном файле репозитория Git, перенос строк реализован через один символ LF (пока такое встречается редко), то при включённой опции, " +
                 "CR-LF в тексте объекта БД будет заменено на LF. Это позволит избежать конфликтов в каждой строчке текста. Так же эту проблему можно решить, " +
@@ -218,8 +218,17 @@ namespace Git4PL2.Plugin.Settings
                 DescriptionExt = "Текст в файлах в репозитории Git заканчивается на ‘/’. Обработка этого символа предотвращает его " +
                 "затирание при операции сохранения текста. А также убирает этот символ при операции загрузки текста.",
                 Group = ePluginParameterGroupType.GitDiff,
-                ParamterUIType = ePluginParameterUIType.CheckBox,
                 OrderPosition = 40
+            });
+
+            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterID.DiffEndSpace, true)
+            {
+                Description = "Игн. изменения пробелов в конце строк",
+                DescriptionExt = "Изменения в виде пробелов на конце строк не будут отображаться при сравнении, но будут фиксироваться в комите, " +
+                "если вы не загрузили исходный текст объекта перед работой. Настрйока повилась, после интеграции " +
+                "конвейерной системы релизов, которая очевидно делает то же самое.",
+                Group = ePluginParameterGroupType.GitDiff,
+                OrderPosition = 60
             });
 
             #endregion

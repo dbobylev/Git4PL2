@@ -14,6 +14,7 @@ namespace Git4PL2.Plugin.Abstract
         bool DiffChangeCor { get; }
         bool DiffChangeName { get; }
         bool DiffCRLF { get; }
+        bool DiffEndSpace { get; }
         bool DiffWorkWithSlash { get; }
         bool UnexpectedBranch { get; }
         bool UnexpectedServer { get; }

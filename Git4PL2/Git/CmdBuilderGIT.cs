@@ -11,20 +11,15 @@ namespace Git4PL2.Git
     {
         private const string DefaultGitExePath = "git";
         private readonly string GitRepPath;
+        private readonly ISettings _Settings;
 
         public CmdBuilderGIT(ICmdReader reader, string gitRepPath = null) : base(reader)
         {
             ProcessFileName = DefaultGitExePath;
 
-            if (gitRepPath == null)
-            {
-                var settings = NinjectCore.Get<ISettings>();
-                GitRepPath = settings.GitRepositoryPath;
-            }
-            else
-            {
-                GitRepPath = gitRepPath;
-            }
+            _Settings = NinjectCore.Get<ISettings>();
+
+            GitRepPath = (gitRepPath == null) ? _Settings.GitRepositoryPath : gitRepPath;
         }
 
         protected void AddArgument(string text)
@@ -37,13 +32,13 @@ namespace Git4PL2.Git
 
         protected void AddArgumentCrAtEol()
         {
-            if (true)
+            if (_Settings.DiffCRLF)
                 AddArgument("--ignore-cr-at-eol");
         }
 
         protected void AddArgumentSpaceAtEol()
         {
-            if (true)
+            if (_Settings.DiffEndSpace)
                 AddArgument("--ignore-space-at-eol");
         }
 

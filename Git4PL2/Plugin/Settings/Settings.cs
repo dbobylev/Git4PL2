@@ -23,6 +23,7 @@ namespace Git4PL2.Plugin.Settings
         public bool DiffChangeName => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterID.DiffChangeName);
         public bool DiffCRLF => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterID.DiffCRLF);
         public bool DiffWorkWithSlash => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterID.DiffWorkWithSlash);
+        public bool DiffEndSpace => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterID.DiffEndSpace);
         public bool UnexpectedBranch => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterID.UnexpectedBranch);
         public bool UnexpectedServer => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterID.UnexpectedServer);
         public string WarnInRegEx => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterID.WarnInRegEx);

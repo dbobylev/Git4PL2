@@ -15,6 +15,7 @@ namespace Git4PL2.Plugin.Settings
         DiffChangeCor,
         DiffChangeName,
         DiffCRLF,
+        DiffEndSpace,
         DiffWorkWithSlash,
         UnexpectedBranch,
         UnexpectedServer,

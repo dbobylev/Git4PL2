@@ -13,6 +13,7 @@ namespace Git4PL2.Git.CmdRequests
         {
             AddArgumentGitRepPath();
             AddArgument("blame");
+            AddArgument("-w");
             AddArgument("-l");
             AddArgument($" -L {beginLine},{endline}");
             if (ShowEmail)

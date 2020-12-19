@@ -7,6 +7,8 @@ using System.IO;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
 using Git4PL2.Git;
+using Git4PL2.Plugin.Abstract;
+using NUnit.Framework.Interfaces;
 
 namespace Git4PL2.Tests.Git.MockRepository
 {
@@ -81,15 +83,21 @@ namespace Git4PL2.Tests.Git.MockRepository
         /// <summary>
         /// Добавить файл в репозиторий
         /// </summary>
-        public void AddFile()
+        public void AddFile(IDbObjectRepository RepObj = null)
         {
-            string filepath = Path.Combine(GitRepPath, RandomString.GetFileName());
-            using (StreamWriter sw = File.CreateText(filepath))
+            string FilePath;
+
+            if (RepObj == null)
+                FilePath = Path.Combine(GitRepPath, RandomString.GetFileName());
+            else
+                FilePath = RepObj.GetRawFilePath();
+
+            using (StreamWriter sw = File.CreateText(FilePath))
             {
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 40; i++)
                     sw.WriteLine(RandomString.GetTxtRow());
             }
-            files.Add(filepath);
+            files.Add(FilePath);
         }
 
         public void CheckoutBranch(string BranchName, bool CreateBranch)

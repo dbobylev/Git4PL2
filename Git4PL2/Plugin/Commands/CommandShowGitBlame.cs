@@ -1,5 +1,6 @@
 ﻿using Git4PL2.Git.Abstract;
 using Git4PL2.Plugin.Abstract;
+using Git4PL2.Plugin.Diff;
 using Git4PL2.Plugin.WPF.View;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace Git4PL2.Plugin.Commands
         public override void Execute(object parameter)
         {
             // Поулчаем объект БД открытый в PL/SQL Developer
-            IDbObjectText DbObjectText = _IIDEProveider.GetDbObject<IDbObjectText>();
+            IDbObjectText DbObjectText = _IIDEProveider.GetDbObject<DbObjectTextRaw>();
 
             // Получаем номер строки, на которой установлен курсор
             int CurrentLineNumber = _IIDEProveider.GetCurrentLine();

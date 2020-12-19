@@ -94,7 +94,11 @@ namespace Git4PL2.Plugin.Diff
             string DirPath = GetRawDirPath();
             if (!Directory.Exists(DirPath))
             {
+#if DEBUG 
+                MessageBoxResult dialogResult = MessageBoxResult.Yes;
+#else
                 MessageBoxResult dialogResult = MessageBox.Show("Не найдена директория " + DirPath + ". Хотите создать?", "Отсутствует директория для схемы", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+#endif
                 if (dialogResult == MessageBoxResult.Yes)
                     Directory.CreateDirectory(DirPath);
                 else
@@ -103,7 +107,11 @@ namespace Git4PL2.Plugin.Diff
 
             if (!File.Exists(GetRawFilePath()))
             {
+#if DEBUG 
+                MessageBoxResult dialogResult = MessageBoxResult.Yes;
+#else
                 MessageBoxResult dialogResult = MessageBox.Show("Не найден файл " + GetRawFilePath() + ". Хотите создать его?", "Файл отсутствует в локальном репозитории", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+#endif
                 if (dialogResult == MessageBoxResult.Yes)
                     File.WriteAllText(GetRawFilePath().ToUpper(), "\r\n/");
                 else

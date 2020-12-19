@@ -7,6 +7,8 @@ using NUnit.Framework;
 using System.IO;
 using Git4PL2.Git;
 using Git4PL2.Tests.Git.MockRepository;
+using Git4PL2.Plugin.Abstract;
+using Git4PL2.Plugin.Diff;
 
 namespace Git4PL2.Tests.Git
 {
@@ -67,7 +69,7 @@ namespace Git4PL2.Tests.Git
             Assert.AreEqual(1, commits.Count);
         }
 
-        [TestCase(false, 38, Description = "Запрашиваем полную информацию о коммите")]
+        [TestCase(false, 91, Description = "Запрашиваем полную информацию о коммите")]
         [TestCase(true, 7, Description = "Запрашиваем краткую информацию о коммите")]
         [Description("Получаем текст коммита по результатам операции git show")]
         public static void GitShow_ReturnTextOfCommit(bool ShortStat, int ExceptedRowCount)
@@ -105,6 +107,48 @@ namespace Git4PL2.Tests.Git
             Assert.AreEqual(BranchMaster, GitAPI.GetCurrentBranch());
         }
 
+        [TestCase(1, 1)]
+        [TestCase(2, 2)]
+        [TestCase(9, 9)]
+        [TestCase(10, 10)]
+        [TestCase(11, null)]
+        [TestCase(12, 13)]
+        [TestCase(13, 14)]
+        [TestCase(17, 18)]
+        [TestCase(25, 26)]
+        [TestCase(26, null)]
+        [TestCase(27, null)]
+        [TestCase(28, null)]
+        [TestCase(29, 28)]
+        [TestCase(41, 40)]
+        [Description("Моделируем ситуацию с разной версией файла, в Девелопере и в Репозитории" +
+                     "Пробуем определить соответствующие")]
+        public static void GitDiffLineNumberTest(int Line, int? ExceptedLine)
+        {
+            GitAPI git = new GitAPI(GitRepPath);
+
+            var RepositoryObject = new DbObjectRepository("SIA", "BLAMETEST", "PROCEDURE");
+            RepositoryObject.DirectoriesChecks();
+
+            repository.AddFile(RepositoryObject);
+            repository.StageAll();
+            repository.DoCommit("add test blame");
+
+            var lines = File.ReadAllLines(RepositoryObject.GetRawFilePath()).ToList();
+
+            lines[10] = "HOP";                  // Подменяем строку 11
+            lines.RemoveAt(11);                 // Удаляем строку 12
+            lines[25] = "REPLACE NEW LINE!";    // Подменяем строку 25
+            lines.Insert(26, "ins26");          // Добавляем строку 26
+            lines.Insert(27, "ins27");          // Добавляем строку 27
+
+            IDbObjectText dbObj = new DbObjectText(RepositoryObject, string.Join("\r\n", lines));
+
+            int? val = git.GitDiffLineNumber(dbObj, Line);
+
+            Assert.AreEqual(ExceptedLine, val);
+        }
+
         [OneTimeSetUp]
         [Description("Создаём тестовый репозиторий для всех тестов в классе. " +
                      "Внимание! Внесение изменений в тестовый репозиторий должно сопровождаться обратной совместимостью " +
@@ -112,6 +156,10 @@ namespace Git4PL2.Tests.Git
         public static void InitRepository()
         {
             Console.WriteLine($"Here we go! GitRepositoryPath: {GitRepPath}");
+
+            IPluginSettingsStorage SettingsStorage = NinjectCore.Get<IPluginSettingsStorage>();
+            IPluginParameter GitRepParam = SettingsStorage.GetParam(Plugin.Settings.ePluginParameterID.GitRepositoryPath);
+            GitRepParam.SetValue(GitRepPath);
 
             repository = new GitRep(GitRepPath);
             repository.CreateRepository();

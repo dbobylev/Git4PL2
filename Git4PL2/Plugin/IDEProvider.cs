@@ -6,6 +6,7 @@ using Git4PL2.Plugin.Abstract;
 using Git4PL2.Plugin.Diff;
 using Serilog;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -77,9 +78,19 @@ namespace Git4PL2.Plugin.Commands
                 if (dbObjectRepository is T ansDbObjectRepository)
                     return ansDbObjectRepository;
 
-                DbObjectText dbObjectText = new DbObjectText(dbObjectRepository, text);
-                if (dbObjectText is T ansDbObjectText)
-                    return ansDbObjectText;
+
+                if (typeof(T) == typeof(IDbObjectText) || typeof(T) == typeof(DbObjectText))
+                {
+                    DbObjectText dbObjectText = new DbObjectText(dbObjectRepository, text);
+                    if (dbObjectText is T ansdbObjectText)
+                        return ansdbObjectText;
+                }
+                else if (typeof(T) == typeof(DbObjectTextRaw))
+                {
+                    DbObjectTextRaw DbObjectTextRaw = new DbObjectTextRaw(dbObjectRepository, text);
+                    if (DbObjectTextRaw is T ansDbObjectTextRaw)
+                        return ansDbObjectTextRaw;
+                }
             }
 
             return default;

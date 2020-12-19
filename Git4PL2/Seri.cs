@@ -46,6 +46,7 @@ namespace Git4PL2
                 File.Delete(path);
             _log = new LoggerConfiguration().WriteTo.File(path, 
                 outputTemplate: "{Timestamp:HH:mm:ss:fff} [{Level:u3}] [{Module}{file}:{MemberName}] {Message:lj}{NewLine}{Exception}")
+                .WriteTo.Console()
                 .MinimumLevel.Verbose().CreateLogger();
             SetModule(string.Empty);
         }

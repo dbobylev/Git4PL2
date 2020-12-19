@@ -42,7 +42,7 @@ namespace Git4PL2
             Bind<IPlsqlCodeFormatter>().To<PlsqlCodeFormatter>();
             Bind<IPluginCommands>().To<PluginCommands>();
 
-#if DEBUG
+#if IDESTUB
             var mockIDEProvider = GetIDEStub();
             Bind<IIDEProvider>().ToConstant(mockIDEProvider);
 #else

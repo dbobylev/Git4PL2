@@ -27,6 +27,8 @@ namespace Git4PL2.Git.CmdReaders
 
         protected override void ReadOutputLine(string line)
         {
+            Seri.Log.Here().Information("GitDiff: " + line);
+
             if (_SearchDone || line.StartsWith("diff") || line.StartsWith("index"))
                 return;
             if (line.StartsWith("@"))

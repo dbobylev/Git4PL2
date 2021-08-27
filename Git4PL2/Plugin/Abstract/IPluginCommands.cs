@@ -28,5 +28,7 @@ namespace Git4PL2.Abstarct
         void CheckIn();
 
         void ShowFtoggle();
+
+        void Help();
     }
 }

@@ -318,10 +318,17 @@ namespace Git4PL2.Plugin.Settings
 
             _ListSettings.Add(new PluginParameter<int>(ePluginParameterID.DICTI_CHILDREN_LIMIT_VALUE, 20)
             {
-                Description = "Лимит на кол0во отобранных дочерних записей для Dicti",
+                Description = "Лимит на кол-во отобранных дочерних записей для Dicti",
                 Group = ePluginParameterGroupType.Others,
                 ParentParameterID = ePluginParameterID.DICTI_CHILDREN_LIMIT_ENABLE,
                 OrderPosition = 20
+            });
+
+            _ListSettings.Add(new PluginParameter<string>(ePluginParameterID.HelpLink, _DefaultConfiguration.SelectToken("HelpLink").ToString())
+            {
+                Description = "Ссылка на wiki c описанием работы плагина",
+                Group = ePluginParameterGroupType.Others,
+                OrderPosition = 30
             });
 
             #endregion

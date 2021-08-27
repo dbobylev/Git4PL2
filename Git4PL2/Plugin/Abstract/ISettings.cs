@@ -37,5 +37,6 @@ namespace Git4PL2.Plugin.Abstract
         int TEAMCODING_PROVIDER { get; }
         string TEAMCODING_FILEPROVIDER_PATH { get; }
         string TEAMCODING_SERVERNAME_REGEX { get; }
+        string HELPLINK { get; }
     }
 }

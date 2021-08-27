@@ -94,5 +94,10 @@ namespace Git4PL2.Plugin
         {
             RunCommand(NinjectCore.Get<CommandShowFtoggle>());
         }
+
+        public void Help()
+        {
+            RunCommand(NinjectCore.Get<CommandOpenHelpPage>());
+        }
     }
 }

@@ -45,5 +45,6 @@ namespace Git4PL2.Plugin.Settings
         public int TEAMCODING_PROVIDER => _PluginSettingsStorage.GetParamValue<int>(ePluginParameterID.TEAMCODING_PROVIDER);
         public string TEAMCODING_FILEPROVIDER_PATH => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterID.TEAMCODING_FILEPROVIDER_PATH);
         public string TEAMCODING_SERVERNAME_REGEX => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterID.TEAMCODING_SERVERNAME_REGEX);
+        public string HELPLINK => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterID.HelpLink);
     }
 }

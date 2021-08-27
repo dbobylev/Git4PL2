@@ -219,6 +219,7 @@
     <Compile Include="Plugin\Abstract\IPluginSettingsStorage.cs" />
     <Compile Include="Plugin\Abstract\ISettings.cs" />
     <Compile Include="Plugin\Abstract\IWarnings.cs" />
+    <Compile Include="Plugin\Commands\CommandOpenHelpPage.cs" />
     <Compile Include="Plugin\Commands\CommandShowFtoggle.cs" />
     <Compile Include="Plugin\Diff\DbObject.cs" />
     <Compile Include="Plugin\Diff\DbObjectRepository.cs" />

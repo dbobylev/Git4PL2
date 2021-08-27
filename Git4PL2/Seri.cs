@@ -41,9 +41,26 @@ namespace Git4PL2
 
         static Seri()
         {
-            string path = Path.Combine(Path.GetTempPath(), "Git4PL2_log.txt");
-            if (File.Exists(path))
-                File.Delete(path);
+            // Лог хранится в папке %TEMP% для каждого запущенного PL/SQL Deveoper-a 
+            // Лог живет только пока IDE работает и до последующего перезапуска
+
+            string path = string.Empty;
+            for (int i = 0; i < 100; i++)
+            {
+                path = Path.Combine(Path.GetTempPath(), $"Git4PL2_log_{i}.txt");
+                try
+                {
+                    if (File.Exists(path))
+                        File.Delete(path);
+                    break;
+                } 
+                catch (IOException)
+                {
+                    // Мы не можем получить доступ к логу, т.к. уже запущен PL/SQL Developer, создадим новый
+                    continue;
+                }
+            }
+
             _log = new LoggerConfiguration().WriteTo.File(path, 
                 outputTemplate: "{Timestamp:HH:mm:ss:fff} [{Level:u3}] [{Module}{file}:{MemberName}] {Message:lj}{NewLine}{Exception}")
                 .WriteTo.Console()

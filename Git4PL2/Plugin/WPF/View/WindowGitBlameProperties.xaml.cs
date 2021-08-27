@@ -52,6 +52,15 @@ namespace Git4PL2.Plugin.WPF.View
             {
                 Close();
             }
+            else if (e.Key == Key.Enter)
+            {
+                SetDialogResultOk();
+            }
+            else if (e.Key == Key.Space)
+            {
+                var ViewModel = DataContext as GitBlamePropertiesViewModel;
+                ViewModel.PlusFive.Execute(null);
+            }
             base.OnPreviewKeyDown(e);
         }
     }

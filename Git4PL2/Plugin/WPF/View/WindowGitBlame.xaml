@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Git4PL2.Plugin.WPF.View"
              xmlns:uc="clr-namespace:Git4PL2.Plugin.WPF.UserControls"
-             mc:Ignorable="d"  WindowStartupLocation="CenterScreen" SizeToContent="Height" Width="1440">
+             mc:Ignorable="d"  WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight"  Width="1440">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Margin" Value="5"/>
@@ -14,7 +14,7 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
         <uc:FlowDocumentScrollViewerExt ListRuns="{Binding ListRuns, Mode=OneWay}" PreviewMouseLeftButtonUp="FlowDocumentScrollViewerExt_PreviewMouseLeftButtonUp">

@@ -51,8 +51,8 @@
             </FlowDocumentScrollViewer>
         </Border>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
-            <Button Content="+5" Command="{Binding PlusFive}"/>
-            <Button Content="Выполнить" Command="{Binding Perform}"/>
+            <Button Content="+5 (space)" Command="{Binding PlusFive}"/>
+            <Button Content="Выполнить (enter)" Command="{Binding Perform}"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -27,10 +27,13 @@ namespace Git4PL2.Plugin.WPF.View
         public WindowGitBlame(IEnumerable<string> lines)
         {
             InitializeComponent();
+            MaxHeight = SystemParameters.PrimaryScreenHeight - 100;
+            MaxWidth = SystemParameters.PrimaryScreenWidth - 100;
 
             var viewModel = new GitBlameViewModel(lines);
             DataContext = viewModel;
             ClickOnFlowDocumnet += viewModel.ClickOnFlowDocumnet;
+
         }
 
         private void FlowDocumentScrollViewerExt_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)

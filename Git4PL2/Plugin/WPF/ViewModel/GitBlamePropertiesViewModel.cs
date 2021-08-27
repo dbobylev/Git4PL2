@@ -26,7 +26,13 @@ namespace Git4PL2.Plugin.WPF.ViewModel
             ValPlus = 5;
             Line = line;
 
-            PlusFive = new RelayCommand((x) => { ValPlus += 5; ValMinus += 5; });
+            PlusFive = new RelayCommand((x) => 
+            { 
+                ValPlus += 5; 
+                OnPropertyChanged("ValPlus"); 
+                ValMinus += 5; 
+                OnPropertyChanged("ValMinus"); 
+            });
             Perform = new RelayCommand((x) => DoOnPerform());
         }
     }

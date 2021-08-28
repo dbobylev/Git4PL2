@@ -142,7 +142,7 @@ namespace Git4PL2.Plugin.Commands
             return ans;
         }
 
-        private void GoToLine(int LineNum, int BasePos = -1)
+        public void GoToLine(int LineNum, int BasePos = -1)
         {
             Seri.Log.Here().Verbose("GoToLine begin: LineNum={0}, BasePos={1}", LineNum, BasePos);
             /* При переходе к строке курсор занимает крайнюю к экрану строку!

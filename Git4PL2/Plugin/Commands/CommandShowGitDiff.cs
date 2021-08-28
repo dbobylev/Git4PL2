@@ -13,17 +13,12 @@ namespace Git4PL2.Plugin.Commands
 {
     class CommandShowGitDiff :PluginCommand
     {
-        private readonly IIDEProvider _IDEProvider;
-
-        public CommandShowGitDiff(IIDEProvider IDEProvider) :base("ShowGitDiff")
+        public CommandShowGitDiff() :base("ShowGitDiff")
         {
-            _IDEProvider = IDEProvider;
         }
         public override void Execute(object parameter)
         {
-            IDbObjectText dbObj = _IDEProvider.GetDbObject<IDbObjectText>();
-
-            WindowGitDiff WindowGitDiff = new WindowGitDiff(dbObj);
+            WindowGitDiff WindowGitDiff = NinjectCore.Get<WindowGitDiff>();
             WindowGitDiff.Show();
         }
 

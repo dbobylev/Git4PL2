@@ -15,12 +15,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Text.RegularExpressions;
+using Git4PL2.Plugin.Settings;
 
 namespace Git4PL2.Plugin.WPF.ViewModel
 {
     class GitDiffViewModel : PropertyChangedBase
     {
         private IDbObjectText _DbObjectText;
+        private IIDEProvider _IDEProvider;
+        private IPluginSettingsStorage _PluginSettingsStorage;
         public List<Run> ListRuns { get; private set; }
 
         #region StatusBar
@@ -30,6 +34,28 @@ namespace Git4PL2.Plugin.WPF.ViewModel
         public string ObjectFullPath { get; private set; }
         public bool? UnexpectedBranch { get; private set; }
         public bool? UnexpectedServer { get; private set; }
+
+        private bool _GoToLineChecked = true;
+        public string GoToLineContent { get; private set; }
+        public bool GoToLineChecked
+        {
+            get => _GoToLineChecked;
+            set
+            {
+                _GoToLineChecked = value;
+                OnPropertyChanged();
+                if (_GoToLineChecked)
+                    GoToLineContent = "Go to line: on";
+                else
+                    GoToLineContent = "Go to line: off";
+                OnPropertyChanged("GoToLineContent");
+
+                // Сохраняем значение параметра
+                IPluginParameter GoToLineParam = _PluginSettingsStorage.GetParam(ePluginParameterID.GoToLine);
+                GoToLineParam.SetValue<bool>(_GoToLineChecked);
+            }
+        }
+
 
         #endregion
 
@@ -54,9 +80,12 @@ namespace Git4PL2.Plugin.WPF.ViewModel
 
         public bool ButtonsClassicStyle { get; private set; }
 
-        public GitDiffViewModel(IDbObjectText DbObjectText, IIDEProvider IDE, IGitAPI Git, IWarnings Warnings, ISettings Settings)
+        public GitDiffViewModel(IDbObjectText DbObjectText, IIDEProvider IDE, IGitAPI Git, IWarnings Warnings, ISettings Settings, IPluginSettingsStorage PluginSettingsStorage)
         {
+            _IDEProvider = IDE;
             _DbObjectText = DbObjectText;
+            _PluginSettingsStorage = PluginSettingsStorage;
+
             IDiffText DiffText = Git.GitDiff(DbObjectText);
             FillDocument(DiffText);
 
@@ -74,6 +103,9 @@ namespace Git4PL2.Plugin.WPF.ViewModel
             LoadTextCommand = NinjectCore.Get<CommandLoadTextFromRepository>();
 
             ButtonsClassicStyle = Settings.ClassicButtonsPosition;
+
+            GoToLineChecked = Settings.GOTOLINE;
+
         }
 
         private void FillDocument(IDiffText DiffText)
@@ -104,6 +136,23 @@ namespace Git4PL2.Plugin.WPF.ViewModel
                 ListRuns.Add(new Run("<Изменения отсутствуют>") { FontSize = 16 });
 
             OnPropertyChanged("ListRuns");
+        }
+
+        public bool ClickOnFlowDocumnet(string line)
+        {
+            if (_GoToLineChecked)
+            {
+                // Вытягиваем номер строки из правой колонки gitdiffline
+                Regex regex = new Regex(@"^\d*\s+(?<val>\d+)");
+                Match match = regex.Match(line, 0, 16);
+                if (match.Groups["val"].Success)
+                {
+                    _IDEProvider.GoToLine(int.Parse(match.Groups["val"].Value));
+                    // Закрываем окно GitDiff
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

@@ -87,15 +87,15 @@ namespace Git4PL2.Plugin.Settings
                 Seri.Log.Here().Debug("Пробуем загрузить Json файл с найстройками по умолчанию " + JsonPath);
                 _DefaultConfiguration = JObject.Parse(File.ReadAllText(JsonPath));
                 Seri.Log.Here().Information("Json файл загружен");
+
+                FillGroups();
+                FillSettings();
             }
             catch (Exception ex)
             {
                 Seri.LogException(ex);
                 throw ex;
             }
-
-            FillGroups();
-            FillSettings();
 
             Properties.Settings.Default.Save();
 
@@ -329,6 +329,15 @@ namespace Git4PL2.Plugin.Settings
                 Description = "Ссылка на wiki c описанием работы плагина",
                 Group = ePluginParameterGroupType.Others,
                 OrderPosition = 30
+            });
+
+
+            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterID.GoToLine, true)
+            {
+                Description = "Go to line в окне GitDiff",
+                DescriptionExt = "Переместиться на выбранную строку при клике на код в окне GitDiff. При выключенной опции в окне GitDiff можно выделить текст. Можно переключать опцию из окна GitDiff",
+                Group = ePluginParameterGroupType.Others,
+                OrderPosition = 40
             });
 
             #endregion

@@ -39,5 +39,6 @@ namespace Git4PL2.Plugin.Settings
         TEAMCODING_FILEPROVIDER_PATH,
         TEAMCODING_SERVERNAME_REGEX,
         HelpLink,
+        GoToLine
     }
 }

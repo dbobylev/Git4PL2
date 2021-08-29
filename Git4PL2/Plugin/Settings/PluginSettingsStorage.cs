@@ -94,7 +94,7 @@ namespace Git4PL2.Plugin.Settings
             catch (Exception ex)
             {
                 Seri.LogException(ex);
-                throw ex;
+                throw new Exception("Ошибка при инициализации параметров");
             }
 
             Properties.Settings.Default.Save();
@@ -254,7 +254,7 @@ namespace Git4PL2.Plugin.Settings
                 OrderPosition = 20
             });
 
-            _ListSettings.Add(new PluginParameter<string>(ePluginParameterID.WarnInRegEx, string.Empty)
+            _ListSettings.Add(new PluginParameter<string>(ePluginParameterID.WarnInRegEx, _DefaultConfiguration.SelectToken("WarnInRegEx").ToString())
             {
                 Description = "Регулярное выражение, для проверки операции SaveText",
                 DescriptionExt = string.Empty,
@@ -263,7 +263,7 @@ namespace Git4PL2.Plugin.Settings
                 OrderPosition = 11
             });
 
-            _ListSettings.Add(new PluginParameter<string>(ePluginParameterID.WarnOutRegEx, string.Empty)
+            _ListSettings.Add(new PluginParameter<string>(ePluginParameterID.WarnOutRegEx, _DefaultConfiguration.SelectToken("WarnOutRegEx").ToString())
             {
                 Description = "Регулярное выражение, для проверки операции LoadText",
                 DescriptionExt = string.Empty,

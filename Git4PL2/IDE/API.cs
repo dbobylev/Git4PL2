@@ -29,7 +29,7 @@ namespace Git4PL2.IDE
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message + "\r\n" + ex.Source + "\r\n" + ex.StackTrace);
+                MessageBox.Show(ex.Message);
                 Seri.Log.Here().Error(ex.Message + "\r\n" + ex.Source + "\r\n" + ex.StackTrace);
                 throw;
             }

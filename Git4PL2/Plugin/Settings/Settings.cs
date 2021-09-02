@@ -39,6 +39,8 @@ namespace Git4PL2.Plugin.Settings
         public string SQL_DICTIISN_BY_CONSTNAME => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterID.SQL_DICTIISN_BY_CONSTNAME);
         public string SQL_SERVERNAME => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterID.SQL_SERVERNAME);
         public string SQL_FTOGGLE => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterID.SQL_FTOGGLE);
+        public string SQL_DICX => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterID.SQL_DICX);
+        public string SQL_DICX_COUNT => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterID.SQL_DICX_COUNT);
         public bool TEAMCODING_ENABLE => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterID.TEAMCODING_ENABLE);
         public string TEAMCODING_LOGIN => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterID.TEAMCODING_LOGIN);
         public bool TEAMCODING_RESTRICT_COMPILE_WITHOUT_CHECKOUT => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterID.TEAMCODING_RESTRICT_COMPILE_WITHOUT_CHECKOUT);

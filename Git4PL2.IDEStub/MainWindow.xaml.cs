@@ -1,4 +1,5 @@
-﻿using Git4PL2.Plugin.Abstract;
+﻿#define IDESTUB
+using Git4PL2.Plugin.Abstract;
 using Git4PL2.Plugin.WPF.View;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 
 namespace Git4PL2.IDEStub
 {
@@ -51,6 +53,12 @@ namespace Git4PL2.IDEStub
         private void ButtonDicti_Click(object sender, RoutedEventArgs e)
         {
             WindowDicti d = new WindowDicti("123");
+            d.Show();
+        }
+
+        private void ButtonDicx_Click(object sender, RoutedEventArgs e)
+        {
+            WindowDicx d = new WindowDicx("123");
             d.Show();
         }
     }

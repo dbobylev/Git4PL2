@@ -1,0 +1,29 @@
+﻿<Window x:Class="Git4PL2.Plugin.WPF.View.WindowDicx"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Git4PL2.Plugin.WPF.View"
+             xmlns:uc="clr-namespace:Git4PL2.Plugin.WPF.UserControls"
+             mc:Ignorable="d" 
+             WindowStartupLocation="CenterScreen" Height="700" SizeToContent="Height">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/ListViewStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Background="{StaticResource colorDarkBlue}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="DICX:" Style="{StaticResource TextBlock_White}"/>
+        <Border Style="{StaticResource BorderSettingsStyle}" Padding="5" Margin="10,5" Grid.Row="1">
+            <uc:DataGridDicx ItemsSource="{Binding Data}"/>
+        </Border>
+        <uc:QueryButtons Grid.Row="2"/>
+    </Grid>
+</Window>

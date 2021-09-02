@@ -29,6 +29,8 @@ namespace Git4PL2.Plugin.Abstract
         string SQL_DICTIISN_BY_CONSTNAME { get; }
         string SQL_SERVERNAME { get; }
         string SQL_FTOGGLE { get; }
+        string SQL_DICX { get; }
+        string SQL_DICX_COUNT { get; }
         bool DICTI_CHILDREN_LIMIT_ENABLE { get; }
         int DICTI_CHILDREN_LIMIT_VALUE { get; }
         bool TEAMCODING_ENABLE { get; }

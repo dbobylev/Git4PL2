@@ -30,6 +30,8 @@ namespace Git4PL2.Plugin.Settings
         SQL_DICTIISN_BY_CONSTNAME,
         SQL_SERVERNAME,
         SQL_FTOGGLE,
+        SQL_DICX,
+        SQL_DICX_COUNT,
         DICTI_CHILDREN_LIMIT_ENABLE,
         DICTI_CHILDREN_LIMIT_VALUE,
         TEAMCODING_ENABLE,

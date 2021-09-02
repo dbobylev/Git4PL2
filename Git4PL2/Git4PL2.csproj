@@ -220,6 +220,7 @@
     <Compile Include="Plugin\Abstract\ISettings.cs" />
     <Compile Include="Plugin\Abstract\IWarnings.cs" />
     <Compile Include="Plugin\Commands\CommandOpenHelpPage.cs" />
+    <Compile Include="Plugin\Commands\CommandShowDicx.cs" />
     <Compile Include="Plugin\Commands\CommandShowFtoggle.cs" />
     <Compile Include="Plugin\Diff\DbObject.cs" />
     <Compile Include="Plugin\Diff\DbObjectRepository.cs" />
@@ -267,12 +268,17 @@
     <Compile Include="Plugin\Abstract\ITeamCodingProvider.cs" />
     <Compile Include="Plugin\TeamCoding\TeamCodingChecks.cs" />
     <Compile Include="Plugin\TeamCoding\TeamCodingProviderChecks.cs" />
+    <Compile Include="Plugin\WPF\Model\Dicx.cs" />
     <Compile Include="Plugin\WPF\Model\DummyString.cs" />
     <Compile Include="Plugin\WPF\Model\Ftoggle.cs" />
+    <Compile Include="Plugin\WPF\UserControls\DataGridDicx.xaml.cs">
+      <DependentUpon>DataGridDicx.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Plugin\WPF\ViewModel\Converters\EmptyValueToVisibilityConverter.cs" />
     <Compile Include="Plugin\WPF\ViewModel\Converters\FalseToVisibilityConverter.cs" />
     <Compile Include="Plugin\WPF\ViewModel\Converters\IsEnableSettingsConverter.cs" />
     <Compile Include="Plugin\WPF\ViewModel\Converters\UserLoginToCheckinButtonVisibilityConverter.cs" />
+    <Compile Include="Plugin\WPF\ViewModel\DicxViewModel.cs" />
     <Compile Include="Plugin\WPF\ViewModel\FtoggleViewModel.cs" />
     <Compile Include="Plugin\WPF\ViewModel\ParameterViewModel.cs" />
     <Compile Include="Plugin\WPF\ViewModel\Converters\SettingsListConverter.cs" />
@@ -285,6 +291,7 @@
     <Compile Include="Plugin\WPF\ViewModel\Helper.cs" />
     <Compile Include="Plugin\WPF\ViewModel\PropertyChangedBase.cs" />
     <Compile Include="Plugin\WPF\ViewModel\Converters\TrueToVisibilityConverter.cs" />
+    <Compile Include="Plugin\WPF\ViewModel\QueryViewModel.cs" />
     <Compile Include="Plugin\WPF\ViewModel\SettingsViewModel.cs" />
     <Compile Include="Plugin\WPF\ViewModel\TeamCodingViewModel.cs" />
     <Compile Include="Plugin\WPF\Model\Dicti.cs" />
@@ -295,6 +302,9 @@
     <Compile Include="Plugin\WPF\UserControls\FlowDocumentScrollViewerExt.cs" />
     <Compile Include="Plugin\WPF\View\WindowDicti.xaml.cs">
       <DependentUpon>WindowDicti.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Plugin\WPF\View\WindowDicx.xaml.cs">
+      <DependentUpon>WindowDicx.xaml</DependentUpon>
     </Compile>
     <Compile Include="Plugin\WPF\View\WindowFtoggle.xaml.cs">
       <DependentUpon>WindowFtoggle.xaml</DependentUpon>
@@ -414,7 +424,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Plugin\WPF\UserControls\DataGridDicx.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Plugin\WPF\View\WindowDicti.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Plugin\WPF\View\WindowDicx.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -451,7 +469,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>XCOPY "$(TargetDir)Git4PL2.dll" "C:\Program Files (x86)\PLSQL Developer 14\PlugIns\" /S /Y</PostBuildEvent>
+    <PostBuildEvent>XCOPY "$(TargetDir)Git4PL2.dll" "C:\Program Files (x86)\PLSQL Developer 14\PlugIns\" /S /Y
+XCOPY "$(TargetDir)Git4PL2DefaultPreset.json" "C:\Program Files (x86)\PLSQL Developer 14\" /S /Y</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\UnmanagedExports.Repack.Upgrade.1.2.1\build\UnmanagedExports.Repack.Upgrade.targets" Condition="Exists('..\packages\UnmanagedExports.Repack.Upgrade.1.2.1\build\UnmanagedExports.Repack.Upgrade.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

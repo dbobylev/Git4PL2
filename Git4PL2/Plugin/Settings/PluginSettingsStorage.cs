@@ -375,6 +375,17 @@ namespace Git4PL2.Plugin.Settings
                 Group = ePluginParameterGroupType.SQL
             });
 
+            _ListSettings.Add(new PluginParameter<string>(ePluginParameterID.SQL_DICX, _DefaultConfiguration.SelectToken("SQL_DICX").ToString())
+            {
+                Group = ePluginParameterGroupType.SQL
+            });
+
+            _ListSettings.Add(new PluginParameter<string>(ePluginParameterID.SQL_DICX_COUNT, _DefaultConfiguration.SelectToken("SQL_DICX_COUNT").ToString())
+            {
+                Group = ePluginParameterGroupType.SQL
+            });
+
+
 
             #endregion
 

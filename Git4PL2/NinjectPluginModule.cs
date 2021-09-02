@@ -77,11 +77,12 @@ namespace Git4PL2
             mock.Setup(x => x.SQLQueryExecute<DummyString>(It.IsRegex("global_name")))
                 .Returns(new List<DummyString>() { new DummyString() { Value = "STUB SERVER" }});
 
+            mock.Setup(x => x.SQLQueryExecute<DummyNumber>(It.IsRegex("count", System.Text.RegularExpressions.RegexOptions.IgnoreCase)))
+                .Returns(new List<DummyNumber>() { new DummyNumber() { Value = 120 } });
+
             // Запрос Dicti
             mock.Setup(x => x.SQLQueryExecute<Dicti>(It.IsAny<string>()))
-                .Returns(new List<Dicti>()
-                {
-                    new Dicti() {
+                .Returns(Enumerable.Repeat( new Dicti() {
                         Active = "A",
                         Code   = "1",
                         FullName = "Stub Fullname",
@@ -90,8 +91,30 @@ namespace Git4PL2
                         Level = 1, 
                         ParentIsn = 123, 
                         ShortName = "Stub shortname"
-                    }
-                });
+                    }, 120).ToList());
+
+            // Запрос Dicx
+            mock.Setup(x => x.SQLQueryExecute<Dicx>(It.IsAny<string>()))
+                .Returns(Enumerable.Repeat(new Dicx()
+                {
+                    ClassIsnName = "ClassIsnNameClassIsnNameClassIsnNameClassIsnNameClassIsnNameClassIsnName",
+                    ClassIsn1Name = "ClassIsn1NameClassIsn1NameClassIsn1NameClassIsn1NameClassIsn1Name",
+                    ClassIsn2Name = "ClassIsn2Name",
+                    ClassIsn3Name = "ClassIsn3Name",
+                    FilterIsnName = "FilterIsnName",
+                    ClassIsn4Name = "ClassIsn4Name",
+                    ClassIsn5Name = "ClassIsn5Name",
+                    Isn = 100500,
+                    ClassIsn = 100666,
+                    ClassIsn1 = 100501,
+                    ClassIsn2 = 100502,
+                    ClassIsn3 = 100503,
+                    FilterIsn = 100509,
+                    ClassIsn4 = 100504,
+                    ClassIsn5 = 100505,
+                    Updated = "Updated",
+                    UpdatedBy = "UpdatedBy",
+                }, 120).ToList());
 
             return mock.Object;
         }

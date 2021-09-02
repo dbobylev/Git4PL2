@@ -61,4 +61,12 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Style x:Key="TextBlock_White" TargetType="TextBlock" >
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Consolas"/>
+        <Setter Property="Margin" Value="10,5,10,0"/>
+    </Style>
 </ResourceDictionary>

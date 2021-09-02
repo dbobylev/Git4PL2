@@ -1,5 +1,4 @@
-﻿
-using Git4PL2.Abstarct;
+﻿using Git4PL2.Abstarct;
 using Git4PL2.PLSqlDev.IDECallBacks;
 using Git4PL2.Plugin.Abstract;
 using System;
@@ -48,6 +47,7 @@ namespace Git4PL2.IDE
             MenuItems.Add(new MenuItem("Save", () => _PluginCommands.SaveTextToRepository(), Properties.Resources.forward));
             MenuItems.Add(new MenuItem("Blame", _PluginCommands.ShowGitBlame, Properties.Resources.trumpet));
             MenuItems.Add(new MenuItem("Dicti", _PluginCommands.ShowDicti, Properties.Resources.database_red_icon));
+            MenuItems.Add(new MenuItem("Dicx", _PluginCommands.ShowDicx, Properties.Resources.database_red_icon));
             MenuItems.Add(new MenuItem("Ftoggle", _PluginCommands.ShowFtoggle, Properties.Resources.gear));
             MenuItems.Add(new MenuItem("TeamCoding", _PluginCommands.ShowTeamCoding, Properties.Resources.Categories_system_help_icon));
             MenuItems.Add(new MenuItem("CheckOut", _PluginCommands.CheckOut, Properties.Resources.Stock_Index_Down_icon));

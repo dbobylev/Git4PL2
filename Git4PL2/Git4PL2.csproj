@@ -274,6 +274,9 @@
     <Compile Include="Plugin\WPF\UserControls\DataGridDicx.xaml.cs">
       <DependentUpon>DataGridDicx.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Plugin\WPF\UserControls\QueryButtons.xaml.cs">
+      <DependentUpon>QueryButtons.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Plugin\WPF\ViewModel\Converters\EmptyValueToVisibilityConverter.cs" />
     <Compile Include="Plugin\WPF\ViewModel\Converters\FalseToVisibilityConverter.cs" />
     <Compile Include="Plugin\WPF\ViewModel\Converters\IsEnableSettingsConverter.cs" />
@@ -427,6 +430,10 @@
     <Page Include="Plugin\WPF\UserControls\DataGridDicx.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Plugin\WPF\UserControls\QueryButtons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Plugin\WPF\View\WindowDicti.xaml">
       <SubType>Designer</SubType>

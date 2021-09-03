@@ -43,21 +43,28 @@ namespace Git4PL2.IDE.SQL
                 {
                     if (ColumnName.ToUpper() == Headers[j])
                     {
-                        // Здесь нужно добавить проверку типов, работа с датами и т.п.
-                        if (pi[i].PropertyType == typeof(DateTime))
-                            pi[i].SetValue(obj, DateTime.ParseExact(row[j].ToString(), "dd.MM.yyyy HH:mm:ss", null));
-                        else if (pi[i].PropertyType == typeof(long))
-                            pi[i].SetValue(obj, long.Parse(row[j].ToString()));
-                        else if (pi[i].PropertyType == typeof(int))
-                            pi[i].SetValue(obj, int.Parse(row[j].ToString()));
-                        else if (pi[i].PropertyType == typeof(int?))
+                        string value = row[j].ToString();
+                        if (string.IsNullOrEmpty(value))
+                            break;
+
+                        try
                         {
-                            if (row[j] != null)
-                                pi[i].SetValue(obj, int.Parse(row[j].ToString()));
+                            // Здесь нужно добавить проверку типов, работа с датами и т.п.
+                            if (pi[i].PropertyType == typeof(DateTime) || pi[i].PropertyType == typeof(DateTime?))
+                                pi[i].SetValue(obj, DateTime.ParseExact(value, "dd.MM.yyyy HH:mm:ss", null));
+                            else if (pi[i].PropertyType == typeof(long) || pi[i].PropertyType == typeof(long?))
+                                pi[i].SetValue(obj, long.Parse(value));
+                            else if (pi[i].PropertyType == typeof(int) || pi[i].PropertyType == typeof(int?))
+                                pi[i].SetValue(obj, int.Parse(value));
+                            else
+                                pi[i].SetValue(obj, row[j]);
+                            break;
                         }
-                        else
-                            pi[i].SetValue(obj, row[j]);
-                        break;
+                        catch(Exception ex)
+                        {
+                            Seri.LogException(ex);
+                            throw new Exception("Ошибка приведения типов при выполнении SQL запроса");
+                        }
                     }
                 }
             }

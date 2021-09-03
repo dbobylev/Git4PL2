@@ -477,6 +477,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>XCOPY "$(TargetDir)Git4PL2.dll" "C:\Program Files (x86)\PLSQL Developer 14\PlugIns\" /S /Y
+XCOPY "$(TargetDir)Git4PL2.pdb" "C:\Program Files (x86)\PLSQL Developer 14\PlugIns\" /S /Y
 XCOPY "$(TargetDir)Git4PL2DefaultPreset.json" "C:\Program Files (x86)\PLSQL Developer 14\" /S /Y</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\UnmanagedExports.Repack.Upgrade.1.2.1\build\UnmanagedExports.Repack.Upgrade.targets" Condition="Exists('..\packages\UnmanagedExports.Repack.Upgrade.1.2.1\build\UnmanagedExports.Repack.Upgrade.targets')" />

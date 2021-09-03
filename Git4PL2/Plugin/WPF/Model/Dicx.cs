@@ -31,28 +31,28 @@ namespace Git4PL2.Plugin.WPF.Model
         public string ClassIsn5Name { get; set; }
 
         [SQLColumn("ISN")]
-        public long Isn { get; set; }
+        public long? Isn { get; set; }
 
         [SQLColumn("CLASSISN")]
-        public long ClassIsn { get; set; }
+        public long? ClassIsn { get; set; }
 
         [SQLColumn("CLASSISN1")]
-        public long ClassIsn1 { get; set; }
+        public long? ClassIsn1 { get; set; }
 
         [SQLColumn("CLASSISN2")]
-        public long ClassIsn2 { get; set; }
+        public long? ClassIsn2 { get; set; }
 
         [SQLColumn("CLASSISN3")]
-        public long ClassIsn3 { get; set; }
+        public long? ClassIsn3 { get; set; }
 
         [SQLColumn("FILTERISN")]
-        public long FilterIsn { get; set; }
+        public long? FilterIsn { get; set; }
 
         [SQLColumn("CLASSISN4")]
-        public long ClassIsn4 { get; set; }
+        public long? ClassIsn4 { get; set; }
 
         [SQLColumn("CLASSISN5")]
-        public long ClassIsn5 { get; set; }
+        public long? ClassIsn5 { get; set; }
 
         [SQLColumn("UPDATED")]
         public string Updated { get; set; }

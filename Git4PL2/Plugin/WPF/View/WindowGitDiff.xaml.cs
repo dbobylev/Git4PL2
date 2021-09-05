@@ -56,7 +56,7 @@ namespace Git4PL2.Plugin.WPF.View
                 // При копировании текста, обрезаем информацию с номерами строк
                 if (e.Key == Key.C && Keyboard.IsKeyDown(Key.LeftCtrl))
                 {
-                    string[] lines = Clipboard.GetText().Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] lines = Clipboard.GetText().Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
                     Regex regex = new Regex(@"^\d*\s+\d*\s*\|\s[\-\+\s]");
                     for (int i = 0; i < lines.Length; i++)

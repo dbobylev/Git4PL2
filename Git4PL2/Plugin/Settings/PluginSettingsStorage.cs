@@ -316,7 +316,7 @@ namespace Git4PL2.Plugin.Settings
                 OrderPosition = 20
             });
 
-            _ListSettings.Add(new PluginParameter<int>(ePluginParameterID.DICTI_CHILDREN_LIMIT_VALUE, 20)
+            _ListSettings.Add(new PluginParameter<int>(ePluginParameterID.DICTI_CHILDREN_LIMIT_VALUE, 50)
             {
                 Description = "Лимит на кол-во отобранных дочерних записей для Dicti",
                 Group = ePluginParameterGroupType.Others,

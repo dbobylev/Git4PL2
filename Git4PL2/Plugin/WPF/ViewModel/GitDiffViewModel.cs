@@ -140,11 +140,12 @@ namespace Git4PL2.Plugin.WPF.ViewModel
 
         public bool ClickOnFlowDocumnet(string line)
         {
+            Seri.Log.Here().Debug($"line: {line}");
             if (_GoToLineChecked)
             {
                 // Вытягиваем номер строки из правой колонки gitdiffline
                 Regex regex = new Regex(@"^\d*\s+(?<val>\d+)");
-                Match match = regex.Match(line, 0, 16);
+                Match match = regex.Match(line, 0, Math.Min(line.Length, 16));
                 if (match.Groups["val"].Success)
                 {
                     _IDEProvider.GoToLine(int.Parse(match.Groups["val"].Value));

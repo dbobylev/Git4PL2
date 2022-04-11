@@ -1,4 +1,5 @@
 ﻿using Git4PL2.Plugin.Abstract;
+using Git4PL2.Plugin.Diff;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,6 @@ namespace Git4PL2.Plugin.Settings
         public bool DiffChangeCor => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterID.DiffChangeCor);
         public bool DiffChangeName => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterID.DiffChangeName);
         public bool DiffCRLF => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterID.DiffCRLF);
-        public bool DiffWorkWithSlash => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterID.DiffWorkWithSlash);
         public bool DiffEndSpace => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterID.DiffEndSpace);
         public bool UnexpectedBranch => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterID.UnexpectedBranch);
         public bool UnexpectedServer => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterID.UnexpectedServer);
@@ -47,5 +47,6 @@ namespace Git4PL2.Plugin.Settings
         public string TEAMCODING_SERVERNAME_REGEX => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterID.TEAMCODING_SERVERNAME_REGEX);
         public string HELPLINK => _PluginSettingsStorage.GetParamValue<string>(ePluginParameterID.HelpLink);
         public bool GOTOLINE => _PluginSettingsStorage.GetParamValue<bool>(ePluginParameterID.GoToLine);
+        public eEndSlashSettings DiffSlashSettings => (eEndSlashSettings)_PluginSettingsStorage.GetParamValue<int>(ePluginParameterID.DiffSlashSettings);
     }
 }

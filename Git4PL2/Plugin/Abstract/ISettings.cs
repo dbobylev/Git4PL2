@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Git4PL2.Plugin.Diff;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace Git4PL2.Plugin.Abstract
         bool DiffChangeName { get; }
         bool DiffCRLF { get; }
         bool DiffEndSpace { get; }
-        bool DiffWorkWithSlash { get; }
+        eEndSlashSettings DiffSlashSettings { get; }
         bool UnexpectedBranch { get; }
         bool UnexpectedServer { get; }
         string WarnInRegEx { get; }

@@ -17,6 +17,7 @@ namespace Git4PL2.Plugin.Settings
         DiffCRLF,
         DiffEndSpace,
         DiffWorkWithSlash,
+        DiffSlashSettings,
         UnexpectedBranch,
         UnexpectedServer,
         WarnInRegEx,

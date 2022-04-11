@@ -229,6 +229,7 @@
     <Compile Include="Plugin\Diff\DiffText.cs" />
     <Compile Include="Plugin\Diff\eDbObjectType.cs" />
     <Compile Include="Plugin\Diff\eDiffLineType.cs" />
+    <Compile Include="Plugin\Diff\eEndSlashSettings.cs" />
     <Compile Include="Plugin\Diff\eSaveEncodingType.cs" />
     <Compile Include="Plugin\Diff\Helper.cs" />
     <Compile Include="Plugin\Diff\Warnings.cs" />

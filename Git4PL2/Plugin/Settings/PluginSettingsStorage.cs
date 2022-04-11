@@ -37,7 +37,7 @@ namespace Git4PL2.Plugin.Settings
     /// Это позволит организовано держать все имена переменных в одном месте: ePluginParameterNames, а так же удобно организовывать окно настроек приложения.
     ///
     /// Что бы добавить новый параметр в приложение, нужно
-    ///  1. Добавить название параметра в ePluginParameterNames
+    ///  1. Добавить название параметра в ePluginParameterID
     ///  2. Добавить параметр в коллекцию ListSettings ниже здесь
     ///  3. Описать параметра в ISettings и использовать в приложении
     /// При этом параметр автоматически подтянется в окно настроек приложения
@@ -212,12 +212,13 @@ namespace Git4PL2.Plugin.Settings
                 OrderPosition = 50
             });
 
-            _ListSettings.Add(new PluginParameter<bool>(ePluginParameterID.DiffWorkWithSlash, true)
+            _ListSettings.Add(new PluginParameterList(ePluginParameterID.DiffSlashSettings, 2, typeof(eEndSlashSettings))
             {
                 Description = "Обрабатывать '/' в конце файла",
-                DescriptionExt = "Текст в файлах в репозитории Git заканчивается на ‘/’. Обработка этого символа предотвращает его " +
-                "затирание при операции сохранения текста. А также убирает этот символ при операции загрузки текста.",
+                DescriptionExt = @"Текст в файлах в репозитории Git заканчивается на ‘/’. В PL/SQL Developer при компиляции объекта '/' должен отсутствовать. " +
+                "Настройка помогает обрабатывать этот символ при сохранении или загрузке текста объекта БД.",
                 Group = ePluginParameterGroupType.GitDiff,
+                ParamterUIType = ePluginParameterUIType.List,
                 OrderPosition = 40
             });
 

@@ -93,38 +93,85 @@ namespace Git4PL2.Plugin.Diff
             Seri.Log.Here().Verbose("Конец UpdateBeginOfText");
         }
 
+        /// <summary>
+        /// Работа со слешом при сохранении объекта БД в репозитории.
+        /// Логика:
+        /// Ищем окончание состоящие из пробелов/переносов/слеша, в объекте БД и в репозитории
+        /// Подставляем окончания из репозитория вместо окончания в объекте БД
+        /// Если включена настройка, еще добавляем слеш
+        /// </summary>
+        /// <param name="SourceText"></param>
         public void UpdateLastLines(ref string SourceText)
         {
-            if (!_Settings.DiffWorkWithSlash)
+            if (_Settings.DiffSlashSettings == eEndSlashSettings.OptionDisabled)
                 return;
 
             Seri.Log.Here().Verbose("Начинаем UpdateLastLines");
+            // Патерн ищет окончание состоящие из переносов, пробелов или слеша.
             string pattern = @"[^\*](?<end>[\r\n\s/]+)$";
             Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
 
+            // Ищем совпадение в тексте в репозитоии
             Match GitMatch = regex.Match(GitText, GitText.Length - Math.Min(100, GitText.Length));
+
+            string GitEnd = string.Empty;
             if (!GitMatch.Groups["end"].Success)
             {
+                // Если патерн не нашли, то при включенной опции слеша, добавляем его в ручную, либо выходим
                 Seri.Log.Here().Warning("Не удалось найти совпадение регулярного выраженя в Git файле. pattern={0}", pattern);
-                Seri.Log.Here().Verbose("Конец UpdateLastLines");
-                return;
+                if (_Settings.DiffSlashSettings == eEndSlashSettings.DontTouchSlash)
+                {
+                    Seri.Log.Here().Verbose("Конец UpdateLastLines");
+                    return;
+                }
+                else if (_Settings.DiffSlashSettings == eEndSlashSettings.AlwaysAddSlash)
+                {
+                    Seri.Log.Here().Verbose("Добавляем слеш в ручную");
+                    GitEnd = "\r\n/\r\n";
+                }
+            }
+            else
+            {
+                // Паттерн нашли
+                GitEnd = GitMatch.Groups["end"].Value;
+                // Проверяем есть ли слеш в окончании GitEnd (Там могут быть только переносы/пробелы)
+                if (!GitEnd.Contains("/") && _Settings.DiffSlashSettings == eEndSlashSettings.AlwaysAddSlash)
+                {
+                    Seri.Log.Here().Verbose("Добавляем слеш в ручную");
+                    GitEnd = "\r\n/\r\n";
+                }
             }
 
-            string GitEnd = GitMatch.Groups["end"].Value;
             Seri.Log.Here().Verbose("GitEnd(bytes)={0}", string.Join(",", GitEnd.Select(x => (int)x)));
 
+            // Ищем такое-же окончание в тексте объекта БД из PL/SQL Developer,
             Match dbMatch = regex.Match(SourceText, SourceText.Length - Math.Min(100, SourceText.Length));
+
+            string TextBeforeEnd = string.Empty;
             if (!dbMatch.Groups["end"].Success)
             {
                 Seri.Log.Here().Warning("Не удалось найти совпадение регулярного выраженя в тексте объекта БД. pattern={0}", pattern);
-                Seri.Log.Here().Verbose("Конец UpdateLastLines");
-                return;
+                if (_Settings.DiffSlashSettings == eEndSlashSettings.DontTouchSlash)
+                {
+                    Seri.Log.Here().Verbose("Конец UpdateLastLines");
+                    return;
+                }
+                // Если мы не нашли никакого окончания, то мы должны попробовать добавть слеш(если его еще нет)
+                else if (_Settings.DiffSlashSettings == eEndSlashSettings.AlwaysAddSlash)
+                {
+                    // Мы не нашли совпадение поэтому TextBeforeEnd будет являеться всем текстом объекта
+                    TextBeforeEnd = SourceText;
+                }
             }
-            string dbEnd = dbMatch.Groups["end"].Value;
-            Seri.Log.Here().Verbose("dbEnd(bytes)={0}", string.Join(",", dbEnd.Select(x => (int)x)));
-
-            string TextBeforeEnd = SourceText.Substring(0, dbMatch.Groups["end"].Index);
+            else
+            {
+                string dbEnd = dbMatch.Groups["end"].Value;
+                Seri.Log.Here().Verbose("dbEnd(bytes)={0}", string.Join(",", dbEnd.Select(x => (int)x)));
+                TextBeforeEnd = SourceText.Substring(0, dbMatch.Groups["end"].Index);
+            }
             Seri.Log.Here().Verbose("Обновляем тект объекта БД");
+
+            // Добавляем концовку
             SourceText = $"{TextBeforeEnd}{GitEnd}";
             Seri.Log.Here().Verbose("Конец UpdateLastLines");
         }
@@ -171,8 +218,9 @@ namespace Git4PL2.Plugin.Diff
         /// <param name="SourceText"></param>
         public void RemoveSlash(ref string SourceText)
         {
-            if (!_Settings.DiffWorkWithSlash)
+            if (_Settings.DiffSlashSettings == eEndSlashSettings.OptionDisabled)
                 return;
+
             Seri.Log.Here().Verbose("Начинаем RemoveSlash");
             int cnt = 0;
             for (int i = SourceText.Length - 1; i > 0; i--)
